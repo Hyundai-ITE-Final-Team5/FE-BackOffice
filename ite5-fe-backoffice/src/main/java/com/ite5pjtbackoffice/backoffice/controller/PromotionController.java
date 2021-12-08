@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/promotion")
 public class PromotionController {
-	
+	/*
 	@Resource
 	private PromotionService promotionService;
 	
@@ -88,4 +88,5 @@ public class PromotionController {
 		}
 		return "redirect:/admin/promotion/eventdetail";
 	}
+	*/
 }

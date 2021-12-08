@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ite5pjtbackoffice.backoffice.dto.Pager;
 import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
 import com.ite5pjtbackoffice.backoffice.service.ProductService;
-import com.ite5pjtbackoffice.backoffice.service.ProductService.addProductResult;
 import com.ite5pjtbackoffice.backoffice.vo.Brand;
 import com.ite5pjtbackoffice.backoffice.vo.ProductCommon;
 
@@ -27,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/product")
 public class ProductController {
-	
+	/*
 	@Resource
 	ProductService productService;
 	
@@ -152,5 +151,5 @@ public class ProductController {
 	public String display() {
 		return "product/display";
 	}
-	
+	*/
 }

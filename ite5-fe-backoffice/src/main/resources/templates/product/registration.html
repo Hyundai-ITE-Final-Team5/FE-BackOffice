@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/common/layout::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+
+		<div class="card m-2">
+			<div class="card-header">
+				<h4>
+					<b>상품등록</b>
+				</h4>
+			</div>
+			<div class="card-body">
+
+				<form action="">
+					자체 상품코드 <input type="text" name="" id=""> <input
+						type="button" name="" value="중복검사/검색">
+					<hr>
+					상품명 <input type="text" name="" id="">
+					<hr>
+					판매가 <input type="number" name="" id="">
+					<hr>
+					상품 설명
+					<textarea></textarea>
+					<hr>
+					진열상태 <input type="radio" name="" id="">판매상태 <input
+						type="radio" name="" id="">
+					<hr>
+					상품분류 <select multiple>
+						<option selected>대분류</option>
+						<option selected>대분류</option>
+						<option selected>대분류</option>
+					</select>
+					<select multiple>
+						<option selected>중분류</option>
+						<option selected>중분류</option>
+						<option selected>중분류</option>
+					</select>
+					<select multiple>
+						<option selected>소분류</option>
+						<option selected>소분류</option>
+						<option selected>소분류</option>
+					</select>
+					<hr>
+					색상
+					<hr>
+					사이즈 <input type="text" name="" id=""><input type="button" name="" value="추가">
+					<div></div>
+					<hr>
+					이미지 <input type="file" name="" id="">
+					<hr>
+					
+
+
+				</form>
+
+
+
+			</div>
+		</div>
+
+	</th:block>
+</th:block>
+</html>

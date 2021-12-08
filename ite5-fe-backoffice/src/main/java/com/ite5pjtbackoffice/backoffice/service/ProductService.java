@@ -7,10 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ite5pjtbackoffice.backoffice.controller.ProductController;
-import com.ite5pjtbackoffice.backoffice.dao.productdao.ProductDao;
 import com.ite5pjtbackoffice.backoffice.dto.Pager;
 import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
 import com.ite5pjtbackoffice.backoffice.vo.Brand;
@@ -23,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
 
+	/*
 	@Resource
 	ProductDao productDao;
 	//상품등록
@@ -103,4 +102,5 @@ public class ProductService {
 	public int removeBrandName(int bno) {
 		return productDao.removeBrandName(bno);
 	}
+	*/
 }

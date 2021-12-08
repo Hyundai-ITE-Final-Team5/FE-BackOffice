@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.ite5pjtbackoffice.backoffice.dao.memberdao.MemberDao;
 import com.ite5pjtbackoffice.backoffice.dto.Customer;
 import com.ite5pjtbackoffice.backoffice.dto.CustomerSearchOption;
 import com.ite5pjtbackoffice.backoffice.dto.Pager;
@@ -20,8 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class CustomerService {
-	@Resource
-	private MemberDao memberDao;
+	
+	/*
+
 	
 	public int getTotalCustomerNum(CustomerSearchOption searchOption) {
 		return memberDao.selectCount(searchOption);
@@ -112,4 +112,5 @@ public class CustomerService {
 	public int updateCustomerEnable(String mid) {
 		return memberDao.updateEnable(mid);
 	}
+	*/
 }

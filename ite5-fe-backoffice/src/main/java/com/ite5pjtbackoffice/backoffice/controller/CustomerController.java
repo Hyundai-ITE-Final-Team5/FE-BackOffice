@@ -26,12 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/customer")
 public class CustomerController {
-	
+	/*
 	@Resource
 	private CustomerService customerService;
 	
 	@RequestMapping("/management")
 	public String management() {
+		
 		return "customer/management";
 	}
 	
@@ -78,4 +79,5 @@ public class CustomerController {
 		}
 		return map;
 	}
+	*/
 }

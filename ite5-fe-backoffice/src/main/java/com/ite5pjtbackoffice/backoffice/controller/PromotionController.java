@@ -1,16 +1,21 @@
 package com.ite5pjtbackoffice.backoffice.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ite5pjtbackoffice.backoffice.dto.EventSearchOption;
-import com.ite5pjtbackoffice.backoffice.dto.Pager;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndEvents;
 import com.ite5pjtbackoffice.backoffice.service.PromotionService;
+import com.ite5pjtbackoffice.backoffice.vo.Event;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,9 +29,6 @@ public class PromotionController {
 	
 	@RequestMapping("/eventlist")
 	public String eventlist(EventSearchOption eventSearchOption, Model model) {
-		log.info("---------------------------");
-		log.info(eventSearchOption.toString());
-		log.info("---------------------------");
 		//customer에서는 ajax로 보내기 때문에 아래와 같은 처리가 필요가 없었다.
 		if(eventSearchOption.getEissuedate() != null && eventSearchOption.getEissuedate().equals("")) {
 			eventSearchOption.setEissuedate(null);
@@ -59,7 +61,7 @@ public class PromotionController {
 		return "promotion/eventlist";
 	}
 	
-	/*
+	
 	@RequestMapping("/eventdetail")
 	public String eventDetail(String eno, Model model) {
 		if(eno != null) {
@@ -69,10 +71,13 @@ public class PromotionController {
 		return "promotion/eventdetail";
 	}
 	
-	@RequestMapping("/eventupdate")
-	public String eventUpdate(Event event, String raweissuedate, String raweexpiredate) throws ParseException {
-
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+	@RequestMapping("/eventupdateinsert")
+	public String eventUpdate(Event event, String raweissuedate, String raweexpiredate, RedirectAttributes redirectAttributes) throws ParseException {
+		
+		
+		
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if(!raweissuedate.equals("")) {
 			Date eissuedate= format.parse(raweissuedate);
 			event.setEissuedate(eissuedate);
@@ -81,7 +86,28 @@ public class PromotionController {
 			Date eexpiredate= format.parse(raweexpiredate);
 			event.setEexpiredate(eexpiredate);
 		}
-		return "redirect:/admin/promotion/eventdetail";
+		if(event.getEtitle().equals("")) {
+			event.setEtitle(null);
+		}
+		if(event.getEcontent().equals("")) {
+			event.setEcontent(null);
+		}
+		if(event.getEimg().equals("")) {
+			event.setEimg(null);
+		}
+		if(event.getEdetailimg().equals("")) {
+			event.setEdetailimg(null);
+		}
+		if(event.getEcoupontitle().equals("")) {
+			event.setEcoupontitle(null);
+		}
+		
+		if(event.getEno() != 0) {
+			promotionService.updateEvent(event);
+		} else {
+			promotionService.insertEvent(event);
+		}
+		return "redirect:/admin/promotion/eventlist";
 	}
-	*/
+	
 }

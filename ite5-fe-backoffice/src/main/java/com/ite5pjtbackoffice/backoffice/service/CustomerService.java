@@ -1,18 +1,11 @@
 package com.ite5pjtbackoffice.backoffice.service;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ite5pjtbackoffice.backoffice.dto.Customer;
-import com.ite5pjtbackoffice.backoffice.dto.CustomerSearchOption;
-import com.ite5pjtbackoffice.backoffice.dto.Pager;
-import com.ite5pjtbackoffice.backoffice.util.PhoneNumUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,97 +13,53 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerService {
 	
-	/*
-
-	
-	public int getTotalCustomerNum(CustomerSearchOption searchOption) {
-		return memberDao.selectCount(searchOption);
-	}
-	
-	public List<Customer> getCustomerList(Pager pager, CustomerSearchOption searchOption) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pager", pager);
-		map.put("searchOption", searchOption);
-		List<Customer> customerList = memberDao.selectMemberList(map);
-		if(customerList.size()>0) {
-			//생년월일 표시 형식 선언
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-			for(Customer temp : customerList) {
-
-				//생년월일 format 처리
-				String convertedDate = dateFormat.format(temp.getMbirth());
-				temp.setMconvertedbirth(convertedDate);
-				
-				//휴대폰번호, 전화번호 처리
-				String originalPhone = temp.getMphone();
-				String originalTel = temp.getMtel();
-				
-				temp.setMphone(PhoneNumUtil.changeToFormat(originalPhone));
-				temp.setMtel(PhoneNumUtil.changeToFormat(originalTel));
-				
-				if(temp.getMenabled() == 1){
-					temp.setMconvertedenabled("");
-				}else if(temp.getMenabled() == 0){
-					temp.setMconvertedenabled("휴면계정");
-				}
-				
-				if(temp.getMgender() == 1) {
-					temp.setMconvertedgender("남");
-				}else if(temp.getMgender() == 2){
-					temp.setMconvertedgender("여");
-				}
-			}
-		}
-		return customerList;
-	};
-	
 	public Customer getCustomerInfo(String mid) {
-		Customer customer = memberDao.selectMemberByMid(mid);
+		WebClient webClient = WebClient.create();
+		Customer customer = webClient
+				.post()
+				.uri("http://kosa1.iptime.org:50515/admin/customer/customerdetail")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.bodyValue(mid)
+				.retrieve()
+				.bodyToMono(Customer.class)
+				.block();
 		return customer;
 	}
 	
-	public int updateCustomerInfo(Customer customer) {
-		
-		int nullCounter = 0;
-		
-		if(customer.getMname().equals("")) {
-			customer.setMname(null);
-			nullCounter++;
-		}
-		if(customer.getMphone().equals("")) {
-			customer.setMphone(null);
-			nullCounter++;
-		}
-		if(customer.getMtel().equals("")) {
-			customer.setMtel(null);
-			nullCounter++;
-		}
-		if(customer.getMemail().equals("")) {
-			customer.setMemail(null);
-			nullCounter++;
-		}
-		if(customer.getMzipcode().equals("")) {
-			customer.setMzipcode(null);
-			nullCounter++;
-		}
-		if(customer.getMaddress1().equals("")) {
-			customer.setMaddress1(null);
-			nullCounter++;
-		}
-		if(customer.getMaddress2().equals("")) {
-			customer.setMaddress2(null);
-			nullCounter++;
-		}
-		if(nullCounter == 7) {
-			return 0;
-		}
-		
-		return memberDao.updateMember(customer);
+	
+	public String updateCustomerInfo(Customer customer) {
+		WebClient webClient = WebClient.create();
+		String json = webClient
+				.put()
+				.uri("http://kosa1.iptime.org:50515/admin/customer/customerupdate")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.bodyValue(customer)
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		JSONObject jsonObject = new JSONObject(json);
+		String result = jsonObject.getString("result");
+		return result;
 	}
 	
-	public int updateCustomerEnable(String mid) {
-		return memberDao.updateEnable(mid);
+	
+	public String updateCustomerEnable(String mid) {
+		WebClient webClient = WebClient.create();
+		String json = webClient
+				.put()
+				.uri("http://kosa1.iptime.org:50515/admin/customer/enable")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.bodyValue(mid)
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		JSONObject jsonObject = new JSONObject(json);
+		String result = jsonObject.getString("result");
+		return result;
 	}
-	*/
+	
+	
 }

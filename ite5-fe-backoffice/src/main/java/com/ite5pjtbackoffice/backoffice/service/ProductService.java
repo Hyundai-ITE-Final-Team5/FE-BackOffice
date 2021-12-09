@@ -1,106 +1,178 @@
 package com.ite5pjtbackoffice.backoffice.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-
-import com.ite5pjtbackoffice.backoffice.controller.ProductController;
-import com.ite5pjtbackoffice.backoffice.dto.Pager;
-import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
-import com.ite5pjtbackoffice.backoffice.vo.Brand;
-import com.ite5pjtbackoffice.backoffice.vo.ProductColor;
-import com.ite5pjtbackoffice.backoffice.vo.ProductCommon;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class ProductService {
+	
+	public JSONObject addProduct(JSONObject productCommon){
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/registration")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(productCommon)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject getProductCommonByPname(String pname){
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/duplicatesearch?pname="+pname)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(pname)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject getProductCommonList(JSONObject filter){
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/productlist")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(filter)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject getProductDetail(int pid) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/" + pid)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(pid)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject modifyProductInfo(JSONObject productCommon) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/modifiy")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(productCommon)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject getClassification() {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/classification")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject getCategoryDepth2(String depth1) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/getcategorydepth2?depth1="+depth1)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
 
-	/*
-	@Resource
-	ProductDao productDao;
-	//상품등록
-	public ProductCommon getProductCommonByPname(String pname) {
-		return productDao.getProductCommonByPname(pname);
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
 	}
 	
-	public int addProductColor(ProductColor productColor) {
-		return productDao.addProductColor(productColor);
+	public JSONObject getCategoryDepth3(String depth1, String depth2) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/getcategorydepth3?depth1="+depth1+"&depth2="+depth2)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
 	}
 	
-	public enum addProductResult {
-		SUCCESS, FAIL
+	public JSONObject addBrandName(String brandName) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/addBrand?brandName="+brandName)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
 	}
 	
-	@Transactional
-	public addProductResult addProduct(ProductCommon productCommon) {
-		try {
-			productDao.addProduct(productCommon);
-			for(ProductColor pc : productCommon.getProductcolor()) {
-				addProductColor(pc);
-			}
-			return addProductResult.SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return addProductResult.FAIL;
-		}
+	public JSONObject removeBrandName(int bno) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/removeBrand?bno="+bno)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
 	}
-
-	//상품목록
-	public int getTotalProductCount() {
-		return productDao.getTotalProductCount();
-	}
-
-	public List<ProductCommon> getProductCommonList(ProductListFilter filter, Pager pager) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("filter", filter);
-		map.put("pager", pager);
-		return productDao.getProductCommonList(map);
-	}
-	
-	public ProductCommon getProductCommonByPid(String pid) {
-		return productDao.getProductCommonByPid(pid);
-	}
-	
-	public List<ProductColor> getProductColorList(String pid){
-		return productDao.getProductColorList(pid);
-	}
-	
-	public ProductCommon getProductDetail(String pid) {
-		ProductCommon pc = getProductCommonByPid(pid);
-		pc.setProductcolor(getProductColorList(pid));
-		return pc;
-	}
-
-	
-	//상분분류관리
-	public List<String> getCategoryDepth1() {
-		return productDao.getCategoryDepth1();
-	}
-
-	public List<String> getCategoryDepth2(String depth1) {
-		return productDao.getCategoryDepth2(depth1);
-	}
-
-	public List<String> getCategoryDepth3(String depth1, String depth2) {
-		return productDao.getCategoryDepth3(depth1, depth2);
-	}
-
-	public List<Brand> getBrand() {
-		return productDao.getBrand();
-	}
-	
-	public int addBrandName(String brandName) {
-		return productDao.addBrandName(brandName);
-	}
-	
-	public int removeBrandName(int bno) {
-		return productDao.removeBrandName(bno);
-	}
-	*/
 }

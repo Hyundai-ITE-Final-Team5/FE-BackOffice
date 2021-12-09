@@ -16,7 +16,7 @@ public class PromotionService {
 		WebClient webClient = WebClient.create();		
 		PagerAndEvents pagerAndEvents = webClient
 			.post()
-			.uri("http://localhost:83/admin/promotion/eventlist")
+			.uri("http://kosa1.iptime.org:50515/admin/promotion/eventlist")
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.bodyValue(eventSearchOption)

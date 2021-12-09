@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ADMIN LOGIN</title>
+<title>한섬 - 해당 페이지에 접근할 수 없습니다.</title>
 <link rel="stylesheet"
 	th:href="@{/bootstrap-4.6.0-dist/css/bootstrap.min.css}" />
 <script th:src="@{/jquery/jquery-3.5.1.min.js}"></script>
@@ -128,22 +128,14 @@ body {
 			<div id="box2">
 				<div class="article1">
 					<div id="logo">
-						<a href="PickVi_index.html"><img
-							th:src="@{/images/logo-hyundaiGroup.JPG}" /></a>
+						<a href="PickVi_index.html"><img th:src="@{/images/logo-hyundaiGroup.JPG}" /></a>
 					</div>
-
-					<form id="form_login" method="POST" th:action="@{/login}">
-						<div th:if="${loginError}" class="alert alert-danger mb-2">아이디 혹은 패스워드를 확인해주세요</div>
-						<div id="input-css">
-							<input name="mid" type="text" placeholder="  아이디" /><br>
-						</div>
-						<div id="input-css">
-							<input name="mpassword" type="password" placeholder="  비밀번호" /><br>
-						</div>
-						<div id="login-button">
-							<button type="submit">로그인</button>
-						</div>
-					</form>
+					<div>
+						해당 페이지에 접근할 권한이 없습니다.
+					</div>
+					<div>
+						관리자에게 문의하세요.
+					</div>
 				</div>
 			</div>
 		</div>

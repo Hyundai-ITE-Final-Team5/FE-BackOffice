@@ -1,36 +1,28 @@
 package com.ite5pjtbackoffice.backoffice.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ite5pjtbackoffice.backoffice.dto.EventSearchOption;
-import com.ite5pjtbackoffice.backoffice.dto.Pager;
-import com.ite5pjtbackoffice.backoffice.vo.Event;
+import com.ite5pjtbackoffice.backoffice.dto.PagerAndEvents;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class PromotionService {
-	/*
-	@Resource
-	private EventDao eventDao;
-	
-	public int getTotalEventCount(EventSearchOption eventSearchOption) {
-		return eventDao.selectCount(eventSearchOption);
+	public PagerAndEvents getEventList(EventSearchOption eventSearchOption){
+		WebClient webClient = WebClient.create();		
+		PagerAndEvents pagerAndEvents = webClient
+			.post()
+			.uri("http://localhost:83/admin/promotion/eventlist")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(eventSearchOption)
+			.retrieve()
+			.bodyToMono(PagerAndEvents.class)
+			.block();
+		return pagerAndEvents;
 	}
-	
-	public List<Event> getEventList(Pager pager, EventSearchOption eventSearchOption){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pager", pager);
-		map.put("searchOption", eventSearchOption);
-		return eventDao.selectEventList(map);
-	}
-	
-	public Event getEvent(String eno) {
-		return eventDao.selectEvent(eno);
-	}
-	*/
 }

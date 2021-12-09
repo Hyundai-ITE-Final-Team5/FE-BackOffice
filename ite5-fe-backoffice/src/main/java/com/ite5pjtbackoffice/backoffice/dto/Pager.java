@@ -1,5 +1,9 @@
 package com.ite5pjtbackoffice.backoffice.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 public class Pager {
 	private int totalRows; // 전체 행수
 	private int totalPageNo; // 전체 페이지 수
@@ -14,13 +18,17 @@ public class Pager {
 	private int startRowIndex; // 페이지의 시작 행 인덱스(0, ..., n-1) for mysql
 	private int endRowNo; // 페이지의 마지막 행 번호
 	private int endRowIndex; // 페이지의 마지막 행 인덱스
-
+	
+	public Pager() {
+		
+	}
+	
 	public Pager(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo) {
 		this.rowsPerPage = rowsPerPage;
 		this.pagesPerGroup = pagesPerGroup;
 		this.totalRows = totalRows;
 		this.pageNo = pageNo;
-
+		
 		totalPageNo = totalRows / rowsPerPage;
 		if (totalRows % rowsPerPage != 0)
 			totalPageNo++;
@@ -42,7 +50,7 @@ public class Pager {
 		endRowNo = pageNo * rowsPerPage;
 		endRowIndex = endRowNo - 1;
 	}
-
+	
 	public int getTotalRows() {
 		return totalRows;
 	}

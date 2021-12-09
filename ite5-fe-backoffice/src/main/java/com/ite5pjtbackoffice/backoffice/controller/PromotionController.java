@@ -1,22 +1,16 @@
 package com.ite5pjtbackoffice.backoffice.controller;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ite5pjtbackoffice.backoffice.dto.EventSearchOption;
 import com.ite5pjtbackoffice.backoffice.dto.Pager;
+import com.ite5pjtbackoffice.backoffice.dto.PagerAndEvents;
 import com.ite5pjtbackoffice.backoffice.service.PromotionService;
-import com.ite5pjtbackoffice.backoffice.vo.Event;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,13 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/promotion")
 public class PromotionController {
-	/*
+	
 	@Resource
 	private PromotionService promotionService;
 	
 	@RequestMapping("/eventlist")
-	public String eventlist(@RequestParam(defaultValue = "1") int pageNo, EventSearchOption eventSearchOption, Model model) {
-
+	public String eventlist(EventSearchOption eventSearchOption, Model model) {
+		log.info("---------------------------");
+		log.info(eventSearchOption.toString());
+		log.info("---------------------------");
 		//customer에서는 ajax로 보내기 때문에 아래와 같은 처리가 필요가 없었다.
 		if(eventSearchOption.getEissuedate() != null && eventSearchOption.getEissuedate().equals("")) {
 			eventSearchOption.setEissuedate(null);
@@ -55,16 +51,15 @@ public class PromotionController {
 			}
 		}
 		
-		int totalRows = promotionService.getTotalEventCount(eventSearchOption);
-		Pager pager = new Pager(10, 10, totalRows, pageNo);
-		List<Event> eventList = null;
+		PagerAndEvents pagerAndEvents = null;
+		pagerAndEvents = promotionService.getEventList(eventSearchOption);
 		
-		
-		eventList = promotionService.getEventList(pager,eventSearchOption);
-		model.addAttribute("eventList", eventList);
+		model.addAttribute("eventList", pagerAndEvents.getEvents());
+		model.addAttribute("pager", pagerAndEvents.getPager());
 		return "promotion/eventlist";
 	}
 	
+	/*
 	@RequestMapping("/eventdetail")
 	public String eventDetail(String eno, Model model) {
 		if(eno != null) {

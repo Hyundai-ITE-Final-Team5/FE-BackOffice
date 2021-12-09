@@ -11,9 +11,12 @@
 			<!-- padding 5를 주었습니다. -->
 			<div class="container">
 				<div class="border p-5 mb-4">
-					<form method="post" th:action="@{/admin/promotion/eventlist}">
+					<form id="eventSearchForm" method="post" th:action="@{/admin/promotion/eventlist}" >
 						<!--/* 검색옵션 시작 */-->
 						<div class="row mb-3 align-items-center justify-content-center">
+							
+							<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'0'">
+							
 							<div class="col-1">시작일</div>
 							<div class="col-2">
 								<input type="date" name="eissuedate"/>
@@ -61,7 +64,7 @@
 								<input class="form-control" type="text" name="esearchContent" id="esearchContent">
 							</div>
 							<div class="col-3">
-								<button type="submit" class="btn btn-info btn-sm mt-2">검색</button>
+								<button onclick="searchEvent(1)" class="btn btn-info btn-sm mt-2">검색</button>
 							</div>
 						</div>
 						
@@ -94,18 +97,37 @@
 							<td class="text-center">[[${event.ediscount}]]</td>
 							<td class="text-center">[[${event.estatus}]]</td>
 						</tr>
+						
+						<th:block th:if="${pager.totalRows>0}">	
+							<tr>
+								<td colspan="8" class="text-center">
+									<div>
+										<a th:onclick="'javascript:searchEvent(1);'" class="btn btn-outline-primary btn-sm">처음</a>
+										<a th:if="${pager.groupNo>1}" th:onclick="'javascript:searchEvent('+ ${pager.startPageNo-1} + ');'" class="btn btn-outline-primary btn-sm">이전</a>
+										
+										<th:block th:each="i : ${#numbers.sequence(pager.startPageNo, pager.endPageNo)}">
+											<a class="btn btn-sm" th:classappend="(${pager.pageNo != i})?'btn-outline-success':'btn-danger'" th:onclick="'javascript:searchEvent('+ ${i} + ');'">[[${i}]]</a>
+										</th:block>
+										
+										<a th:if="${pager.groupNo<pager.totalGroupNo}" th:onclick="'javascript:searchEvent('+ ${pager.endPageNo+1} + ');'" class="btn btn-outline-primary btn-sm">다음</a>
+										<a th:onclick="'javascript:searchEvent('+ ${pager.totalPageNo} + ');'" class="btn btn-outline-primary btn-sm">맨끝</a>
+									</div>
+								</td>
+							</tr>
+						</th:block>
 					</tbody>
 				</table>
-
-				<!--/* pager 시작 */-->
-				<div class="row justify-content-center">
-				
-				</div>
-				<!--/* pager 시작 */-->
-					
-					
-				
 			</div>
+
+<script th:inline="javascript">
+
+	function searchEvent(pageNo){
+		event.preventDefault();
+		$("#pageNo").val(pageNo);
+		$("#eventSearchForm").submit();
+	}
+	
+</script>
 
 </th:block>
 </th:block>

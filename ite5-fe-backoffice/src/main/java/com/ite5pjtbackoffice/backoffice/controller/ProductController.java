@@ -35,16 +35,6 @@ public class ProductController {
 		
 		return "product/registration";
 	}
-	
-	@RequestMapping("/productDetail")
-	public String productDetail(Model model, String pname) {
-
-		JSONObject data = productService.getProductCommonByPname(pname);
-
-		model.addAttribute("productCommon", data.get("productCommon"));
-
-		return "product/registration";
-	}
 
 	@PostMapping("/list")
 	public String list(Model model, @RequestBody JSONObject filter) {

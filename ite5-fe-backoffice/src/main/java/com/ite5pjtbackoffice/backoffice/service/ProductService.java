@@ -69,7 +69,6 @@ public class ProductService {
 			.uri("http://kosa1.iptime.org:50515/admin/product/" + pid)
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
-			.bodyValue(pid)
 			.retrieve()
 			.bodyToMono(String.class)
 			.block();

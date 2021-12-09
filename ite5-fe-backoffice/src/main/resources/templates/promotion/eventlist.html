@@ -94,8 +94,13 @@
 							<td class="text-center">[[${#dates.format(event.eexpiredate, 'yyyy-MM-dd')}]]</td>
 							<td class="text-center">[[${event.ecount}]]</td>
 							<td class="text-center">[[${event.elimitcount}]]</td>
-							<td class="text-center">[[${event.ediscount}]]</td>
-							<td class="text-center">[[${event.estatus}]]</td>
+							<td class="text-center">[[${event.ediscount}]]%</td>
+							<th:block th:if="${event.estatus}==0">
+								<td class="text-center">준비중/마감</td>
+							</th:block>
+							<th:block th:if="${event.estatus}==1">
+								<td class="text-center">진행중</td>
+							</th:block>
 						</tr>
 						
 						<th:block th:if="${pager.totalRows>0}">	

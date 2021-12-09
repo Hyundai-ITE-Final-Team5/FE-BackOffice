@@ -18,7 +18,7 @@
 
 			<!--/* grid container 시작 */-->
 			<div class="container">
-				<form id="detailform" th:action="@{/admin/promotion/eventupdate}" method="post" onsubmit="submitForm(this)">
+				<form id="detailform" th:action="@{/admin/promotion/eventupdateinsert}" method="post" onsubmit="submitForm(this)">
 						
 					<th:block th:if="${event != null}">
 						<label>이벤트 번호</label>
@@ -44,6 +44,19 @@
 					<label for="ecoupontitle">쿠폰명</label>
 					<input class="form-control" type="text" id="ecoupontitle" name="ecoupontitle" th:value="(${event} != null)?${event.ecoupontitle}:''"/>
 					
+					<label for="ecoupontitle">이벤트상태</label>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="estatus" id="estatusRadios1" value="1" th:checked="(${event} != null)?((${event.estatus == 1})?'true':'false'):'true'">
+					 	<label class="form-check-label" for="estatusRadios1">
+							진행중
+					  	</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="estatus" id="estatusRadios2" value="0" th:checked="(${event} != null)?((${event.estatus == 0})?'true':'false'):'false'">
+						<label class="form-check-label" for="estatusRadios2">
+							준비중/마감	
+						</label>
+					</div>
 					<input class="mt-2 btn btn-info btn-sm" type="submit" value="수정"/>
 				</form>
 			</div>		

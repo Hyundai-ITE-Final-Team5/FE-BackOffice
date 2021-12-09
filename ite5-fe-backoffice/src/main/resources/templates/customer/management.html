@@ -146,11 +146,12 @@
 			}
 			
 			option.sort = $("#sort").val();
-
+			
 			$.ajax({
-				url:"[(@{/admin/customer/customerlist})]",
+				url:"http://kosa1.iptime.org:50515/admin/customer/customerlist",
 				method:"post",
-				data: option,
+				data: JSON.stringify(option),
+				contentType: "application/json; charset=UTF-8",
 				success: function(data){
 					var insert = '';
 					for(let customer of data.customerList){

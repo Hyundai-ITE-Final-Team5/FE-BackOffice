@@ -26,31 +26,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/customer")
 public class CustomerController {
-	/*
+	
 	@Resource
 	private CustomerService customerService;
 	
 	@RequestMapping("/management")
-	public String management() {
-		
+	public String management() {	
 		return "customer/management";
 	}
 	
-	@PostMapping("/customerlist")
-	@ResponseBody
-	public Map<String,Object> getCustomerList(@RequestParam(defaultValue="1") int pageNo, CustomerSearchOption searchOption){
-		
-		int totalRows = customerService.getTotalCustomerNum(searchOption);
-		Pager pager = new Pager(10, 10, totalRows, pageNo);
-		
-		List<Customer> customerList = customerService.getCustomerList(pager, searchOption);
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("pager", pager);
-		map.put("customerList",customerList);
-		return map;
-	}
-	
+	/*
 	@RequestMapping("/customerdetail")
 	public String detail(String mid, Model model) {
 		Customer customer = customerService.getCustomerInfo(mid);

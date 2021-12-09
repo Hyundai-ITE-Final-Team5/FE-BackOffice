@@ -39,7 +39,7 @@ public class HomeController {
 		WebClient webClient = WebClient.create();		
 		Auth auth = webClient
 			.post()
-			.uri("http://localhost:8080/login")
+			.uri("http://kosa1.iptime.org:50515/login")
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.bodyValue(member)

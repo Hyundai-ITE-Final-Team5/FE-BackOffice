@@ -2,34 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-
-		<div class="card m-2">
-			<div class="card-header">상품분류관리</div>
-			<div class="card-body">
-				<form action="">
-					상품분류 <select th:onchange="getCategoryDepth2(this.value)" multiple>
-						<option th:each="depth1:${depth1}" th:value="${depth1}">[[${depth1}]]</option>
-					</select> <select name="" id="" multiple>
-						<option th:each="depth2:${depth2}" th:value="${depth2}">[[${depth2}]]</option>
-					</select> <select name="" id="" multiple>
-						<option th:each="depth3:${depth3}" th:value="${depth3}">[[${depth3}]]</option>
-					</select>
-
+		<div class="m-2">
+			<h4 class="mb-5"><b>상품분류</b></h4>
+			<div>
+				<form action="" class="d-flex">
+					<div class="col-6">
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">카테고리</h6>
+							<select class="custom-select col-8 pr-1">
+							 	<option selected>대분류</option>
+							  	<option value="1">WOMEN</option>
+							  	<option value="2">MEN</option>
+							  	<option value="3">KIDS</option>
+							  	<option value="4">LIFE STYLE</option>
+							</select>
+							<button class="btn btn-sm btn-dark ml-1">조회</button>
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">중분류</h6>
+							<input class="form-control col-8" type="text">
+							<button class="btn btn-sm btn-dark ml-1">추가</button>
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">소분류</h6>
+							<input class="form-control col-8" type="text">
+							<button class="btn btn-sm btn-dark ml-1">추가</button>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">브랜드</h6>
+							<select class="custom-select col-8 pr-1">
+							 	<option selected>대분류</option>
+							  	<option value="1">WOMEN</option>
+							  	<option value="2">Two</option>
+							  	<option value="3">Three</option>
+							</select>
+							<button class="btn btn-sm btn-dark ml-1">조회</button>
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">중분류</h6>
+							<input class="form-control col-8" type="text">
+							<button class="btn btn-sm btn-dark ml-1">추가</button>
+						</div>						
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">소분류</h6>
+							<input class="form-control col-8" type="text">
+							<button class="btn btn-sm btn-dark ml-1">추가</button>
+						</div>						
+					</div>		
 				</form>
-
-				<hr>
-
-				<form action="removeBrand">
-					<select name="bno">
-						<th:block th:each="brand:${brand}">
-							<option th:value="${brand.bno}">[[${brand.bname}]]</option>
-						</th:block>
-					</select> <input type="submit" name="" value="삭제">
-				</form>
-				<form action="addBrand">
-					<input type="text" name="brandName"> <input type="submit"
-						name="" value="추가">
-				</form>
+				<div class="d-flex justify-content-center my-4">
+					<button class="btn btn-dark col-2 mr-2 pr-4"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>
+					<button class="btn btn-outline-dark col-2"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
+				</div>
 			</div>
 		</div>
 

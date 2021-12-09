@@ -35,7 +35,6 @@ public class CustomerController {
 		return "customer/management";
 	}
 	
-	/*
 	@RequestMapping("/customerdetail")
 	public String detail(String mid, Model model) {
 		Customer customer = customerService.getCustomerInfo(mid);
@@ -43,26 +42,24 @@ public class CustomerController {
 		return "customer/customerdetail";
 	}
 	
+	
 	@PostMapping("/customerupdate")
 	public String update(Customer customer,  RedirectAttributes redirectAttributes) {
-		customerService.updateCustomerInfo(customer);
+		String result = customerService.updateCustomerInfo(customer);
 		redirectAttributes.addAttribute("mid", customer.getMid());
-		return "redirect:/admin/customer/detail";
+		return "redirect:/admin/customer/customerdetail";
 	}
 	
-	// 계정 활성화
+	
+	// 계정 활성화 - html에서 ajax로 호출함
 	@PutMapping("/enable")
 	@ResponseBody
 	public Map<String, Object> enable(String mid) {
-		int result = customerService.updateCustomerEnable(mid);
+		String result = customerService.updateCustomerEnable(mid);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(result == 1) {
-			map.put("result", "success");
-		} else {
-			map.put("result", "fail");
-		}
+		map.put("result", result);
 		return map;
 	}
-	*/
+	
 }

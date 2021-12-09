@@ -3,98 +3,107 @@
 
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		
-		
-		<div class="mb-5" style="border-bottom:5px solid black;">
-			<h3 class="mb-4">고객정보관리</h3>
-		</div>
-		
-			
-
-			<!--/* grid container 시작 */-->
-			<!-- padding 5를 주었습니다. -->
-			<div class="container">
-				<div class="border p-5 mb-4">
-					<form>
-					
-						<!--/* 성별,등급 시작 */-->
-						<div class="row mb-3 align-items-center justify-content-center">
-							<div class="col-1">등급</div>
-							<div class="col-2">
-								<select class="form-control" name="mgrade" id="mgrade">
-									<option></option>
-									<option value="1">없음</option>
-									<option value="2">1등급</option>
-									<option value="3">2등급</option>
-									<option value="4">3등급</option>
-									<option value="5">4등급</option>
-									<option value="6">5등급</option>
-								</select>
+		<div class="m-2">
+			<h4 class="mb-5"><b>고객정보</b></h4>
+			<div>
+				<form>
+					<div class="d-flex">
+						<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'0'">
+						<div class="col-6">
+							<div class="d-flex mb-3">
+								<h6 class="col-2 mb-0 align-self-center">고객등급</h6>
+								<div class="col-4">
+									<select class="form-control" name="mgrade" id="mgrade">
+										<option></option>
+										<option value="1">없음</option>
+										<option value="2">1등급</option>
+										<option value="3">2등급</option>
+										<option value="4">3등급</option>
+										<option value="5">4등급</option>
+										<option value="6">5등급</option>
+									</select>
+								</div>
+								<h6 class="col-2 mb-0 align-self-center text-center">성별</h6>
+								<div class="col-4">
+									<select class="form-control" name="mgender" id="mgender">
+										<option></option>
+										<option value="1">남</option>
+										<option value="2">여</option>
+									</select>
+								</div>
 							</div>
-							<div class="col-1">성별</div>
-							<div class="col-2">
-								<select class="form-control" name="mgender" id="mgender">
-									<option></option>
-									<option value="1">남</option>
-									<option value="2">여</option>
-								</select>
-							</div>
-							<div class="col-1">상태</div>
-							<div class="col-2">
-								<select class="form-control" name="menabled" id="menabled">
-									<option></option>
-									<option value="0">휴면계정</option>
-								</select>
-							</div>
-							<div class="col-1">정렬</div>
-							<div class="col-2">
-								<select class="form-control" name="sort" id="sort">
-									<option value="mid">아이디</option>
-									<option value="mname">이름</option>
-									<option value="mbirth">생년월일</option>
-									<option value="mgrade">등급</option>
-									<option value="menabled">상태</option>
-								</select>
-							</div>
+	
 						</div>
-						<!--/* 성별,등급 끝 */-->
-						
-						
-						<!--/* 검색어 시작 */-->
-						<div class="row mb-3 align-items-center justify-content-center">
-							<div class="col-1">검색어</div>
-							<div class="col-2">
-								<select class="form-control" name="searchOption" id="searchOption">
-									<option value="id">아이디</option>
-									<option value="name">이름</option>
-									<option value="phone">전화번호</option>
-								</select>
-							</div>
-							
-							<div class="col-5">
-								<input class="form-control" type="text" name="searchContent" id="searchContent">
-							</div>
-							<div class="col-3">
-								<a href="javascript:showMemberList()" class="btn btn-info btn-sm">검색</a>
-							</div>
+						<div class="col-6">		
+							<div class="d-flex mb-3">
+								<div class="col-2 mb-0 align-self-center text-center">상태</div>
+								<div class="mr-2" style="width: 15vw;">
+									<select class="form-control" name="menabled" id="menabled">
+										<option></option>
+										<option value="0">휴면계정</option>
+									</select>
+								</div>
+								<div class="col-2 mb-0 align-self-center text-center">정렬</div>
+								<div class="mr-3" style="width: 15vw;">
+									<select class="form-control" name="sort" id="sort">
+										<option value="mid">아이디</option>
+										<option value="mname">이름</option>
+										<option value="mbirth">생년월일</option>
+										<option value="mgrade">등급</option>
+										<option value="menabled">상태</option>
+									</select>
+								</div>
+							</div>			
 						</div>
-						
-					<!--/* 검색어 끝 */-->
-					
-					</form>
+					</div>
+					<div class="d-flex mb-3">
+						<div class="col-1 ml-3 mr-2 mb-0 align-self-center">검색어</div>
+						<div class="" style="width: 16vw;">
+							<select class="form-control" name="searchOption" id="searchOption">
+								<option value="id">아이디</option>
+								<option value="name">이름</option>
+								<option value="phone">전화번호</option>
+							</select>
+						</div>		
+						<div class="col-8">
+							<input class="form-control ml-4" type="text" name="searchContent" id="searchContent" placeholder=" -">
+						</div>
+					</div>
+				</form>
+				<div class="d-flex justify-content-center my-5">
+					<a class="btn btn-dark col-2 mr-2 pr-4" href="javascript:showMemberList()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</a>
+					<button class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
 				</div>
-				
+			</div>
+		</div>
+	<script>
+		function resetInput() {
+			const mgradeId = document.getElementById("mgrade")
+			const mgenderId = document.getElementById("mgender")
+			const menabledId = document.getElementById("menabled")
+			const sortId = document.getElementById("sort")
+			const searchOptionId = document.getElementById("searchOption")
+			const searchContentId = document.getElementById("searchContent")
+			console.log(sortId.value)
+			mgradeId.value = ''
+			mgenderId.value = ''
+			menabledId.value = ''
+			sortId.value = "mid"
+			searchOptionId.value = "id"
+			searchContentId.value = '' 
+		}
+	</script>	
 				<table class="table">
-					<thead>
+					<thead style="background-color: #f0f0f0;">
 						<tr>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>생년월일</th>
-							<th>성별</th>
-							<th>휴대전화</th>
-							<th>일반전화</th>
-							<th>등급</th>
-							<th>상태</th>
+							<th class="text-center">아이디</th>
+							<th class="text-center">이름</th>
+							<th class="text-center">생년월일</th>
+							<th class="text-center">성별</th>
+							<th class="text-center">휴대전화</th>
+							<th class="text-center">일반전화</th>
+							<th class="text-center">등급</th>
+							<th class="text-center">상태</th>
 						</tr>
 					</thead>
 					<tbody id="customerList">
@@ -105,17 +114,6 @@
 				<div class="row justify-content-center" id="pager" >
 				
 				</div>
-				<!--/* pager 시작 */-->
-					
-					
-				
-			</div>		
-
-			<!--/* grid container 끝 */-->
-			
-			
-			
-			
 	<script th:inline="javascript">
 	
 		$(function(){
@@ -156,13 +154,13 @@
 					var insert = '';
 					for(let customer of data.customerList){
 						insert += '<tr>'
-						insert += '<td><a href="/admin/customer/customerdetail?mid='+customer.mid+'">'+customer.mid+'</a></td>';
-						insert += '<td>'+customer.mname+'</td>';
-						insert += '<td>'+customer.mconvertedbirth+'</td>';
-						insert += '<td>'+customer.mconvertedgender+'</td>';
-						insert += '<td>'+customer.mphone+'</td>';
-						insert += '<td>'+customer.mtel+'</td>';
-						insert += '<td>';
+						insert += '<td class="text-center col-2"><a class="text-dark" href="/admin/customer/customerdetail?mid='+customer.mid+'">'+customer.mid+'</a></td>';
+						insert += '<td class="text-center col-1"><a class="text-dark" href="/admin/customer/customerdetail?mid='+customer.mid+'">'+customer.mname+'</td>';
+						insert += '<td class="text-center col-2">'+customer.mconvertedbirth+'</td>';
+						insert += '<td class="text-center col-1">'+customer.mconvertedgender+'</td>';
+						insert += '<td class="text-center col-2">'+customer.mphone+'</td>';
+						insert += '<td class="text-center col-2">'+customer.mtel+'</td>';
+						insert += '<td class="text-center">';
 						if(customer.mgrade == 1){
 							insert+='<img src="https://static.solved.ac/tier_small/0.svg" style="width: 18px; heigth: 18px;" alt="">'
 						} else if(customer.mgrade == 2){
@@ -187,17 +185,17 @@
 					/* 데이저가 없다면 pager를 보여줄 필요가 없다. */
 					if(data.pager.totalRows != 0){
 						var pagerInsert = '';
-						pagerInsert += '<a href="javascript:showMemberList(1)" class="btn btn-outline-primary btn-sm">처음</a>'
+						pagerInsert += '<a href="javascript:showMemberList(1)" class="btn"><img alt="" src="/images/left-arrow.png" style="opacity: 0.7;"></a>'
 						if(data.pager.groupNo>1){
-							pagerInsert += '<a href="javascript:showMemberList('+(data.pager.startPageNo-1)+')" class="btn btn-outline-primary btn-sm">이전</a>'
+							pagerInsert += '<a href="javascript:showMemberList('+(data.pager.startPageNo-1)+')" class="btn">이전</a>'
 						}
 						for(let i=data.pager.startPageNo; i<=data.pager.endPageNo; i++){
-							pagerInsert += '<a href="javascript:showMemberList('+i+')" class="btn btn-outline-primary btn-sm">'+i+'</a>'
+							pagerInsert += '<a href="javascript:showMemberList('+i+')" class="btn">'+i+'</a>'
 						}
 						if(data.pager.groupNo<data.pager.totalGroupNo){
-							pagerInsert += '<a href="javascript:showMemberList('+(data.pager.endPageNo+1)+')" class="btn btn-outline-primary btn-sm">다음</a>'
+							pagerInsert += '<a href="javascript:showMemberList('+(data.pager.endPageNo+1)+')" class="btn">다음</a>'
 						}
-						pagerInsert += '<a href="javascript:showMemberList('+data.pager.totalPageNo+')" class="btn btn-outline-primary btn-sm">맨끝</a>'
+						pagerInsert += '<a href="javascript:showMemberList('+data.pager.totalPageNo+')" class="btn"><img alt="" src="/images/right-arrow.png" style="opacity: 0.7;"></a>'
 						$("#pager").append(pagerInsert);
 					}
 				}

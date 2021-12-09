@@ -3,62 +3,91 @@
 
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		
-		
-		<div class="mb-5" style="border-bottom:5px solid black;">
-			<h3 class="mb-4">고객정보상세</h3>
-		</div>
-		
+		<div class="m-2">
+			<div class="d-flex justify-content-between">
+				<h4 class="mb-5"><b>고객상세정보</b></h4>
+				<div class="d-flex mt-2">
+					<img alt="" th:src="@{/images/list.png}" style="width: 20px; height: 20px; margin-top: 2px;">
+					<a th:href="@{/admin/customer/management}"><span class="text-dark ml-1" style="margin-right: 2vw;">목록보기</span></a>
+				</div>
+			</div>
 			
-
-			<!--/* grid container 시작 */-->
-			<div class="container">
+			
 				<form id="detailform" th:action="@{/admin/customer/customerupdate}" method="post" onsubmit="updateInfo(this)">
-						
-						<!--/* 회원등급, id가 들어가는 부분 */-->
-						<input class="form-control" type="hidden" id="mid" name="mid" th:value="${customer.mid}" readonly="readonly"/>
-						<img th:if="${customer.mgrade==1}" src="https://static.solved.ac/tier_small/0.svg" style="width: 18px; height: 18px;" alt="">
-						<img th:if="${customer.mgrade==2}" src="https://static.solved.ac/tier_small/10.svg" style="width: 18px; height: 18px;" alt="">
-						<img th:if="${customer.mgrade==3}" src="https://static.solved.ac/tier_small/14.svg" style="width: 18px; height: 18px;" alt="">
-						<img th:if="${customer.mgrade==4}" src="https://static.solved.ac/tier_small/18.svg" style="width: 18px; height: 18px;" alt="">
-						<img th:if="${customer.mgrade==5}" src="https://static.solved.ac/tier_small/22.svg" style="width: 18px; height: 18px;" alt="">
-						<img th:if="${customer.mgrade==6}" src="https://static.solved.ac/tier_small/26.svg" style="width: 18px; height: 18px;" alt="">
-						<span>[[${customer.mid}]]</span>
-						<div>
-						
-						<hr/>
-						
-							<label for="mmileage">마일리지</label>
-							<input class="form-control" type="text" id="mmileage" name="mmileage" th:value="${customer.mmileage}"/>
+				<div class="d-flex">
+					<div class="col-4">
+						<div class="d-flex justify-content-center">
+							<img alt="" th:src="@{/images/use.jpg}" style="width: 24vw; border-radius: 1rem;">
+						</div>					
+					</div>
+					<div class="col-8">
+						<div class="d-flex justify-content-between my-4 mr-3">
+							<div class="d-flex justify-content-center mt-1 ml-4">
+								<input class="form-control" type="hidden" id="mid" name="mid" th:value="${customer.mid}" readonly="readonly"/>
+								<img th:if="${customer.mgrade==1}" src="https://static.solved.ac/tier_small/0.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<img th:if="${customer.mgrade==2}" src="https://static.solved.ac/tier_small/10.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<img th:if="${customer.mgrade==3}" src="https://static.solved.ac/tier_small/14.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<img th:if="${customer.mgrade==4}" src="https://static.solved.ac/tier_small/18.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<img th:if="${customer.mgrade==5}" src="https://static.solved.ac/tier_small/22.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<img th:if="${customer.mgrade==6}" src="https://static.solved.ac/tier_small/26.svg" class="mt-1" style="width: 24px; height: 24px;" alt="">
+								<span class="ml-2" style="font-size: 18px;">[[${customer.mid}]]</span>
+							</div>							
+							<div>
+								<a th:if="${customer.menabled==0}" href="javascript:updateEnabled()" class="btn"><img alt="" th:src="@{/images/repair-tool.png}">휴면계정복구</a>
+								<div th:if="${customer.menabled!=0}" class="btn"><img alt="" th:src="@{/images/repair-tool.png}">휴면계정복구</div>							
+							</div>
 						</div>
-						
-						
-						<label for="mname">이름</label>
-						<input class="form-control" type="text" id="mname" name="mname" th:value="${customer.mname}"/>
-						<label for="mbirth">생년월일</label>
-						<input class="form-control" type="date" id="mbirth" th:value="${#dates.format(customer.mbirth, 'yyyy-MM-dd')}" readonly="readonly"/>
-						<label for="memail">이메일</label>
-						<input class="form-control" type="email" id="memail" name="memail" th:value="${customer.memail}"/>
-						<label for="mphone">휴대폰</label>
-						<input class="form-control" type="number" id="mphone" name="mphone" th:value="${customer.mphone}"/>
-						<label for="mtel">전화번호(선택)</label>
-						<input class="form-control" type="number" id="mtel" name="mtel" th:value="${customer.mtel}"/>
-						<label for="mzipcode">우편번호(선택)</label>
-						<input onclick="goPopup()" class="form-control" type="number" id="mzipcode" name="mzipcode" th:value="${customer.mzipcode}"/>
-						<label for="maddress1">주소(선택)</label>
-						<input onclick="goPopup()" class="form-control" type="text" id="maddress1" name="maddress1" th:value="${customer.maddress1}"/>
-						<label for="maddress2">상세주소(선택)</label>
-						<input class="form-control" type="text" id="maddress2" name="maddress2" th:value="${customer.maddress2}"/>
-						<!--*/ 수정하기 버튼 /*-->
-						<input class="mt-2 btn btn-info btn-sm" type="submit" value="수정"/>
-						<div>
-							<a th:if="${customer.menabled==0}" href="javascript:updateEnabled()" class="btn btn-info btn-sm">휴면계정 복구</a>
+						<div class="d-flex">
+							<div class="col-6">
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">이름</h6>
+									<input class="col-9 form-control" type="text" id="mname" name="mname" th:value="${customer.mname}"/>
+								</div>						
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">생년월일</h6>
+									<input class="form-control" type="date" id="mbirth" th:value="${#dates.format(customer.mbirth, 'yyyy-MM-dd')}" readonly="readonly"/>
+								</div>						
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">휴대폰</h6>
+									<input class="form-control" type="number" id="mphone" name="mphone" th:value="${customer.mphone}"/>
+								</div>						
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">우편번호</h6>
+									<input onclick="goPopup()" class="form-control" type="number" id="mzipcode" name="mzipcode" th:value="${customer.mzipcode}"/>
+								</div>						
+							</div>		
+							<div class="col-6">
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">포인트</h6>
+									<input class="form-control" type="text" id="mmileage" name="mmileage" th:value="${customer.mmileage}"/>
+								</div>							
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">이메일</h6>
+									<input class="form-control" type="email" id="memail" name="memail" th:value="${customer.memail}"/>
+								</div>							
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">전화번호</h6>
+									<input class="form-control" type="number" id="mtel" name="mtel" th:value="${customer.mtel}"/>
+								</div>							
+								<div class="d-flex mb-3">
+									<h6 class="col-3 mb-0 align-self-center">주소</h6>
+									<input onclick="goPopup()" class="form-control" type="text" id="maddress1" name="maddress1" th:value="${customer.maddress1}"/>
+								</div>							
+							</div>							
 						</div>
+						<div class="d-flex mb-3">
+							<h6 class="mb-0 align-self-center" style="width: 73px; margin-left: 2vw;">상세주소</h6>
+							<input class="form-control" type="text" style="width: 650px;" id="maddress2" name="maddress2" th:value="${customer.maddress2}"/>
+						</div>	
+					</div>		
+				</div>
+				<div class="d-flex justify-content-center my-5">
+					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/edit_negative.png}" style="width: 24px;"> 수정</button>
+					<div class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</div>
+				</div>				
 				</form>
-			</div>		
-			<!--/* grid container 끝 */-->
 			
-			
+		</div>		
 			
 	<!-- 다음지도 api를 위한 script  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
@@ -102,7 +131,24 @@
 			    top: (window.screen.height / 2) - (height / 2)
 			});
 		}
-	
+		function resetInput() {
+			const mnameId = document.getElementById("mname")
+			const mphoneId = document.getElementById("mphone")
+			const mzipcodeId = document.getElementById("mzipcode")
+			const mmileageId = document.getElementById("mmileage")
+			const memailId = document.getElementById("memail")
+			const mtelId = document.getElementById("mtel")
+			const maddress1Id = document.getElementById("maddress1")
+			const maddress2Id = document.getElementById("maddress2")
+			mnameId.value = ''
+			mphoneId.value = ''
+			mzipcodeId.value = ''
+			memailId.value = ''
+			mmileageId.value = 0
+			mtelId.value = ''
+			maddress1Id.value = ''
+			maddress2Id.value = ''
+		}
 	</script>
 
 	</th:block>

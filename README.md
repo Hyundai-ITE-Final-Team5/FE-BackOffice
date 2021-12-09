@@ -7,24 +7,30 @@
 ```
 {
 productCommon:{
+	pid: String,
+	pname: String,
+	pnote: String,
+	bno: int,
+	pstatus: int,
+	preleasedate: Date,
+	productcolor:[
+		pcid: String,
+		pcimg1: String,
+		pcimg2: String,
+		pcimg3: String,
+		pcchipimg: String,
+		pccolorcode: String,
+		pcprice: int,
 		pid: String,
-		pname: String,
-		pnote: String,
-		bno: int,
-		pstatus: int,
-		preleasedate: Date,
-		productcolor:[
+		productstock:[
+				psid: String,
+				psize: String,
 				pcid: String,
-				pcimg1: String,
-				pcimg2: String,
-				pcimg3: String,
-				pcchipimg: String,
-				pccolorcode: String,
-				pcprice: int,
-				pid: String,
 			     ],
 			     []...
-	      }
+	     ],
+	     []...
+	}
 }
 ```
 
@@ -32,6 +38,7 @@ productCommon:{
 ```
 { pname: String }
 ```
+
 
 -----------------------------------------
 ### 상품목록
@@ -48,14 +55,38 @@ productCommon:{
 	 depth3name:String
 	 startdate:Date
 	 enddate:Date
-	 displaystatus:boolean
-	 salestatus:boolean
-         }
+	 pstatus: int
+	 }
 }
 ```
 
-`GET` **/admin/product/{pid}** : 상품상세보기(수정기능 추가예정)
+`GET` **/admin/product/{pid}** : 상품상세보기
 
+
+`POST` **/admin/product/modifiy** : 상품수정
+```
+{
+productCommon:{
+	pid: String,
+	pname: String,
+	pnote: String,
+	bno: int,
+	pstatus: int,
+	preleasedate: Date,
+	productcolor:[
+		pcid: String,
+		pcimg1: String,
+		pcimg2: String,
+		pcimg3: String,
+		pcchipimg: String,
+		pccolorcode: String,
+		pcprice: int,
+		pid: String,
+	     ],
+	     []...
+	}
+}
+```
 
 -----------------------------------------
 ### 상품분류관리
@@ -87,3 +118,35 @@ productCommon:{
 
 -----------------------------------------
 
+## 주문관리
+
+
+### 주문목록
+
+`POST` **/admin/order/list** : 주문목록 가져오기(필터검색)
+```
+{
+ pageNo: int,
+ filter: {
+	 oid: String
+	 pcode: String
+	 ophone: String
+	 ostatus: String
+	 mname: String
+	 mid: String
+	 startdate: Date
+	 enddate: Date
+	 psid: String
+	 }
+}
+```
+
+`GET` **/admin/order/list/{oid}** : 주문상세 가져오기(상품검색)
+
+`POST` **/admin/order/updatestatus** : 주문상태 변경하기
+```
+{
+oids:[ String, String, ...],
+status: String
+}
+```

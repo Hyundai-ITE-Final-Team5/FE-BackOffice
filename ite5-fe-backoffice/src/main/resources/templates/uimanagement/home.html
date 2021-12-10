@@ -2,14 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 <th:block th:fragment="content">
+		<script>
+		    function allowDrop(ev) {
+		        ev.preventDefault();
+		    }
+		 
+		    function drag(ev) {
+		        ev.dataTransfer.setData("text", ev.target.id);
+		    }
+		 
+		    function drop(ev) {
+		        ev.preventDefault();
+		        var data = ev.dataTransfer.getData("text");
+		        ev.target.appendChild(document.getElementById(data));
+		    }
+	    </script>
 
-<div class="card m-2">
-	<div class="card-header">홈화면UI설정</div>
-	<div class="card-body">
-		Content
-	</div>
-</div>
-
+		<div class="m-2">
+			<h4 class="mb-5"><b>홈화면 관리</b></h4>
+			<div class="d-flex">
+				<div class="col-6 d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
+					<div>
+						<!--*/ 1번재, 2번째, 3번재가 생기는 each문 /*-->
+						<th:block th:each="homeorder, status : ${homeorderlist}">
+							<div>[[${status.count}]]번째 - (
+								<span th:if="${homeorder.hname =='newproduct'}">신상품</span>
+								<span th:if="${homeorder.hname =='bestproduct'}">베스트상품</span>
+								<span th:if="${homeorder.hname =='event'}">이벤트</span>
+								)
+							</div>
+							<div th:id="'order'+${status.count}" ondrop="drop(event)" ondragover="allowDrop(event)" class="p-1" style="border: solid 0.4rem black; width: 500px; height: 100px"></div>
+						</th:block>
+					</div>
+				</div>
+				<div class="col-6 d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
+					<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.2rem black; width:400px; height:400px">
+						<div id="bestproduct" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">베스트상품</div>
+						<div id="newproduct" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">신상품</div>
+						<div id="event" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">이벤트</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center my-5">
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="apply()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;">적용</button>
+				<a class="btn btn-outline-dark col-2" th:href="@{/admin/uimanagement/home}"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</a>
+			</div>
+		</div>
+		
+		<script th:inline="javascript">
+			function apply(){
+				let order1 = $("#order1>div:eq(0)").attr('id');
+				let order2 = $("#order2>div:eq(0)").attr('id');
+				let order3 = $("#order3>div:eq(0)").attr('id');
+				
+				var newForm = $('<form></form>'); 
+				newForm.attr("method","post"); 
+				newForm.attr("action","/admin/uimanagement/changeorder"); 
+				newForm.append($('<input/>', {type: 'text', name: order1, value:1 }));
+				newForm.append($('<input/>', {type: 'text', name: order2, value:2 }));
+				newForm.append($('<input/>', {type: 'text', name: order3, value:3 }));
+				newForm.appendTo('body');
+				newForm.submit();
+			}
+		</script>
+		
 </th:block>
 </th:block>
 </html>

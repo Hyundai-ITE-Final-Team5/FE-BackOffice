@@ -55,7 +55,7 @@ public class PromotionController {
 		
 		PagerAndEvents pagerAndEvents = null;
 		pagerAndEvents = promotionService.getEventList(eventSearchOption);
-		
+		model.addAttribute("eventSearchOption",eventSearchOption);
 		model.addAttribute("eventList", pagerAndEvents.getEvents());
 		model.addAttribute("pager", pagerAndEvents.getPager());
 		return "promotion/eventlist";

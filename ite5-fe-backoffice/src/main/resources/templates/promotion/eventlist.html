@@ -7,16 +7,16 @@
 			<div>
 				<form id="eventSearchForm" method="post" th:action="@{/admin/promotion/eventlist}">
 					<div class="d-flex">
-						<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'0'">
+						<input type="hidden" id=pageNo name="pageNo" th:value="(${eventSearchOption} != null)?${eventSearchOption.pageNo}:'1'">
 						<div class="col-6">
 							<div class="d-flex mb-3">
 								<h6 class="col-3 mb-0 align-self-center">이벤트기간</h6>
 								<div class="input-group">
-									<input type="date" name="eissuedate" id="eissuedate" class="form-control">
+									<input type="date" name="eissuedate" id="eissuedate" class="form-control" th:value="(${eventSearchOption} != null)?${eventSearchOption.eissuedate}:''">
 								</div>
 								<h4 class="mx-2 mb-0 align-self-center">~</h4>
 								<div class="input-group">
-									<input type="date" name="eexpiredate" id="eexpiredate" class="form-control">
+									<input type="date" name="eexpiredate" id="eexpiredate" class="form-control" th:value="(${eventSearchOption} != null)?${eventSearchOption.eexpiredate}:''">
 								</div>
 							</div>
 	
@@ -25,20 +25,19 @@
 							<div class="d-flex mb-3">
 								<div class="col-2 mb-0 align-self-center text-center">상태</div>
 								<div class="mr-2" style="width: 15vw;">
-									<select class="form-control" name="estatus" id="estatus">
-										<option></option>
-										<option value="1">진행중</option>
-										<option value="0">마감</option>
+									<select class="form-control" name="estatus" id="estatus" >
+										<option value=''>전체</option>
+										<option value="1" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.estatus == '1'}):'false'">진행중</option>
+										<option value="0" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.estatus == '0'}):'false'">마감</option>
 									</select>
 								</div>
 								<div class="col-2 mb-0 align-self-center">정렬</div>
 								<div class="mr-3" style="width: 15vw;">
 									<select class="form-control" name="sort" id="sort">
-										<option></option>
-										<option value="eno">이벤트번호</option>
-										<option value="eissuedate">이벤트시작일</option>
-										<option value="eexpiredate">이벤트종료일</option>
-										<option value="ecount">발행수</option>
+										<option value="eno" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.sort == 'eno'}):'false'">이벤트번호</option>
+										<option value="eissuedate" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.sort == 'eissuedate'}):'false'">이벤트시작일</option>
+										<option value="eexpiredate" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.sort == 'eexpiredate'}):'false'">이벤트종료일</option>
+										<option value="ecount" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.sort == 'ecount'}):'false'">발행수</option>
 									</select>
 								</div>
 							</div>			
@@ -49,13 +48,13 @@
 						<div class="ml-3" style="width: 15vw;">
 							<select class="form-control" name="esearchOption" id="esearchOption">
 								<option></option>
-								<option value="eno">번호</option>
-								<option value="etitle">제목</option>
-								<option value="econtent">내용</option>
+								<option value="eno" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.esearchOption == 'eno'}):'false'">번호</option>
+								<option value="etitle" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.esearchOption == 'etitle'}):'false'">제목</option>
+								<option value="econtent" th:selected="(${eventSearchOption} != null)?(${eventSearchOption.esearchOption == 'econtent'}):'false'">내용</option>
 							</select>
 						</div>		
 						<div class="col-8">
-							<input class="form-control" type="text" name="esearchContent" id="esearchContent">
+							<input class="form-control" type="text" name="esearchContent" id="esearchContent" th:value="(${eventSearchOption} != null)?${eventSearchOption.esearchContent}:''">
 						</div>
 					</div>
 				</form>

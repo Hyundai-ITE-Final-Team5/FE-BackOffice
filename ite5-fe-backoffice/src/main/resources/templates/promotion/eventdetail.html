@@ -95,6 +95,7 @@
 						</th:block>
 						<th:block th:if="${event != null}">
 							<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/edit_negative.png}" style="width: 24px;"> 수정</button>
+							<button class="btn btn-dark col-2 mr-2 pr-4" th:onclick="'javascript:deleteEvent('+ ${event.eno} + ');'"><img alt="" th:src="@{/images/edit_negative.png}" style="width: 24px;"> 삭제</button>
 						</th:block>
 						<div class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</div>
 					</div>
@@ -130,11 +131,24 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
 	<script th:inline="javascript">
 		
-		//
+
 		function submitForm(form){
 			event.preventDefault();
 			form.submit();
 		}
+		
+		function deleteEvent(eno){
+			event.preventDefault();
+			var newForm = $('<form></form>'); 
+			newForm.attr("method","post"); 
+			newForm.attr("action","/admin/promotion/eventdelete"); 
+			newForm.append($('<input/>', {type: 'text', name: 'eno', value:eno })); 
+			newForm.appendTo('body'); 
+			newForm.submit();
+
+		}
+		
+		
 	</script>
 
 	</th:block>

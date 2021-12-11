@@ -73,4 +73,20 @@ public class PromotionService {
 		String result = jsonObject.getString("result");
 		return result;
 	}
+	
+	public String deleteEvent(Event event) {
+		WebClient webClient = WebClient.create();
+		String json = webClient
+				.post()
+				.uri("http://kosa1.iptime.org:50515/admin/promotion/eventdelete")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.bodyValue(event.getEno())
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		JSONObject jsonObject = new JSONObject(json);
+		String result = jsonObject.getString("result");
+		return result;		
+	}
 }

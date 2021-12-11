@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,7 +56,7 @@ public class PromotionController {
 		
 		PagerAndEvents pagerAndEvents = null;
 		pagerAndEvents = promotionService.getEventList(eventSearchOption);
-		
+		model.addAttribute("eventSearchOption",eventSearchOption);
 		model.addAttribute("eventList", pagerAndEvents.getEvents());
 		model.addAttribute("pager", pagerAndEvents.getPager());
 		return "promotion/eventlist";
@@ -73,10 +74,6 @@ public class PromotionController {
 	
 	@RequestMapping("/eventupdateinsert")
 	public String eventUpdate(Event event, String raweissuedate, String raweexpiredate, RedirectAttributes redirectAttributes) throws ParseException {
-		
-		
-		
-		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if(!raweissuedate.equals("")) {
 			Date eissuedate= format.parse(raweissuedate);
@@ -110,4 +107,9 @@ public class PromotionController {
 		return "redirect:/admin/promotion/eventlist";
 	}
 	
+	@PostMapping("/eventdelete")
+	public String eventDelete(Event event) {
+		promotionService.deleteEvent(event);
+		return "redirect:/admin/promotion/eventlist";
+	}
 }

@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
+import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
+import com.ite5pjtbackoffice.backoffice.dto.OrderListFilter;
+import com.ite5pjtbackoffice.backoffice.dto.PagerAndOrderList;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
+import com.ite5pjtbackoffice.backoffice.vo.Orders;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,14 +29,27 @@ public class OrderController {
 	
 	@Resource
 	private OrderService orderService;
+	
+	@PostMapping("/orderlist")
+	public String orderList(Model model, OrderListFilter filter) {
 
-	@PostMapping("/list")
-	public String orderList(Model model, @RequestBody JSONObject filter) {
+		log.info(filter.toString());
+		
+//		if(filter.getOid().equals("")) filter.setOid(null);
+//		if(filter.getOphone().equals("")) filter.setOphone(null);
+		if(filter.getOstatus().equals("")) filter.setOstatus(null);
+		if(filter.getMname().equals("")) filter.setMname(null);
+//		if(filter.getMid().equals("")) filter.setMid(null);
+		if(filter.getStartdate().equals("")) filter.setStartdate(null);
+		if(filter.getEnddate().equals("")) filter.setEnddate(null);
+		if(filter.getPsid().equals("")) filter.setPsid(null);
+		
+		log.info(filter.toString());
+		PagerAndOrderList pao = orderService.getOrderList(filter);
 
-		JSONObject data = orderService.getOrderList(filter);
-
-		model.addAttribute("orderList", data.get("orderList"));
-		model.addAttribute("pager", data.get("pager"));
+		model.addAttribute("orderList", pao.getOrderList());
+		model.addAttribute("pager", pao.getPager());
+		log.info(pao.getPager().toString());
 
 		return "order/management";
 	}
@@ -39,9 +57,10 @@ public class OrderController {
 	@RequestMapping("/detail")
 	public String orderList(Model model, String oid) {
 		
-		JSONObject data = orderService.getOrderDetail(oid);
+		OrderDetail order = orderService.getOrderDetail(oid);
 
-		model.addAttribute("order", data.get("order"));
+		model.addAttribute("order", order.getOrders());
+		model.addAttribute("orderItems", order.getOrders().getOrderitems());
 		
 		return "order/management";
 	}

@@ -5,9 +5,10 @@
 		<div class="m-2">
 			<h4 class="mb-5"><b>상품목록</b></h4>
 			<div>
-				<form action="" method="" class="d-flex">
+				<form id="productSearchForm" th:action="@{/admin/product/productlist}" method="post" class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
+							<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'1'">
 							<h6 class="col-3 mb-0 align-self-center">상품등록일</h6>
 							<div class="input-group">
 								<input type="date" name="startdate" id="startdate" class="form-control">
@@ -25,9 +26,7 @@
 							<h6 class="col-3 mb-0 align-self-center">상품분류</h6>
 							<select class="custom-select col-3 pr-1" name="depth1name" id="depth1name">
 							 	<option selected value="">대분류</option>
-							  	<option value="1">One</option>
-							  	<option value="2">Two</option>
-							  	<option value="3">Three</option>
+							  	<option th:value="${d1}" th:each="d1:${depth1}" >[[${d1}]]</option>
 							</select>
 							<select class="custom-select col-3 pr-1" name="depth2name" id="depth2name">
 							 	<option selected value="">중분류</option>
@@ -47,7 +46,7 @@
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품코드</h6>
 							<div class="input-group">
-								<input type="text" class="form-control" name="pcode" id="pcode" placeholder=" -">
+								<input type="text" class="form-control" name="pid" id="pcode" placeholder=" -">
 							</div>
 						</div>
 						<div class="d-flex mt-4 mb-4">
@@ -84,7 +83,8 @@
 								</div>							
 							</div>							
 						</div>				
-					</div>		
+					</div>
+					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>		
 				</form>
 				<div class="d-flex justify-content-center my-4">
 					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>
@@ -114,6 +114,58 @@
 			salestatusId.checked = true 
 		}
 	</script>
+	<table class="table">
+		<thead style="background-color: #f0f0f0;">
+			<tr>
+				<th class="text-center">상품ID</th>
+				<th class="text-center">상품명</th>
+				<th class="text-center">판매상태</th>
+				<th class="text-center">상품등록일</th>
+				<th class="text-center">수정</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="product:${productList}">
+				<td class="text-center">[[${product.pid}]]</td>
+				<td class="text-center">[[${product.pname}]]</td>
+				<td class="text-center">
+					<th:block th:if="${product.pstatus} == 1">판매 중</th:block>
+					<th:block th:if="${product.pstatus} != 1">판매 중지</th:block>
+				</td>
+				<td class="text-center">[[${#dates.format(product.preleasedate, 'yyyy.MM.dd')}]]</td>
+				<td></td>
+			</tr>
+			<th:block th:if="${pager} != null">	
+			<th:block th:if="${pager.totalRows>0}">	
+				<tr>
+					<td colspan="8" class="text-center">
+						<div>
+							<a th:onclick="'javascript:changePageNo(1);'" class="btn"><img alt="" th:src="@{/images/left-arrow.png}" style="opacity: 0.7;"></a>
+							<a th:if="${pager.groupNo>1}" th:onclick="'javascript:changePageNo('+ ${pager.startPageNo-1} + ');'" class="btn">이전</a>
+							
+							<th:block th:each="i : ${#numbers.sequence(pager.startPageNo, pager.endPageNo)}">
+								<a class="btn btn-sm" th:classappend="(${pager.pageNo != i})?'btn':'btn-dark'" th:onclick="'javascript:changePageNo('+ ${i} + ');'">[[${i}]]</a>
+							</th:block>
+							
+							<a th:if="${pager.groupNo<pager.totalGroupNo}" th:onclick="'javascript:changePageNo('+ ${pager.endPageNo+1} + ');'" class="btn">다음</a>
+							<a th:onclick="'javascript:changePageNo('+ ${pager.totalPageNo} + ');'" class="btn"><img alt="" th:src="@{/images/right-arrow.png}" style="opacity: 0.7;"></a>
+						</div>
+					</td>
+				</tr>
+			</th:block>
+			</th:block>
+		</tbody>
+		
+	</table>
+<script th:inline="javascript">
+
+	function changePageNo(pageNo){
+		event.preventDefault();
+		$("#pageNo").val(pageNo);
+		$("#productSearchForm").submit();
+	}
+		
+</script>
 	</th:block>
 </th:block>
 </html>

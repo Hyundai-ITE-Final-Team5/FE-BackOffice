@@ -20,44 +20,49 @@
 
 		<div class="m-2">
 			<h4 class="mb-5"><b>홈화면 관리</b></h4>
-			<div class="d-flex">
-				<div class="col-6 d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
+			<div class="d-flex mb-3" >
+				<div class="col-6 d-flex justify-content-center">
 					<div>
-						<!--*/ 1번재, 2번째, 3번재가 생기는 each문 /*-->
+						<div style="font-size: 1.5rem; text-align: center" class="mb-2">홈화면 순서 설정</div>
 						<th:block th:each="homeorder, status : ${homeorderlist}">
-							<div>[[${status.count}]]번째 - (
-								<span th:if="${homeorder.honame =='goshopevent'}">고샵&이벤트</span>
-								<span th:if="${homeorder.honame =='membership'}">멤버십</span>
-								<span th:if="${homeorder.honame =='bestnew'}">베스트&신상품</span>
+							<div class="mb-1"><b>[[${status.count}]]번</b> - (
+								<span th:if="${homeorder.honame =='goshopevent'}" style="color:blue;">고샵&이벤트</span>
+								<span th:if="${homeorder.honame =='membership'}" style="color:blue;">멤버십</span>
+								<span th:if="${homeorder.honame =='bestnew'}" style="color:blue;">베스트&신상품</span>
 								)
 							</div>
-							<div th:id="'order'+${status.count}" ondrop="drop(event)" ondragover="allowDrop(event)" class="p-1" style="border: solid 0.4rem black; width: 500px; height: 100px"></div>
+							<div class="d-flex flex-column justify-content-center align-items-center" th:id="'order'+${status.count}" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.4rem black; width: 28vw; height: 14vh"></div>
 						</th:block>
 					</div>
 				</div>
-				<div class="col-6 d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
-					<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.2rem black; width:400px; height:400px">
-						
-						<th:block th:each="homeorder : ${homeorderlist}">
-							<div th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">
-								<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
-								<span th:if="${homeorder.honame == 'membership'}">멤버십</span>
-								<span th:if="${homeorder.honame == 'bestnew'}">베스트&신상품</span>
-								- ([[${homeorder.hiname}]])
-							</div>
-						</th:block>
+				<div class="col-6 d-flex justify-content-center">
+					<div>
+						<div style="font-size: 1.5rem; text-align: center" class="mb-5">이미지 설정</div>
+						<div class="d-flex flex-column justify-content-center align-items-center" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; border-radius:1vw; width:27vw; height:45vh">
+							<th:block th:each="homeorder : ${homeorderlist}">
+								<div class="my-auto" th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:23vw; height:11vh; border: solid 0.2rem black; text-align: center">
+									<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
+									<span th:if="${homeorder.honame == 'membership'}">멤버십</span>
+									<span th:if="${homeorder.honame == 'bestnew'}">베스트&신상품</span>
+									<span style="color:blue;">- ([[${homeorder.hiname}]])</span>
+								</div>
+							</th:block>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			
-			<div class="d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
-				<!--*/ 드래그&드롭이 가능한 영역/*-->
-				<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.2rem black; width:400px; height:200px">
-					<!--*/ 이미지 리스트를 보여주는 부분 - drag O /*-->
-						<div id="고샵이벤트기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">고샵이벤트기본</div>
-						<div id="멤버십기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">멤버십기본</div>
-						<div id="베스트뉴기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">베스트뉴기본</div>
+			<div class="d-flex align-items-center justify-content-center">
+				<div>
+					<div style="font-size: 1.5rem; text-align: center" class="mb-1">이미지 리스트</div>
+					<div class="d-flex justify-content-center align-items-center flex-wrap" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; border-radius:2vw; width:50vw; min-height: 15vh">
+						<th:block th:each="homeimg : ${homeimglist}">
+							<div th:id="${homeimg.hiname}" class="mx-auto my-auto" draggable="true" ondragstart="drag(event)" style="width:8vw; height:5vh; border: solid 0.2rem black; text-align:center">
+							[[${homeimg.hiname}]]
+							</div>
+						</th:block>
+					</div>
 				</div>
 			</div>
 			
@@ -69,12 +74,18 @@
 		
 		
 		<!--*/ 실제 이미지를 보여주는 부분 - drag X /*-->
-		<div>이미지 리스트</div>
-		<div class="d-flex align-items-center justify-content-center">
-			<div style="width:300px; height:500px; border: solid 0.2rem black">고샵이벤트기본</div>
-			<div style="width:300px; height:500px; border: solid 0.2rem black">멤버십기본</div>
-			<div style="width:300px; height:500px; border: solid 0.2rem black">베스트뉴기본</div>
+		<h4 class="mb-5"><b>이미지리스트(사진)</b></h4>
+		<div class="d-flex align-items-center justify-content-center flex-wrap">
+			<th:block th:each="homeimg : ${homeimglist}">
+				<div class="card h-100">
+					<div class="card-header text-center"><b>[[${homeimg.hiname}]]</b></div>
+					<div class="card-body">
+						<img class="card-img-down" th:src="${homeimg.hiimg}" style="width:10vw; height:40vh;"/>
+		    		</div>
+			    </div>
+			</th:block>
 		</div>
+
 		
 		<script th:inline="javascript">
 			function apply(){

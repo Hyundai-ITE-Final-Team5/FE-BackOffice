@@ -23,28 +23,7 @@ public class HomeController {
 	public String loginform() {
 		return "common/login";
 	}
-	/*
-	@PostMapping("/login")
-	public String login(Member member, HttpSession session) {
-		
-		WebClient webClient = WebClient.create();		
-		Auth auth = webClient
-			.post()
-			.uri("http://kosa1.iptime.org:50515/login")
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON)
-			.bodyValue(member)
-			.retrieve()
-			.bodyToMono(Auth.class)
-			.block();
-		//로그인이 성공하지 않으면 JWTToken이 return 되지 않는다.
-		if(auth == null) {
-			return "common/login";
-		}
-		session.setAttribute("auth", auth);
-		return "redirect:/admin";
-	}
-	*/
+	
 	@RequestMapping("/admin")
 	public String dashbord() {
 		return "home";

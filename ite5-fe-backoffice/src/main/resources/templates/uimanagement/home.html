@@ -26,9 +26,9 @@
 						<!--*/ 1번재, 2번째, 3번재가 생기는 each문 /*-->
 						<th:block th:each="homeorder, status : ${homeorderlist}">
 							<div>[[${status.count}]]번째 - (
-								<span th:if="${homeorder.hname =='newproduct'}">신상품</span>
-								<span th:if="${homeorder.hname =='bestproduct'}">베스트상품</span>
-								<span th:if="${homeorder.hname =='event'}">이벤트</span>
+								<span th:if="${homeorder.honame =='goshopevent'}">고샵&이벤트</span>
+								<span th:if="${homeorder.honame =='membership'}">멤버십</span>
+								<span th:if="${homeorder.honame =='bestnew'}">베스트&신상품</span>
 								)
 							</div>
 							<div th:id="'order'+${status.count}" ondrop="drop(event)" ondragover="allowDrop(event)" class="p-1" style="border: solid 0.4rem black; width: 500px; height: 100px"></div>
@@ -37,16 +37,43 @@
 				</div>
 				<div class="col-6 d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
 					<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.2rem black; width:400px; height:400px">
-						<div id="bestproduct" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">베스트상품</div>
-						<div id="newproduct" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">신상품</div>
-						<div id="event" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">이벤트</div>
+						
+						<th:block th:each="homeorder : ${homeorderlist}">
+							<div th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:250px; height:80px; border: solid 0.2rem black">
+								<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
+								<span th:if="${homeorder.honame == 'membership'}">멤버십</span>
+								<span th:if="${homeorder.honame == 'bestnew'}">베스트&신상품</span>
+								- ([[${homeorder.hiname}]])
+							</div>
+						</th:block>
 					</div>
 				</div>
 			</div>
+			
+			
+			<div class="d-flex align-items-center justify-content-center" style="border: solid 0.2rem black">
+				<!--*/ 드래그&드롭이 가능한 영역/*-->
+				<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.2rem black; width:400px; height:200px">
+					<!--*/ 이미지 리스트를 보여주는 부분 - drag O /*-->
+						<div id="고샵이벤트기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">고샵이벤트기본</div>
+						<div id="멤버십기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">멤버십기본</div>
+						<div id="베스트뉴기본" draggable="true" ondragstart="drag(event)" style="width:150px; height:60px; border: solid 0.2rem black">베스트뉴기본</div>
+				</div>
+			</div>
+			
 			<div class="d-flex justify-content-center my-5">
 				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="apply()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;">적용</button>
 				<a class="btn btn-outline-dark col-2" th:href="@{/admin/uimanagement/home}"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</a>
 			</div>
+		</div>
+		
+		
+		<!--*/ 실제 이미지를 보여주는 부분 - drag X /*-->
+		<div>이미지 리스트</div>
+		<div class="d-flex align-items-center justify-content-center">
+			<div style="width:300px; height:500px; border: solid 0.2rem black">고샵이벤트기본</div>
+			<div style="width:300px; height:500px; border: solid 0.2rem black">멤버십기본</div>
+			<div style="width:300px; height:500px; border: solid 0.2rem black">베스트뉴기본</div>
 		</div>
 		
 		<script th:inline="javascript">
@@ -54,15 +81,22 @@
 				let order1 = $("#order1>div:eq(0)").attr('id');
 				let order2 = $("#order2>div:eq(0)").attr('id');
 				let order3 = $("#order3>div:eq(0)").attr('id');
-				
+				let goshopeventimg = $("#goshopeventorder>div:eq(0)").attr('id');
+				let membershipimg = $("#membershiporder>div:eq(0)").attr('id');
+				let bestnewimg = $("#bestneworder>div:eq(0)").attr('id');
+		
 				var newForm = $('<form></form>'); 
 				newForm.attr("method","post"); 
-				newForm.attr("action","/admin/uimanagement/changeorder"); 
+				newForm.attr("action","/admin/uimanagement/changeorderimg"); 
 				newForm.append($('<input/>', {type: 'text', name: order1, value:1 }));
 				newForm.append($('<input/>', {type: 'text', name: order2, value:2 }));
 				newForm.append($('<input/>', {type: 'text', name: order3, value:3 }));
+				newForm.append($('<input/>', {type: 'text', name: 'goshopeventimg', value:goshopeventimg }));
+				newForm.append($('<input/>', {type: 'text', name: 'membershipimg', value:membershipimg }));
+				newForm.append($('<input/>', {type: 'text', name: 'bestnewimg', value:bestnewimg }));
 				newForm.appendTo('body');
 				newForm.submit();
+				
 			}
 		</script>
 		

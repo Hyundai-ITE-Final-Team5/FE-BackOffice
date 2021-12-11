@@ -1,5 +1,7 @@
 package com.ite5pjtbackoffice.backoffice.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -15,6 +17,7 @@ public class Orders {
 	private Integer ousedmileage;
 	private int obeforeprice;
 	private int oafterprice;
+	private Date odate;
 	private String ostatus;
 	private String mid;
 	private String pmcode;

@@ -5,6 +5,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
+import com.ite5pjtbackoffice.backoffice.dto.PagerAndProductList;
+import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -45,21 +49,19 @@ public class ProductService {
 		return jsonObject;
 	}
 	
-	public JSONObject getProductCommonList(JSONObject filter){
+	public PagerAndProductList getProductCommonList(ProductListFilter filter){
 		WebClient webClient = WebClient.create();		
-		String json = webClient
+		PagerAndProductList productList = webClient
 			.post()
 			.uri("http://kosa1.iptime.org:50515/admin/product/productlist")
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.bodyValue(filter)
 			.retrieve()
-			.bodyToMono(String.class)
+			.bodyToMono(PagerAndProductList.class)
 			.block();
 		
-		JSONObject jsonObject = new JSONObject(json);
-		
-		return jsonObject;
+		return productList;
 	}
 	
 	public JSONObject getProductDetail(int pid) {
@@ -95,20 +97,18 @@ public class ProductService {
 		return jsonObject;
 	}
 	
-	public JSONObject getClassification() {
+	public BrandAndDepth1 getClassification() {
 		WebClient webClient = WebClient.create();		
-		String json = webClient
+		BrandAndDepth1 brandAndDepth1 = webClient
 			.post()
 			.uri("http://kosa1.iptime.org:50515/admin/product/classification")
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(String.class)
+			.bodyToMono(BrandAndDepth1.class)
 			.block();
 		
-		JSONObject jsonObject = new JSONObject(json);
-		
-		return jsonObject;
+		return brandAndDepth1;
 	}
 	
 	public JSONObject getCategoryDepth2(String depth1) {

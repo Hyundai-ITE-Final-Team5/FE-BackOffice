@@ -6,7 +6,8 @@
 <div class="m-2">
 			<h4 class="mb-5"><b>주문목록</b></h4>
 			<div>
-				<form id="orderSearchForm" th:action="@{/admin/order/orderlist}" method="post" class="d-flex">
+				<form id="orderSearchForm" th:action="@{/admin/order/orderlist}" method="post">
+				<div class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
 							<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'1'">
@@ -20,33 +21,36 @@
 							</div>
 						</div>
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">주문자명/번호</h6>
-							<input class="form-control col-9" type="text" name="mname" id="pname" placeholder=" -">
-						</div>
-						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">주문상태</h6>
-							<select class="custom-select col-3 pr-1" name="ostatus" id="depth1name">
-								<option selected value="">선택</option>
+							<select class="custom-select col-3 pr-1" name="ostatus" id="ostatus">
+								<option selected value="">전체</option>
 							 	<option  value="주문완료">주문완료</option>
 							 	<option  value="취소신청">취소신청</option>
-							 	<option  value="취소완료">취소완료</option>
-							</select>
+							 	<option  value="주문취소">주문취소</option>
+							</select>							
+							<h6 class="col-2 mb-0 align-self-center">주문자명</h6>
+							<input class="form-control col-4" type="text" name="mname" id="mname" placeholder=" -">						
 						</div>
 					</div>
 					<div class="col-6">		
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품코드</h6>
 							<div class="input-group">
-								<input type="text" class="form-control" name="psid" id="pcode" placeholder=" -">
+								<input type="text" class="form-control" name="psid" id="psid" placeholder=" -">
 							</div>
-						</div>			
-					</div>
-					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>		
-				</form>
-				<div class="d-flex justify-content-center my-4">
-					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>
-					<button class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
+						</div>	
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">휴대폰번호</h6>
+							<input class="form-control col-9" type="text" name="mphone" id="mphone" placeholder=" -">
+						</div>
+					</div>				
 				</div>
+				<div class="d-flex justify-content-center my-5">
+					<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>
+					<div class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</div>
+				</div>				
+				</form>
+
 			</div>
 		</div>
 		<table class="table">
@@ -67,8 +71,8 @@
 				<td class="text-center">[[${order.ozipcode}]]/[[${order.oaddress}]]</td>
 				<td class="text-center">[[${order.ousedmileage}]]원/ [[${order.oafterprice}]]원/ [[${order.pmcode}]]</td>
 				<td class="text-center">
-					<th:block th:if="${order.ostatus} == 1">판매 중</th:block>
-					<th:block th:if="${order.ostatus} != 1">판매 중지</th:block>
+					<th:block th:if="${order.ostatus} == '주문완료'"><span class="font-weight-bold">[[${order.ostatus}]]</span></th:block>
+					<th:block th:if="${order.ostatus} == '주문취소'"><span class="text-muted" style="text-decoration: line-through;">[[${order.ostatus}]]</span></th:block>
 				</td>
 				<td class="text-center">[[${#dates.format(order.odate, 'yyyy.MM.dd')}]]</td>
 			</tr>
@@ -101,6 +105,21 @@
 		$("#pageNo").val(pageNo);
 		$("#orderSearchForm").submit();
 	}
+	
+	function resetInput() {
+		const startdateId = document.getElementById("startdate")
+		const enddateId = document.getElementById("enddate")
+		const mnameId = document.getElementById("mname")
+		const psidId = document.getElementById("psid")
+		const ostatusId = document.getElementById("ostatus")
+		const mphoneId = document.getElementById("mphone")
+		startdateId.value = ''
+		enddateId.value = ''
+		mnameId.value = ''
+		psidId.value = ''
+		ostatusId.value = ''
+		mphoneId.value = ''
+	}	
 		
 </script>
 </th:block>

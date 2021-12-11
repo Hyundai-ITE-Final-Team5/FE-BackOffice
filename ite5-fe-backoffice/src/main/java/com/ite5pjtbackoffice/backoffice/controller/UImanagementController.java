@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ite5pjtbackoffice.backoffice.dto.HomeOrderDto;
 import com.ite5pjtbackoffice.backoffice.service.UImanagementService;
+import com.ite5pjtbackoffice.backoffice.vo.HomeImg;
 import com.ite5pjtbackoffice.backoffice.vo.HomeOrder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,9 @@ public class UImanagementController {
 	@RequestMapping("/home")
 	public String home(Model model) {
 		List<HomeOrder> homeOrderList = uimanagementService.getHomeOrder();
+		List<HomeImg> homeImgList = uimanagementService.getHomeImg();
 		model.addAttribute("homeorderlist",homeOrderList);
+		model.addAttribute("homeimglist",homeImgList);
 		return "uimanagement/home";
 	}
 	

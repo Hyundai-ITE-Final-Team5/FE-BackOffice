@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ite5pjtbackoffice.backoffice.dto.HomeOrderDto;
+import com.ite5pjtbackoffice.backoffice.vo.HomeImg;
 import com.ite5pjtbackoffice.backoffice.vo.HomeOrder;
 
 import reactor.core.publisher.Flux;
@@ -55,5 +56,20 @@ public class UImanagementService {
 				.collect(Collectors.toList())
 				.share().block();
 		return homeOrders;
+	}
+	
+	public List<HomeImg> getHomeImg(){
+		WebClient webClient = WebClient.create();
+		Flux<HomeImg> homeImgFlux = webClient
+				.post()
+				.uri("http://localhost:83/admin/uimanagement/gethomeimg")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve()
+				.bodyToFlux(HomeImg.class);
+		List<HomeImg> homeImgs = homeImgFlux
+				.collect(Collectors.toList())
+				.share().block();
+		return homeImgs;
 	}
 }

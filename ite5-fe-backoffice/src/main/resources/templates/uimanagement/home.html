@@ -38,7 +38,7 @@
 				<div class="col-6 d-flex justify-content-center">
 					<div>
 						<div style="font-size: 1.5rem; text-align: center" class="mb-5">이미지 설정</div>
-						<div class="d-flex flex-column justify-content-center align-items-center" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; border-radius:1vw; width:27vw; height:45vh">
+						<div class="d-flex flex-column justify-content-center align-items-center rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:27vw; height:45vh">
 							<th:block th:each="homeorder : ${homeorderlist}">
 								<div class="my-auto" th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:23vw; height:11vh; border: solid 0.2rem black; text-align: center">
 									<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
@@ -56,9 +56,9 @@
 			<div class="d-flex align-items-center justify-content-center">
 				<div>
 					<div style="font-size: 1.5rem; text-align: center" class="mb-1">이미지 리스트</div>
-					<div class="d-flex justify-content-center align-items-center flex-wrap" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; border-radius:2vw; width:50vw; min-height: 15vh">
+					<div class="d-flex justify-content-center align-items-center flex-wrap rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:50vw; min-height: 15vh">
 						<th:block th:each="homeimg : ${homeimglist}">
-							<div th:id="${homeimg.hiname}" class="mx-auto my-auto" draggable="true" ondragstart="drag(event)" style="width:8vw; height:5vh; border: solid 0.2rem black; text-align:center">
+							<div th:id="${homeimg.hiname}" class="mx-auto my-auto bg-light" draggable="true" ondragstart="drag(event)" style="width:8vw; height:5vh; border: solid 0.2rem black; text-align:center">
 							[[${homeimg.hiname}]]
 							</div>
 						</th:block>

@@ -62,7 +62,7 @@ public class UImanagementService {
 		WebClient webClient = WebClient.create();
 		Flux<HomeImg> homeImgFlux = webClient
 				.post()
-				.uri("http://localhost:83/admin/uimanagement/gethomeimg")
+				.uri("http://kosa1.iptime.org:50515/admin/uimanagement/gethomeimg")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()

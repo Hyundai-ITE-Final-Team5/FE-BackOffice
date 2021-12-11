@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/common/layout::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<div class="m-2">
+			이벤트상세
+		</div>
+	<script>
+		function resetInput() {
+			const eissuedateId = document.getElementById("eissuedate")
+			const eexpiredateId = document.getElementById("eexpiredate")
+			const etitleId = document.getElementById("etitle")
+			const econtentId = document.getElementById("econtent")
+			const ecoupontitleId = document.getElementById("ecoupontitle")
+			const elimitcountId = document.getElementById("elimitcount")
+			const ediscountId = document.getElementById("ediscount")
+			const eimgId = document.getElementById("eimg")
+			const edetailimgId = document.getElementById("edetailimg")
+			const estatusRadios1Id = document.getElementById("estatusRadios1")
+			eissuedateId.value = ''
+			eexpiredateId.value = ''
+			etitleId.value = ''
+			econtentId.value = ''
+			ecoupontitleId.value = ''
+			elimitcountId.value = 0
+			ediscountId.value = 0
+			eimgId.value = ''
+			edetailimgId.value = ''
+			estatusRadios1Id.checked = true 
+		}
+	</script>		
+
+	</th:block>
+</th:block>
+
+</html>

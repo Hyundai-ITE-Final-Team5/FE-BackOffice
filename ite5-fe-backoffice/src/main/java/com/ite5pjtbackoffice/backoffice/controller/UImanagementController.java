@@ -30,9 +30,9 @@ public class UImanagementController {
 		return "uimanagement/home";
 	}
 	
-	@PostMapping("/changeorder")
-	public String changeOrder(HomeOrderDto homeOrderDto) {
-		uimanagementService.changeOrder(homeOrderDto);
+	@PostMapping("/changeorderimg")
+	public String changeOrderImg(HomeOrderDto homeOrderDto) {
+		uimanagementService.changeOrderImg(homeOrderDto);
 		return "redirect:/admin/uimanagement/home";
 	}
 }

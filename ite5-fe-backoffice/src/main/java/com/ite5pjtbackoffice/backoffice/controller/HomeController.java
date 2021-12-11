@@ -19,10 +19,11 @@ public class HomeController {
 	public String loginform() {
 		return "common/login";
 	}
-	
+
 	@Resource
 	private OrderService orderService;
 	
+
 	@RequestMapping("/admin")
 	public String dashbord(Model model) {
 		

@@ -15,11 +15,22 @@ import reactor.core.publisher.Flux;
 
 @Service
 public class UImanagementService {
-	public String changeOrder(HomeOrderDto homeOrderDto) {
+	public String changeOrderImg(HomeOrderDto homeOrderDto) {
+		
+		if(homeOrderDto.getBestnewimg().equals("")) {
+			homeOrderDto.setBestnewimg(null);
+		}
+		if(homeOrderDto.getGoshopeventimg().equals("")) {
+			homeOrderDto.setGoshopeventimg(null);
+		}
+		if(homeOrderDto.getMembershipimg().equals("")) {
+			homeOrderDto.setMembershipimg(null);
+		}
+		
 		WebClient webClient = WebClient.create();
 		String json = webClient
 				.put()
-				.uri("http://localhost:83/admin/uimanagement/changeorder")
+				.uri("http://kosa1.iptime.org:50515/admin/uimanagement/changeorderimg")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.bodyValue(homeOrderDto)
@@ -35,7 +46,7 @@ public class UImanagementService {
 		WebClient webClient = WebClient.create();
 		Flux<HomeOrder> homeOrderFlux = webClient
 				.post()
-				.uri("http://localhost:83/admin/uimanagement/gethomeorder")
+				.uri("http://kosa1.iptime.org:50515/admin/uimanagement/gethomeorderimg")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()

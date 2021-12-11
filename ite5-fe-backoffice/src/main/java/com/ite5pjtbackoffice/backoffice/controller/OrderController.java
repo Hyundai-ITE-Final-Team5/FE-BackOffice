@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
+import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
 import com.ite5pjtbackoffice.backoffice.dto.OrderListFilter;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndOrderList;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
+import com.ite5pjtbackoffice.backoffice.vo.Orders;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,9 +57,10 @@ public class OrderController {
 	@RequestMapping("/detail")
 	public String orderList(Model model, String oid) {
 		
-		JSONObject data = orderService.getOrderDetail(oid);
+		OrderDetail order = orderService.getOrderDetail(oid);
 
-		model.addAttribute("order", data.get("order"));
+		model.addAttribute("order", order.getOrders());
+		model.addAttribute("orderItems", order.getOrders().getOrderitems());
 		
 		return "order/management";
 	}

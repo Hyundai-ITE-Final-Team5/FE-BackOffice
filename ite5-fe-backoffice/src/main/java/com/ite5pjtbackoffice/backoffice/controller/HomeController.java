@@ -1,17 +1,13 @@
 package com.ite5pjtbackoffice.backoffice.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.annotation.Resource;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ite5pjtbackoffice.backoffice.dto.Auth;
-import com.ite5pjtbackoffice.backoffice.vo.Member;
+import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
+import com.ite5pjtbackoffice.backoffice.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +20,21 @@ public class HomeController {
 		return "common/login";
 	}
 	
+	@Resource
+	private OrderService orderService;
+	
 	@RequestMapping("/admin")
-	public String dashbord() {
+	public String dashbord(Model model) {
+		
+		StatisticsList dailyTotalPrice = orderService.getDailyTotalPrice();
+		StatisticsList monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		
+		log.info(dailyTotalPrice.toString());
+		log.info(monthlyTotalPrice.toString());
+		
+		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getStatisticsList());
+		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getStatisticsList());
+		
 		return "home";
 	}
 	

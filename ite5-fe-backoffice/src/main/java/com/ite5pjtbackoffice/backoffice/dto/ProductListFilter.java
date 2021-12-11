@@ -1,18 +1,19 @@
 package com.ite5pjtbackoffice.backoffice.dto;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class ProductListFilter {
 	String pname;
-	String pcode;
+	String pid;
 	String depth1name;
 	String depth2name;
 	String depth3name;
-	int cateno;
-	Date startdate;
-	Date enddate;
-	boolean pstatus;
+	List<Integer> cateno;
+	String startdate;
+	String enddate;
+	int pstatus = 1;
+	int pageNo = 1;
 }

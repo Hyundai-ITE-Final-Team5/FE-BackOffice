@@ -1,6 +1,7 @@
 package com.ite5pjtbackoffice.backoffice.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
+import com.ite5pjtbackoffice.backoffice.dto.PagerAndProductList;
+import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
 import com.ite5pjtbackoffice.backoffice.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +39,37 @@ public class ProductController {
 		
 		return "product/registration";
 	}
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		
+		BrandAndDepth1 data = productService.getClassification();
 
-	@PostMapping("/list")
-	public String list(Model model, @RequestBody JSONObject filter) {
+		model.addAttribute("depth1", data.getDepth1());
+		
+		return "product/list";
+	}
 
-		JSONObject data = productService.getProductCommonList(filter);
+	@PostMapping("/productlist")
+	public String productlist(Model model, HttpSession session, ProductListFilter filter) {
+		
+		BrandAndDepth1 data = productService.getClassification();
 
-		model.addAttribute("productList", data.get("productList"));
-		model.addAttribute("pager", data.get("pager"));
+		model.addAttribute("depth1", data.getDepth1());
+		
+		if(filter.getDepth1name().equals("")) filter.setDepth1name(null);
+		if(filter.getDepth2name().equals("")) filter.setDepth2name(null);
+		if(filter.getDepth3name().equals("")) filter.setDepth3name(null);
+		if(filter.getStartdate().equals("")) filter.setStartdate(null);
+		if(filter.getEnddate().equals("")) filter.setEnddate(null);
+		if(filter.getPid().equals("")) filter.setPid(null);
+		if(filter.getPname().equals("")) filter.setPname(null);
+		
+
+		PagerAndProductList pap = productService.getProductCommonList(filter);
+		
+		model.addAttribute("productList", pap.getProductList());
+		model.addAttribute("pager", pap.getPager());
 
 		return "product/list";
 	}
@@ -54,7 +81,7 @@ public class ProductController {
 
 		model.addAttribute("productCommon", data.get("productCommon"));
 
-		return "product/list";
+		return "product/detail";
 	}
 
 	@PostMapping("/modifiy")
@@ -71,10 +98,10 @@ public class ProductController {
 	@RequestMapping("/category")
 	public String category(Model model) {
 
-		JSONObject data = productService.getClassification();
+		BrandAndDepth1 data = productService.getClassification();
 
-		model.addAttribute("depth1", data.get("depth1"));
-		model.addAttribute("brand", data.get("brand"));
+		model.addAttribute("depth1", data.getDepth1());
+		model.addAttribute("brand", data.getBrand());
 
 		return "product/category";
 	}
@@ -101,20 +128,34 @@ public class ProductController {
 
 	@RequestMapping("/addBrand")
 	public String addBrand(Model model, String brandName) {
+		
+		log.info(brandName);
 
 		JSONObject data = productService.addBrandName(brandName);
 
 		model.addAttribute("result", data.get("result"));
+		
+		BrandAndDepth1 bad = productService.getClassification();
+
+		model.addAttribute("depth1", bad.getDepth1());
+		model.addAttribute("brand", bad.getBrand());
 
 		return "product/category";
 	}
 
 	@RequestMapping("/removeBrand")
 	public String removeBrand(Model model, int bno) {
+		
+		log.info(bno+" ");
 
 		JSONObject data = productService.removeBrandName(bno);
 
 		model.addAttribute("result", data.get("result"));
+		
+		BrandAndDepth1 bad = productService.getClassification();
+
+		model.addAttribute("depth1", bad.getDepth1());
+		model.addAttribute("brand", bad.getBrand());
 
 		return "product/category";
 	}

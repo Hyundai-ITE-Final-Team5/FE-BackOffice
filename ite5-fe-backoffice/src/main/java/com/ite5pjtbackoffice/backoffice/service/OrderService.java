@@ -5,10 +5,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
 import com.ite5pjtbackoffice.backoffice.dto.OrderListFilter;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndOrderList;
 import com.ite5pjtbackoffice.backoffice.dto.Statistics;
 import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
+import com.ite5pjtbackoffice.backoffice.vo.Orders;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,20 +59,18 @@ public class OrderService {
 		return pao;
 	}
 	
-	public JSONObject getOrderDetail(String oid) {
+	public OrderDetail getOrderDetail(String oid) {
 		WebClient webClient = WebClient.create();		
-		String json = webClient
+		OrderDetail orderDetail = webClient
 			.post()
-			.uri("http://kosa1.iptime.org:50515/admin/order/list"+oid)
+			.uri("http://kosa1.iptime.org:50515/admin/order/list/"+oid)
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(String.class)
+			.bodyToMono(OrderDetail.class)
 			.block();
 		
-		JSONObject jsonObject = new JSONObject(json);
-		
-		return jsonObject;
+		return orderDetail;
 	}
 	
 	public JSONObject updateOrderStatus(JSONObject orderStatus) {

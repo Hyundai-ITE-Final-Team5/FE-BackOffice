@@ -31,9 +31,6 @@ public class HomeController {
 		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
 		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
 		
-		log.info(dailyTotalPrice.toString());
-		log.info(monthlyTotalPrice.toString());
-		
 		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
 		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
 		

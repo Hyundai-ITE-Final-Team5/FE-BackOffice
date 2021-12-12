@@ -23,7 +23,7 @@
 				<h6 class="text-center mt-1 ml-2">주문건수</h6>
 			</div>
 			<div class="d-flex justify-content-center mt-3">					
-				<h1 class="font-weight-bold" id="orders">55</h1>
+				<h1 class="font-weight-bold" id="orders">[[${dailyTotalPrice.todayStatistics.ocount}]]</h1>
 				<h6 class="mt-3 ml-2">건</h6>					
 			</div>
 		</div>	
@@ -33,7 +33,7 @@
 				<h6 class="text-center mt-1 ml-2">취소건수</h6>
 			</div>
 			<div class="d-flex justify-content-center mt-3">					
-				<h1 class="font-weight-bold" id="cancels">2</h1>
+				<h1 class="font-weight-bold" id="cancels">[[${dailyTotalPrice.cancelTodatStatistics.ocount}]]</h1>
 				<h6 class="mt-3 ml-2">건</h6>					
 			</div>
 		</div>	
@@ -43,7 +43,7 @@
 				<h6 class="text-center mt-1 ml-2">오늘매출</h6>
 			</div>
 			<div class="d-flex justify-content-center mt-3">
-				<h2 class="font-weight-bold" id="sales">7700000</h2>
+				<h2 class="font-weight-bold" id="sales">[[${dailyTotalPrice.todayStatistics.totalprice}]]</h2>
 				<h6 class="mt-3 ml-2">원</h6>					
 			</div>
 		</div>	

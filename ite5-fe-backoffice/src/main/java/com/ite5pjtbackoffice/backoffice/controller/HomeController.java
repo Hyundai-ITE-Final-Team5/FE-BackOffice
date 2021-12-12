@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
+import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
+import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
 import com.ite5pjtbackoffice.backoffice.service.StatisticsService;
 
@@ -32,9 +33,6 @@ public class HomeController {
 		StatisticsList dailyTotalPrice = orderService.getDailyTotalPrice();
 		StatisticsList monthlyTotalPrice = orderService.getMonthlyTotalPrice();
 		int todayVisitCount = statisticsService.getTodayCount();
-		
-		log.info(dailyTotalPrice.toString());
-		log.info(monthlyTotalPrice.toString());
 		
 		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getStatisticsList());
 		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getStatisticsList());

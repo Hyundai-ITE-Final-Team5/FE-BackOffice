@@ -5,12 +5,11 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
+import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
 import com.ite5pjtbackoffice.backoffice.dto.OrderListFilter;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndOrderList;
-import com.ite5pjtbackoffice.backoffice.dto.Statistics;
-import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
-import com.ite5pjtbackoffice.backoffice.vo.Orders;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,27 +17,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OrderService {
 	
-	public StatisticsList getDailyTotalPrice() {
+	public DailyTotalPrice getDailyTotalPrice() {
 		WebClient webClient = WebClient.create();		
-		StatisticsList dailyTotalPrice = webClient
+		DailyTotalPrice dailyTotalPrice = webClient
 			.get()
 			.uri("http://kosa1.iptime.org:50515/admin/dailystatistics")
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(StatisticsList.class)
+			.bodyToMono(DailyTotalPrice.class)
 			.block();
 		
 		return dailyTotalPrice;
 	}
 	
-	public StatisticsList getMonthlyTotalPrice() {
+	public MonthlyTotalPrice getMonthlyTotalPrice() {
 		WebClient webClient = WebClient.create();		
-		StatisticsList monthlyTotalPrice = webClient
+		MonthlyTotalPrice monthlyTotalPrice = webClient
 			.get()
 			.uri("http://kosa1.iptime.org:50515/admin/monthlystatistics")
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(StatisticsList.class)
+			.bodyToMono(MonthlyTotalPrice.class)
 			.block();
 
 		return monthlyTotalPrice;

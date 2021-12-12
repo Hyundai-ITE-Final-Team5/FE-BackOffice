@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
+import com.ite5pjtbackoffice.backoffice.dto.Statistics;
 import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
 import com.ite5pjtbackoffice.backoffice.service.StatisticsService;
@@ -34,6 +35,14 @@ public class HomeController {
 		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
 		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
 		int todayVisitCount = statisticsService.getTodayCount();
+		
+		if(dailyTotalPrice.getCancelTodatStatistics() == null) {
+			dailyTotalPrice.setCancelTodatStatistics(new Statistics());
+		}
+		if(dailyTotalPrice.getTodayStatistics() == null) {
+			dailyTotalPrice.setTodayStatistics(new Statistics());
+		}
+			
 		
 		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
 		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);

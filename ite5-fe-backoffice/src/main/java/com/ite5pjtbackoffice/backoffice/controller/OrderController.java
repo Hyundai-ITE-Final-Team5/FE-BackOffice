@@ -22,9 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/admin/order")
 public class OrderController {
-	@RequestMapping("/management")
+	@RequestMapping("/orderlist")
 	public String management() {
-		return "order/management";
+		return "order/orderlist";
 	}
 	
 	@Resource
@@ -51,7 +51,7 @@ public class OrderController {
 		model.addAttribute("pager", pao.getPager());
 		log.info(pao.getPager().toString());
 
-		return "order/management";
+		return "order/orderlist";
 	}
 	
 	@RequestMapping("/detail")
@@ -62,7 +62,7 @@ public class OrderController {
 		model.addAttribute("order", order.getOrders());
 		model.addAttribute("orderItems", order.getOrders().getOrderitems());
 		
-		return "order/management";
+		return "order/orderdetail";
 	}
 	
 	@PostMapping("/updatestatus")
@@ -72,6 +72,6 @@ public class OrderController {
 
 		model.addAttribute("result", data.get("result"));
 		
-		return "order/management";
+		return "order/orderlist";
 	}
 }

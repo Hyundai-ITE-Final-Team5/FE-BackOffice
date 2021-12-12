@@ -2,14 +2,115 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 <th:block th:fragment="content">
+		<script>
+		    function allowDrop(ev) {
+		        ev.preventDefault();
+		    }
+		 
+		    function drag(ev) {
+		        ev.dataTransfer.setData("text", ev.target.id);
+		    }
+		 
+		    function drop(ev) {
+		        ev.preventDefault();
+		        var data = ev.dataTransfer.getData("text");
+		        ev.target.appendChild(document.getElementById(data));
+		    }
+	    </script>
 
-<div class="card m-2">
-	<div class="card-header">홈화면UI설정</div>
-	<div class="card-body">
-		Content
-	</div>
-</div>
+		<div class="m-2">
+			<h4 class="mb-5"><b>홈화면 관리</b></h4>
+			<div class="d-flex mb-3" >
+				<div class="col-6 d-flex justify-content-center">
+					<div>
+						<div style="font-size: 1.5rem; text-align: center" class="mb-2">홈화면 순서 설정</div>
+						<th:block th:each="homeorder, status : ${homeorderlist}">
+							<div class="mb-1"><b>[[${status.count}]]번</b> - (
+								<span th:if="${homeorder.honame =='goshopevent'}" style="color:blue;">고샵&이벤트</span>
+								<span th:if="${homeorder.honame =='membership'}" style="color:blue;">멤버십</span>
+								<span th:if="${homeorder.honame =='bestnew'}" style="color:blue;">베스트&신상품</span>
+								)
+							</div>
+							<div class="d-flex flex-column justify-content-center align-items-center" th:id="'order'+${status.count}" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: solid 0.4rem black; width: 28vw; height: 14vh"></div>
+						</th:block>
+					</div>
+				</div>
+				<div class="col-6 d-flex justify-content-center">
+					<div>
+						<div style="font-size: 1.5rem; text-align: center" class="mb-5">이미지 설정</div>
+						<div class="d-flex flex-column justify-content-center align-items-center rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:27vw; height:45vh">
+							<th:block th:each="homeorder : ${homeorderlist}">
+								<div class="my-auto" th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:23vw; height:11vh; border: solid 0.2rem black; text-align: center">
+									<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
+									<span th:if="${homeorder.honame == 'membership'}">멤버십</span>
+									<span th:if="${homeorder.honame == 'bestnew'}">베스트&신상품</span>
+									<span style="color:blue;">- ([[${homeorder.hiname}]])</span>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="d-flex align-items-center justify-content-center">
+				<div>
+					<div style="font-size: 1.5rem; text-align: center" class="mb-1">이미지 리스트</div>
+					<div class="d-flex justify-content-center align-items-center flex-wrap rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:50vw; min-height: 15vh">
+						<th:block th:each="homeimg : ${homeimglist}">
+							<div th:id="${homeimg.hiname}" class="mx-auto my-auto bg-light" draggable="true" ondragstart="drag(event)" style="width:8vw; height:5vh; border: solid 0.2rem black; text-align:center">
+							[[${homeimg.hiname}]]
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+			
+			<div class="d-flex justify-content-center my-5">
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="apply()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;">적용</button>
+				<a class="btn btn-outline-dark col-2" th:href="@{/admin/uimanagement/home}"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</a>
+			</div>
+		</div>
+		
+		
+		<!--*/ 실제 이미지를 보여주는 부분 - drag X /*-->
+		<h4 class="mb-5"><b>이미지리스트(사진)</b></h4>
+		<div class="d-flex align-items-center justify-content-center flex-wrap">
+			<th:block th:each="homeimg : ${homeimglist}">
+				<div class="card h-100">
+					<div class="card-header text-center"><b>[[${homeimg.hiname}]]</b></div>
+					<div class="card-body">
+						<img class="card-img-down" th:src="${homeimg.hiimg}" style="width:10vw; height:40vh;"/>
+		    		</div>
+			    </div>
+			</th:block>
+		</div>
 
+		
+		<script th:inline="javascript">
+			function apply(){
+				let order1 = $("#order1>div:eq(0)").attr('id');
+				let order2 = $("#order2>div:eq(0)").attr('id');
+				let order3 = $("#order3>div:eq(0)").attr('id');
+				let goshopeventimg = $("#goshopeventorder>div:eq(0)").attr('id');
+				let membershipimg = $("#membershiporder>div:eq(0)").attr('id');
+				let bestnewimg = $("#bestneworder>div:eq(0)").attr('id');
+		
+				var newForm = $('<form></form>'); 
+				newForm.attr("method","post"); 
+				newForm.attr("action","/admin/uimanagement/changeorderimg"); 
+				newForm.append($('<input/>', {type: 'text', name: order1, value:1 }));
+				newForm.append($('<input/>', {type: 'text', name: order2, value:2 }));
+				newForm.append($('<input/>', {type: 'text', name: order3, value:3 }));
+				newForm.append($('<input/>', {type: 'text', name: 'goshopeventimg', value:goshopeventimg }));
+				newForm.append($('<input/>', {type: 'text', name: 'membershipimg', value:membershipimg }));
+				newForm.append($('<input/>', {type: 'text', name: 'bestnewimg', value:bestnewimg }));
+				newForm.appendTo('body');
+				newForm.submit();
+				
+			}
+		</script>
+		
 </th:block>
 </th:block>
 </html>

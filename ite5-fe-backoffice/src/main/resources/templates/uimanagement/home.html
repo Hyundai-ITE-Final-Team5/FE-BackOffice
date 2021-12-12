@@ -19,14 +19,14 @@
 	    </script>
 
 		<div class="m-2">
-			<h4 class="mb-5"><b>홈화면 관리</b></h4>
+			<h4 class="mb-5"><b>메인UI변경</b></h4>
 			<div class="d-flex mb-3" >
 				<div class="col-6 d-flex justify-content-center">
 					<div>
 						<div style="font-size: 1.5rem; text-align: center" class="mb-2">홈화면 순서 설정</div>
 						<th:block th:each="homeorder, status : ${homeorderlist}">
 							<div class="mb-1"><b>[[${status.count}]]번</b> - (
-								<span th:if="${homeorder.honame =='goshopevent'}" style="color:blue;">고샵&이벤트</span>
+								<span th:if="${homeorder.honame =='goshopevent'}" style="color:blue;">쇼핑&이벤트</span>
 								<span th:if="${homeorder.honame =='membership'}" style="color:blue;">멤버십</span>
 								<span th:if="${homeorder.honame =='bestnew'}" style="color:blue;">베스트&신상품</span>
 								)
@@ -41,7 +41,7 @@
 						<div class="d-flex flex-column justify-content-center align-items-center rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:27vw; height:45vh">
 							<th:block th:each="homeorder : ${homeorderlist}">
 								<div class="my-auto" th:id="${homeorder.honame}+'order'" draggable="true" ondragstart="drag(event)" style="width:23vw; height:11vh; border: solid 0.2rem black; text-align: center">
-									<span th:if="${homeorder.honame == 'goshopevent'}">고샵&이벤트</span>
+									<span th:if="${homeorder.honame == 'goshopevent'}">쇼핑&이벤트</span>
 									<span th:if="${homeorder.honame == 'membership'}">멤버십</span>
 									<span th:if="${homeorder.honame == 'bestnew'}">베스트&신상품</span>
 									<span style="color:blue;">- ([[${homeorder.hiname}]])</span>
@@ -53,7 +53,7 @@
 			</div>
 			
 			
-			<div class="d-flex align-items-center justify-content-center">
+			<div class="d-flex align-items-center justify-content-center" style="margin-top: 10vh;">
 				<div>
 					<div style="font-size: 1.5rem; text-align: center" class="mb-1">이미지 리스트</div>
 					<div class="d-flex justify-content-center align-items-center flex-wrap rounded" id="container" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: dashed 0.2rem black; width:50vw; min-height: 15vh">
@@ -67,7 +67,7 @@
 			</div>
 			
 			<div class="d-flex justify-content-center my-5">
-				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="apply()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;">적용</button>
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="apply()"><img alt="" th:src="@{/images/check_negative.png}" class="mr-1" style="width: 24px;">적용</button>
 				<a class="btn btn-outline-dark col-2" th:href="@{/admin/uimanagement/home}"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</a>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 		
 		<!--*/ 실제 이미지를 보여주는 부분 - drag X /*-->
 		<h4 class="mb-5"><b>이미지리스트(사진)</b></h4>
-		<div class="d-flex align-items-center justify-content-center flex-wrap">
+		<div class="d-flex align-items-center justify-content-center flex-wrap mb-5">
 			<th:block th:each="homeimg : ${homeimglist}">
 				<div class="card h-100">
 					<div class="card-header text-center"><b>[[${homeimg.hiname}]]</b></div>

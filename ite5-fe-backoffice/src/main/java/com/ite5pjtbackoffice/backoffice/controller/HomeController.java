@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
+import com.ite5pjtbackoffice.backoffice.service.StatisticsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,17 +24,19 @@ public class HomeController {
 
 	@Resource
 	private OrderService orderService;
-	
+	@Resource
+	private StatisticsService statisticsService; 
 
 	@RequestMapping("/admin")
 	public String dashbord(Model model) {
 		
-		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
-		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		StatisticsList dailyTotalPrice = orderService.getDailyTotalPrice();
+		StatisticsList monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		int todayVisitCount = statisticsService.getTodayCount();
 		
-		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
-		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
-		
+		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getStatisticsList());
+		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getStatisticsList());
+		model.addAttribute("todayVisitCount", todayVisitCount);
 		return "home";
 	}
 	

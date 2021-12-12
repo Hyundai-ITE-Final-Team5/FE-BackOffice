@@ -66,7 +66,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="order:${orderList}">
-				<td class="text-center">[[${order.oid}]]</td>
+				<td class="text-center"><a class="text-dark" th:href="@{detail(oid=${order.oid})}">[[${order.oid}]]</a></td>
 				<td class="text-center">[[${order.oreceiver}]]/[[${order.ophone}]]</td>
 				<td class="text-center">[[${order.ozipcode}]]/[[${order.oaddress}]]</td>
 				<td class="text-center">[[${order.ousedmileage}]]원/ [[${order.oafterprice}]]원/ [[${order.pmcode}]]</td>

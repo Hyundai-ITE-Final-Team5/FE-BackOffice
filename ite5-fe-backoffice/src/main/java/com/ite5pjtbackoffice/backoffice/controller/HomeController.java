@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
+import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
 import com.ite5pjtbackoffice.backoffice.service.StatisticsService;
 
@@ -30,12 +31,12 @@ public class HomeController {
 	@RequestMapping("/admin")
 	public String dashbord(Model model) {
 		
-		StatisticsList dailyTotalPrice = orderService.getDailyTotalPrice();
-		StatisticsList monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
+		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
 		int todayVisitCount = statisticsService.getTodayCount();
 		
-		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getStatisticsList());
-		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getStatisticsList());
+		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
+		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
 		model.addAttribute("todayVisitCount", todayVisitCount);
 		return "home";
 	}

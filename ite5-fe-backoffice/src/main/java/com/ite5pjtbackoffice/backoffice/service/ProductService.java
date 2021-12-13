@@ -174,4 +174,36 @@ public class ProductService {
 		
 		return jsonObject;
 	}
+	
+	public JSONObject addCategory(String depth1, String depth2, String depth3) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/addcategory?depth1="+depth1+"&depth2="+depth2+"&depth3="+depth3 )
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
+	
+	public JSONObject removeCategory(String depth1, String depth2, String depth3) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/product/removecategory?depth1="+depth1+"&depth2="+depth2+"&depth3="+depth3)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
 }

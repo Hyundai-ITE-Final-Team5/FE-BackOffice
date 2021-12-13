@@ -114,6 +114,23 @@ productCommon:{
  }
 ```
 
+`GET` **/admin/product/addcategory** : 카테고리 추가
+```
+{ 
+  depth1: String,
+  depth2: String
+  depth3: String
+}
+```
+
+`GET` **/admin/product/removecategory** : 카테고리 삭제
+```
+{ 
+  depth1: String,
+  depth2: String
+  depth3: String
+}
+```
 -----------------------------------------
 
 ## 주문관리

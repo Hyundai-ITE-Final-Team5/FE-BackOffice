@@ -5,17 +5,45 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ite5pjtbackoffice.backoffice.dto.CategoryStatistics;
 import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
 import com.ite5pjtbackoffice.backoffice.dto.OrderListFilter;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndOrderList;
+import com.ite5pjtbackoffice.backoffice.dto.TimeStatistics;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class OrderService {
+	
+	public CategoryStatistics getCategorystatistics() {
+	WebClient webClient = WebClient.create();		
+	CategoryStatistics categoryStatistics = webClient
+		.get()
+		.uri("http://kosa1.iptime.org:50515/admin/categorystatistics")
+		.accept(MediaType.APPLICATION_JSON)
+		.retrieve()
+		.bodyToMono(CategoryStatistics.class)
+		.block();
+	
+		return categoryStatistics;
+	}
+	
+	public TimeStatistics getTimeStatistics() {
+	WebClient webClient = WebClient.create();		
+	TimeStatistics timeStatistics = webClient
+		.get()
+		.uri("http://kosa1.iptime.org:50515/admin/timestatistics")
+		.accept(MediaType.APPLICATION_JSON)
+		.retrieve()
+		.bodyToMono(TimeStatistics.class)
+		.block();
+	
+		return timeStatistics;
+	}
 	
 	public DailyTotalPrice getDailyTotalPrice() {
 		WebClient webClient = WebClient.create();		

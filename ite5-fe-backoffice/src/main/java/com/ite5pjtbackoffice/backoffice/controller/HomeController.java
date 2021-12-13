@@ -6,10 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ite5pjtbackoffice.backoffice.dto.CategoryStatistics;
 import com.ite5pjtbackoffice.backoffice.dto.DailyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.MonthlyTotalPrice;
 import com.ite5pjtbackoffice.backoffice.dto.Statistics;
-import com.ite5pjtbackoffice.backoffice.dto.StatisticsList;
+import com.ite5pjtbackoffice.backoffice.dto.TimeStatistics;
 import com.ite5pjtbackoffice.backoffice.service.OrderService;
 import com.ite5pjtbackoffice.backoffice.service.StatisticsService;
 
@@ -34,6 +35,9 @@ public class HomeController {
 		
 		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
 		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		TimeStatistics timeStatistics = orderService.getTimeStatistics();
+		CategoryStatistics categoryStatistics = orderService.getCategorystatistics();
+		
 		int todayVisitCount = statisticsService.getTodayCount();
 		
 		if(dailyTotalPrice.getCancelTodatStatistics() == null) {
@@ -42,11 +46,15 @@ public class HomeController {
 		if(dailyTotalPrice.getTodayStatistics() == null) {
 			dailyTotalPrice.setTodayStatistics(new Statistics());
 		}
-			
 		
+		log.info(timeStatistics.toString());
+			
 		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
 		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
 		model.addAttribute("todayVisitCount", todayVisitCount);
+		model.addAttribute("timeStatistics", timeStatistics);
+		model.addAttribute("categoryStatistics", categoryStatistics);
+		
 		return "home";
 	}
 	

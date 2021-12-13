@@ -27,9 +27,36 @@
 					<div class="d-flex mb-3">
 						<th:block th:if="${event != null}">
 							<h6 class="mb-0 align-self-center" style="margin-left: 30px; width: 8vw;">이벤트번호</h6>
-							<input class="ml-3 form-control font-weight-bold" type="text" name="eno" th:value="${event.eno}" readonly="readonly"
-								   style="background-color: transparent; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0;"/>
-						</th:block>						
+							<input class="form-control font-weight-bold" type="text" name="eno" th:value="${event.eno}" readonly="readonly"
+								   style="width: 26vw; background-color: transparent; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0;"/>
+								<div class="btn btn-sm btn-dark mb-0 align-self-center" data-toggle="modal" data-target="#eventDeleteModal">삭제</div>						
+<!-- 							<button class="btn btn-sm btn-dark" th:onclick="'javascript:deleteEvent('+ ${event.eno} + ');'">삭제</button>								 -->
+						</th:block>	
+						<th:block th:if="${event != null}">
+						<!-- 이벤트 삭제 Modal -->
+						<div class="modal fade" id="eventDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">
+						        	<img alt="" th:src="@{/images/problem.png}" style="width: 28px;">
+						        	알림
+					        	</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        해당 이벤트 정보를 삭제하시겠습니까?
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">닫기</button>
+						        <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal" th:onclick="'javascript:deleteEvent('+ ${event.eno} + ');'">삭제</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>	
+						</th:block>				
 					</div>	
 					<div class="d-flex">
 						<div class="col-6">
@@ -95,7 +122,6 @@
 						</th:block>
 						<th:block th:if="${event != null}">
 							<button class="btn btn-dark col-2 mr-2 pr-4" type="submit"><img alt="" th:src="@{/images/edit_negative.png}" style="width: 24px;"> 수정</button>
-							<button class="btn btn-dark col-2 mr-2 pr-4" th:onclick="'javascript:deleteEvent('+ ${event.eno} + ');'"><img alt="" th:src="@{/images/edit_negative.png}" style="width: 24px;"> 삭제</button>
 						</th:block>
 						<div class="btn btn-outline-dark col-2" onclick="resetInput()"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</div>
 					</div>
@@ -125,6 +151,11 @@
 			edetailimgId.value = ''
 			estatusRadios1Id.checked = true 
 		}
+		
+		$('#deleteModalBtn').click(function(e){
+			e.preventDefault();
+			$('#deleteModalBtn').modal("show");
+		});
 	</script>		
 
 	<!-- 다음지도 api를 위한 script  -->

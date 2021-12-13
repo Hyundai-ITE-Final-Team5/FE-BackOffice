@@ -163,3 +163,71 @@ oids:[ String, String, ...],
 status: String
 }
 ```
+
+-----------------------------------------
+### 상품분류관리
+
+"timeStatistics"
+```
+{
+"timeStatistics": [
+{//오늘 총 주문 횟수, 금액
+    "odate": "0",
+    "ocount": 49,
+    "totalprice": 16753463
+},
+{// 0~6시 주문 횟수, 금액
+    "odate": "1",
+    "ocount": 1,
+    "totalprice": 1631400
+},
+{// 7~12시 주문 횟수, 금액
+    "odate": "2",
+    "ocount": 10,
+    "totalprice": 4999345
+},
+{// 13~18시 주문 횟수, 금액
+    "odate": "3",
+    "ocount": 26,
+    "totalprice": 6673108
+},
+{// 19~24시 주문 횟수, 금액
+    "odate": "4",
+    "ocount": 12,
+    "totalprice": 3449610
+}
+]
+}
+```
+
+```
+{
+"categoryStatistics": [
+{//오늘 총 주문 횟수
+    "odate": "TOTAL",
+    "ocount": 7,
+    "totalprice": 0
+},
+{//WOMEN 주문 횟수
+    "odate": "WOMEN",
+    "ocount": 3,
+    "totalprice": 0
+},
+{//MEN 주문 횟수
+    "odate": "MEN",
+    "ocount": 2,
+    "totalprice": 0
+},
+{//KIDS 주문 횟수
+    "odate": "KIDS",
+    "ocount": 1,
+    "totalprice": 0
+},
+{//LIFESTYLE 주문 횟수
+    "odate": "LIFESTYLE",
+    "ocount": 1,
+    "totalprice": 0
+}
+]
+}
+```

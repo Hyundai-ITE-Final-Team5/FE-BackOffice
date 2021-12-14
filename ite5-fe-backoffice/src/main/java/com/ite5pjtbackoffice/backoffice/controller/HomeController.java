@@ -38,8 +38,7 @@ public class HomeController {
 		TimeStatistics timeStatistics = orderService.getTimeStatistics();
 		CategoryStatistics categoryStatistics = orderService.getCategorystatistics();
 		
-//		int todayVisitCount = statisticsService.getTodayCount();
-		int todayVisitCount = 0;
+		int todayVisitCount = statisticsService.getTodayCount();
 		
 		if(dailyTotalPrice.getCancelTodatStatistics() == null) {
 			dailyTotalPrice.setCancelTodatStatistics(new Statistics());

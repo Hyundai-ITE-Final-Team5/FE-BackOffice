@@ -42,14 +42,19 @@
 				<div class="d-flex mb-3">
 					<h6 class="col-3 mb-0 align-self-center">주문상태</h6>
 					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="ostatus">[[${order.ostatus}]]<span class="btn btn-sm btn-dark ml-5">수정</span></h6>
+					<h6 class="col-9 mb-0 align-self-center" id="ostatus">[[${order.ostatus}]]
+					<form th:action="@{/admin/order/cancelorder}" method="post">
+						<input type="hidden" th:value="${order.oid}" name="oid">
+						<input type="submit" class="btn btn-sm btn-dark ml-5" value="취소하기"/>
+					</form>
+					</h6>
 				</div>
 			</div>
 			<div class="col-5">	
 				<div class="d-flex mb-3">
 					<h6 class="col-3 mb-0 align-self-center">주문시간</h6>
 					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oid">[[${order.odate}]]</h6>
+					<h6 class="col-9 mb-0 align-self-center" id="oid">[[${#dates.format(order.odate, 'yyyy.MM.dd / hh:mm')}]]</h6>
 				</div>			
 				<div class="d-flex mb-3">
 					<h6 class="col-3 mb-0 align-self-center">우편번호</h6>

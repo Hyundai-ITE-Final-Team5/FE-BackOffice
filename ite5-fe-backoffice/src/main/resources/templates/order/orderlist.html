@@ -70,10 +70,7 @@
 				<td class="text-center">[[${order.oreceiver}]]/[[${order.ophone}]]</td>
 				<td class="text-center">[[${order.ozipcode}]]/[[${order.oaddress}]]</td>
 				<td class="text-center">[[${order.ousedmileage}]]원/ [[${order.oafterprice}]]원/ [[${order.pmcode}]]</td>
-				<td class="text-center">
-					<th:block th:if="${order.ostatus} == '주문완료'"><span class="font-weight-bold">[[${order.ostatus}]]</span></th:block>
-					<th:block th:if="${order.ostatus} == '주문취소'"><span class="text-muted" style="text-decoration: line-through;">[[${order.ostatus}]]</span></th:block>
-				</td>
+				<td class="text-center">[[${order.ostatus}]]</td>
 				<td class="text-center">[[${#dates.format(order.odate, 'yyyy.MM.dd')}]]</td>
 			</tr>
 			<th:block th:if="${pager} != null">	

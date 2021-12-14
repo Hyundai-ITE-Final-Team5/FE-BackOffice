@@ -54,14 +54,14 @@ public class ProductController {
 	public String productlist(Model model, HttpSession session, ProductListFilter filter) {
 
 		BrandAndDepth1 data = productService.getClassification();
-
-		model.addAttribute("depth1", data.getDepth1());
-
+		
+		log.info(filter.toString());
+		
 		if (filter.getDepth1name().equals(""))
 			filter.setDepth1name(null);
-		if (filter.getDepth2name().equals(""))
+		if (filter.getDepth2name() != null && filter.getDepth2name().equals(""))
 			filter.setDepth2name(null);
-		if (filter.getDepth3name().equals(""))
+		if (filter.getDepth3name() != null && filter.getDepth3name().equals(""))
 			filter.setDepth3name(null);
 		if (filter.getStartdate().equals(""))
 			filter.setStartdate(null);
@@ -71,6 +71,11 @@ public class ProductController {
 			filter.setPid(null);
 		if (filter.getPname().equals(""))
 			filter.setPname(null);
+		
+		log.info(filter.toString());
+		
+		model.addAttribute("depth1", data.getDepth1());
+
 
 		PagerAndProductList pap = productService.getProductCommonList(filter);
 

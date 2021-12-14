@@ -115,8 +115,8 @@
 	            }
 			}).done((d2data) => {
 				 var insert = '';
-				 insert += '<select class="custom-select" name="depth2name" id="depth2" onchange="getCategoryDepth3()"">'
-				 insert += '<option selected>중분류</option>'
+				 insert += '<select class="custom-select" name="depth2name" id="depth2" onchange="getCategoryDepth3()">'
+				 insert += '<option value="" selected>중분류</option>'
 				 for (let d2 of d2data.depth2) {
 					 insert += '<option>' + d2 + '</option>'
 				 }
@@ -139,7 +139,7 @@
 			}).done((d3data) => {
 				 var insert = '';
 					 insert += '<select class="custom-select" name="depth3name" id="depth3name">'
-				 insert += '<option selected>소분류</option>'
+				 insert += '<option value="" selected>소분류</option>'
 				 for (let d3 of d3data.depth3) {
 					 insert += '<option>' + d3 + '</option>'
 				 }

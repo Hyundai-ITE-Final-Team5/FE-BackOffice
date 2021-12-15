@@ -2,7 +2,10 @@
 	<nav id="sidebar">
            <ul class="list-unstyled components">
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#productSubmenu" data-toggle="collapse" aria-expanded="false">상품관리</a>
+                   <a class="text-white dropdown-toggle" href="#productSubmenu" data-toggle="collapse" aria-expanded="false">
+                   	<img th:src="@{/images/fashion1.png}" style="height: 24px; width: 24px;">
+                   	상품관리
+                   </a>
                    <ul class="collapse list-unstyled" id="productSubmenu">
                        <li>
                            <a class="text-white" th:href="@{/admin/product/registration}">상품등록</a>
@@ -13,13 +16,12 @@
                        <li>
                            <a class="text-white" th:href="@{/admin/product/category}">상품분류</a>
                        </li>
-                       <li>
-                           <a class="text-white" th:href="@{/admin/product/display}">상품진열</a>
-                       </li>
                    </ul>
                </li>
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#customerSubmenu" data-toggle="collapse" aria-expanded="false">고객관리</a>
+                   <a class="text-white dropdown-toggle" href="#customerSubmenu" data-toggle="collapse" aria-expanded="false">
+                   <img th:src="@{/images/customer1.png}" style="height: 24px; width: 24px;">
+                   고객관리</a>
                    <ul class="collapse list-unstyled" id="customerSubmenu">
                        <li>
                            <a class="text-white" th:href="@{/admin/customer/management}">고객정보</a>
@@ -27,7 +29,10 @@
                    </ul>
                </li>
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#orderSubmenu" data-toggle="collapse" aria-expanded="false">주문관리</a>
+                   <a class="text-white dropdown-toggle" href="#orderSubmenu" data-toggle="collapse" aria-expanded="false">
+                   <img th:src="@{/images/order1.png}" style="height: 24px; width: 24px;">
+                   주문관리
+                   </a>
                    <ul class="collapse list-unstyled" id="orderSubmenu">
                        <li>
                            <a class="text-white" th:href="@{/admin/order/orderlist}">주문목록</a>
@@ -35,7 +40,10 @@
                    </ul>
                </li>
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#promotionSubmenu" data-toggle="collapse" aria-expanded="false">프로모션</a>
+                   <a class="text-white dropdown-toggle" href="#promotionSubmenu" data-toggle="collapse" aria-expanded="false">
+                   <img th:src="@{/images/megaphone1.png}" style="height: 24px; width: 24px;">
+                   프로모션
+                   </a>
                    <ul class="collapse list-unstyled" id="promotionSubmenu">
                        <li>
                            <a class="text-white" th:href="@{/admin/promotion/eventlist}">이벤트관리</a>
@@ -46,18 +54,21 @@
                    </ul>
                </li>
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#statisticsSubmenu" data-toggle="collapse" aria-expanded="false">통계분석</a>
+                   <a class="text-white dropdown-toggle" href="#statisticsSubmenu" data-toggle="collapse" aria-expanded="false">
+                   	<img th:src="@{/images/trend1.png}" class="mb-1" style="height: 24px; width: 24px;">
+                   	통계분석
+                   </a>
                    <ul class="collapse list-unstyled" id="statisticsSubmenu">
                        <li>
-                           <a class="text-white" th:href="@{/admin/statistics/product}">상품분석</a>
-                       </li>
-                       <li>
-                           <a class="text-white" th:href="@{/admin/statistics/sales}">매출분석</a>
-                       </li>                       
+                           <a class="text-white" th:href="@{/admin/statistics/product}">매출분석</a>
+                       </li>                     
                    </ul>
                </li>
                <li class="active">
-                   <a class="text-white dropdown-toggle" href="#homeManageSubmenu" data-toggle="collapse" aria-expanded="false">메인UI관리</a>
+                   <a class="text-white dropdown-toggle" href="#homeManageSubmenu" data-toggle="collapse" aria-expanded="false">
+                   <img th:src="@{/images/edition1.png}" style="height: 24px; width: 24px;">
+                   메인UI관리
+                   </a>
                    <ul class="collapse list-unstyled" id="homeManageSubmenu">
                        <li>
                            <a class="text-white" th:href="@{/admin/uimanagement/home}">메인UI변경</a>

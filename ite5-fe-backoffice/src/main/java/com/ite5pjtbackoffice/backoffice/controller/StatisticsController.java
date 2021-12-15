@@ -26,14 +26,19 @@ public class StatisticsController {
 		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
 		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
 		
-		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
-		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
+		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getDailyTotalPrice());
+		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getMonthlyTotalPrice());
 		
 		return "statistics/product";
 	}	
 	
 	@RequestMapping("/sales")
-	public String order() {
+	public String order(Model model) {
+		DailyTotalPrice dailyTotalPrice = orderService.getDailyTotalPrice();
+		MonthlyTotalPrice monthlyTotalPrice = orderService.getMonthlyTotalPrice();
+		
+		model.addAttribute("dailyTotalPrice", dailyTotalPrice.getDailyTotalPrice());
+		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice.getMonthlyTotalPrice());		
 		return "statistics/sales";
 	}
 }

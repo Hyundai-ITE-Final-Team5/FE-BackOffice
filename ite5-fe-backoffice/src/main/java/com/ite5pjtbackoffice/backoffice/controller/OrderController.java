@@ -74,4 +74,14 @@ public class OrderController {
 		
 		return "order/orderlist";
 	}
+	
+	@RequestMapping("/cancelorder")
+	public String cancelOrder(Model model, String oid) {
+		
+		log.info(oid);
+		
+		JSONObject data = orderService.cancelOrder(oid);
+		
+		return "order/orderlist";
+	}
 }

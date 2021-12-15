@@ -116,4 +116,21 @@ public class OrderService {
 		
 		return jsonObject;
 	}
+	
+	public JSONObject cancelOrder(String oid) {
+		WebClient webClient = WebClient.create();		
+		String json = webClient
+			.post()
+			.uri("http://kosa1.iptime.org:50515/admin/order/cancelorder?oid="+oid)
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.bodyValue(oid)
+			.retrieve()
+			.bodyToMono(String.class)
+			.block();
+		
+		JSONObject jsonObject = new JSONObject(json);
+		
+		return jsonObject;
+	}
 }

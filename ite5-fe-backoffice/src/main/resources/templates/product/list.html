@@ -5,29 +5,29 @@
 		<div class="m-2">
 			<h4 class="mb-5"><b>상품목록</b></h4>
 			<div>
-				<form id="productSearchForm" th:action="@{/admin/product/productlist}" method="post" >
+				<form id="productSearchForm" th:action="@{/admin/product/list}" method="post" >
 					<div class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
-							<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${pager.pageNo}:'1'">
+							<input type="hidden" id=pageNo name="pageNo" th:value="(${pager} != null)?${filter.pageNo}:'1'">
 							<h6 class="col-3 mb-0 align-self-center">상품등록일</h6>
 							<div class="input-group">
-								<input type="date" name="startdate" id="startdate" class="form-control">
+								<input type="date" name="startdate" id="startdate" class="form-control" th:value="${filter.startdate}">
 							</div>
 							<h4 class="mx-2 mb-0 align-self-center">~</h4>
 							<div class="input-group">
-								<input type="date" name="enddate" id="enddate" class="form-control">
+								<input type="date" name="enddate" id="enddate" class="form-control" th:value="${filter.enddate}">
 							</div>
 						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품이름</h6>
-							<input class="form-control col-9" type="text" name="pname" id="pname" placeholder=" -">
+							<input class="form-control col-9" type="text" name="pname" id="pname" placeholder=" -" th:value="${filter.pname}">
 						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품분류</h6>
 							<select class="custom-select col-3 pr-1" name="depth1name" id="depth1" onchange="getCategoryDepth2()">
-							 	<option selected value="">대분류</option>
-							  	<option th:value="${d1}" th:each="d1:${depth1}" >[[${d1}]]</option>
+							 	<option th:selected="${filter.depth1name} == null" value="">대분류</option>
+							  	<option th:selected="${filter.depth1name} == ${d1}" th:value="${d1}" th:each="d1:${depth1}" >[[${d1}]]</option>
 							</select>
 							<div id="depth2option" style="width: 15vw;"></div>
 							<div id="depth3option" style="width: 15vw;"></div>
@@ -37,7 +37,7 @@
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품코드</h6>
 							<div class="input-group">
-								<input type="text" class="form-control" name="pid" id="pcode" placeholder=" -">
+								<input type="text" class="form-control" name="pid" id="pcode" placeholder=" -" th:value="${filter.pid}">
 							</div>
 						</div>
 						<div class="d-flex mt-4 mb-4">

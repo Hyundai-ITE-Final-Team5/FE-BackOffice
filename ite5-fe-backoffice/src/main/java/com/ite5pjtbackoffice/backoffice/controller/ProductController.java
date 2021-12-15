@@ -26,14 +26,18 @@ public class ProductController {
 	private ProductService productService;
 
 	@RequestMapping("/registration")
-	public String registration() {
+	public String registration(Model model) {
+		
+		BrandAndDepth1 data = productService.getClassification();
+
+		model.addAttribute("depth1", data.getDepth1());
+		
 		return "product/registration";
 	}
 
 	@PostMapping("/registration")
 	public String registration(Model model, String productCommon) {
 		
-		log.info(productCommon);
 		JSONObject temp = new JSONObject(productCommon);
 		JSONObject data = productService.addProduct(temp);
 		model.addAttribute("result", data.get("result"));

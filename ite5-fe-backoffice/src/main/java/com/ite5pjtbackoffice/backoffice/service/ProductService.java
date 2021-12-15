@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
 	
-	public JSONObject addProduct(JSONObject productCommon){
+	public JSONObject addProduct(String productCommon){
 		WebClient webClient = WebClient.create();		
 		String json = webClient
 			.post()

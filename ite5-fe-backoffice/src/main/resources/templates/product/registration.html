@@ -40,26 +40,23 @@
 						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품분류</h6>
-							<select class="custom-select col-3 pr-1">
+							<select class="custom-select pr-1" id="depth1" style="width: 28vw;" onchange="getCategoryDepth2()">
 							 	<option selected>대분류</option>
-							  	<option value="1">One</option>
-							  	<option value="2">Two</option>
-							  	<option value="3">Three</option>
+							  	<option th:each="d1:${depth1}">[[${d1}]]</option>
 							</select>
-							<select class="custom-select col-3 pr-1">
-							 	<option selected>중분류</option>
-							  	<option value="1">One</option>
-							  	<option value="2">Two</option>
-							  	<option value="3">Three</option>
+							<select id="depth2" class="custom-select col-3 pr-1" onchange="getCategoryDepth3()">
+								<option>대분류 필수</option>
 							</select>
-							<select class="custom-select col-3">
-							 	<option selected>소분류</option>
-							  	<option value="1">One</option>
-							  	<option value="2">Two</option>
-							  	<option value="3">Three</option>
+							<select id="depth3" class="custom-select col-3" onchange="changeCategoryDepth3()">
+								<option>중분류 필수</option>
 							</select>
 						</div>
-						
+						<div class="d-flex mb-3">
+							<div class="col-3"></div>
+							<input type="text" name="depth1name" id="depth1name" class="form-control col-3" placeholder="대분류" readonly="readonly">
+							<input type="text" name="depth2name" id="depth2name" class="form-control col-3" placeholder="중분류" readonly="readonly">
+							<input type="text" name="depth3name" id="depth3name" class="form-control col-3" placeholder="소분류" readonly="readonly">
+						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">진열상태</h6>
 							<div class="col-6 d-flex align-self-center">
@@ -182,7 +179,6 @@
 					data: JSON.stringify({"pname":searchPidValue}),
 					contentType: "application/json; charset=UTF-8",
 				}).done((resultData) => {
-					
 					productList = resultData;
 					
 					let insert = "<option value=''>검색완료</option>";
@@ -206,6 +202,9 @@
 				$("#preleasedate").val(product.preleasedate);
 				$("#pstatusyes").attr('checked',false);
 				$("#pstatusno").attr('checked',false);
+				$("#depth1name").val(product.depth1name);
+				$("#depth2name").val(product.depth2name);
+				$("#depth3name").val(product.depth3name);
 				if(product.pstatus === 1){
 					$("#pstatusyes").attr('checked',true);
 				} else {
@@ -300,6 +299,9 @@
 				productCommon.bno=$("#bno").val();
 				productCommon.pstatus=$("input[name=pstatus]:checked").val();
 				productCommon.preleasedate=$("#preleasedate").val();
+				productCommon.depth1name=$("#depth1name").val();
+				productCommon.depth2name=$("#depth2name").val();
+				productCommon.depth3name=$("#depth3name").val();
 				
 				var productColorList = new Array();
 				productCommon.productcolor = productColorList;
@@ -332,7 +334,52 @@
 				
 			}
 			
+			function getCategoryDepth2() {
+				$("#depth1name").val($("#depth1").val());
+				$("#depth2name").val("중분류를 선택해주세요");
+				$("#depth3name").val("소분류를 선택해주세요");
+				const depth1 = $("#depth1").val();
+ 				 $.ajax({
+		            url: "http://kosa1.iptime.org:50515/admin/product/getcategorydepth2",
+		            data: {
+		                "depth1" : depth1
+		            }
+				}).done((d2data) => {
+					 var insert = '<option selected>중분류</option>'
+					 for (let d2 of d2data.depth2) {
+						 insert += '<option>' + d2 + '</option>'
+					 }
+					$("#depth2").empty();
+					$("#depth2").append(insert);
+					$("#depth3").empty();
+					$("#depth3").append('<option>소분류</option>');
+		        }); 
+			}
 			
+			function getCategoryDepth3(){
+				const depth1 = $("#depth1").val();
+				const depth2 = $("#depth2").val();
+				$("#depth2name").val($("#depth2").val());
+				$.ajax({
+			            url: "http://kosa1.iptime.org:50515/admin/product/getcategorydepth3",
+			            data: {
+			            	"depth1" : depth1,
+			                "depth2" : depth2
+			            }
+				}).done((d3data) => {
+						 console.log(d3data);
+						 var insert = '<option selected>소분류</option>';
+						 for (let d3 of d3data.depth3) {
+							 insert += '<option>' + d3 + '</option>'
+						 }
+						$("#depth3").empty();
+						$("#depth3").append(insert);				
+			    }); 
+			}
+			
+			function changeCategoryDepth3(){
+				$("#depth3name").val($("#depth3").val());
+			}
 		</script>
 		
 		

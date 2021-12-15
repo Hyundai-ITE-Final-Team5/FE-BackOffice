@@ -37,9 +37,7 @@ public class ProductController {
 
 	@PostMapping("/registration")
 	public String registration(Model model, String productCommon) {
-		
-		JSONObject temp = new JSONObject(productCommon);
-		JSONObject data = productService.addProduct(temp);
+		JSONObject data = productService.addProduct(productCommon);
 		model.addAttribute("result", data.get("result"));
 
 		return "product/registration";

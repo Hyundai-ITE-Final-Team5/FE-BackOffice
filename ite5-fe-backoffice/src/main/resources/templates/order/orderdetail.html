@@ -5,40 +5,84 @@
 	<th:block th:fragment="content">
 		<div class="m-2">
 			<div class="d-flex justify-content-between">
-				<h4 class="mb-5"><b>주문상세</b></h4>
+				<h4 class="mb-5">
+					<b>주문상세</b>
+				</h4>
 				<div class="d-flex mt-2">
-					<img alt="" th:src="@{/images/list.png}" style="width: 20px; height: 20px; margin-top: 2px;">
-					<a th:href="@{/admin/order/orderlist}"><span class="text-dark ml-1" style="margin-right: 2vw;">목록보기</span></a>
-				</div>	
-			</div>	
-		<h5 class="mb-4" style="margin-left: 1vw;">주문정보</h5>
-		<div class="d-flex justify-content-center">
-			<div class="col-5">	
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">주문번호</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oid">[[${order.oid}]]</h6>
+					<img alt="" th:src="@{/images/list.png}"
+						style="width: 20px; height: 20px; margin-top: 2px;"> <a
+						th:href="@{/admin/order/orderlist}"><span
+						class="text-dark ml-1" style="margin-right: 2vw;">목록보기</span></a>
 				</div>
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">수령인</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oreceiver">[[${order.oreceiver}]]</h6>
+			</div>
+			<h5 class="mb-4" style="margin-left: 1vw;">주문정보</h5>
+			<div class="d-flex justify-content-center">
+				<div class="col-5">
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">주문번호</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oid">[[${order.oid}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">수령인</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oreceiver">[[${order.oreceiver}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">휴대폰번호</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="ophone">[[${order.ophone}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">전화번호</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="otel">[[${order.otel}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">이메일</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oemail">[[${order.oemail}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">주문상태</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-3 mb-0 align-self-center" id="ostatus">[[${order.ostatus}]]</h6>
+						<form th:action="@{/admin/order/cancelorder}" method="post">
+							<input type="hidden" th:value="${order.oid}" name="oid">
+							<input type="submit" class="btn btn-sm btn-dark" value="취소하기" th:if="${order.ostatus} == 주문취소"/>
+						</form>
+
+					</div>
 				</div>
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">휴대폰번호</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="ophone">[[${order.ophone}]]</h6>
-				</div>
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">전화번호</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="otel">[[${order.otel}]]</h6>
-				</div>
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">이메일</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oemail">[[${order.oemail}]]</h6>
-				</div>
+<<<<<<< HEAD
+				<div class="col-5">
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">주문시간</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oid">[[${#dates.format(order.odate,
+							'yyyy.MM.dd / hh:mm')}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">우편번호</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="ozipcode">[[${order.ozipcode}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">주소</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oaddress">[[${order.oaddress}]]</h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">상세주소</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="oaddress2"></h6>
+					</div>
+					<div class="d-flex mb-3">
+						<h6 class="col-3 mb-0 align-self-center">배송메모</h6>
+						<h6 class="mb-0 align-self-center">|</h6>
+						<h6 class="col-9 mb-0 align-self-center" id="omemo">[[${order.omemo}]]</h6>
+					</div>
+=======
 				<div class="d-flex mb-3">
 					<h6 class="col-3 mb-0 align-self-center">주문상태</h6>
 					<h6 class="mb-0 align-self-center">|</h6>
@@ -47,83 +91,60 @@
 						<input type="hidden" th:value="${order.oid}" name="oid">
 						<input th:if="${order.ostatus == '주문취소'}" type="submit" class="btn btn-sm btn-dark" value="취소하기"/>
 					</form>
+>>>>>>> a256c18ed1a58a73fa9a35a3cf1ad8a647b58392
 				</div>
 			</div>
-			<div class="col-5">	
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">주문시간</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oid">[[${#dates.format(order.odate, 'yyyy.MM.dd / hh:mm')}]]</h6>
-				</div>			
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">우편번호</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="ozipcode">[[${order.ozipcode}]]</h6>
-				</div>			
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">주소</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oaddress">[[${order.oaddress}]]</h6>
-				</div>			
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">상세주소</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="oaddress2"></h6>
-				</div>			
-				<div class="d-flex mb-3">
-					<h6 class="col-3 mb-0 align-self-center">배송메모</h6>
-					<h6 class="mb-0 align-self-center">|</h6>
-					<h6 class="col-9 mb-0 align-self-center" id="omemo">[[${order.omemo}]]</h6>
-				</div>					
+			<h5 class="mb-5 mt-3" style="margin-left: 1vw;">상품결제정보</h5>
+			<div class="d-flex justify-content-center my-5">
+				<table class="table col-10">
+					<thead style="background-color: #f0f0f0;">
+						<tr>
+							<th class="col-3 text-center">상품ID</th>
+							<th class="col-1 text-center">상품수량</th>
+							<th class="col-2 text-center">가격</th>
+							<th class="col-2 text-center">결제수단</th>
+							<th class="col-2 text-center">사용포인트</th>
+							<th class="col-2 text-center">주문합계</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item,index:${orderItems}">
+							<td class="text-center">[[${item.psid}]]</td>
+							<td class="text-center">[[${item.oicount}]]</td>
+							<td class="text-center">[[${item.oitotalprice}]]<span>
+									원</span></td>
+							<th:block th:if="${index.index} == 0">
+								<th:block th:if="${order.pmcode} == '0hyundai'">
+									<td class="text-center align-self-center">신용카드</td>
+								</th:block>
+								<th:block th:if="${order.pmcode} == '1hyundai'">
+									<td class="text-center align-self-center">계좌이체</td>
+								</th:block>
+								<th:block th:if="${order.pmcode} == '2hyundai'">
+									<td class="text-center align-self-center">무통장입금</td>
+								</th:block>
+								<td class="text-center align-self-center"><span>- </span>[[${order.ousedmileage}]]<span>
+										p</span></td>
+								<td class="text-center align-self-center">[[${order.obeforeprice}]]<span>
+										원</span></td>
+							</th:block>
+						</tr>
+						<tr style="background-color: #f0f0f0;">
+							<td class="text-center"></td>
+							<td class="text-center"></td>
+							<td class="text-center"></td>
+							<td class="text-center"></td>
+							<td class="text-center font-weight-bold">최종결제금액</td>
+							<td class="text-center font-weight-bold">[[${order.oafterprice}]]<span>
+									원</span></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
-		<h5 class="mb-5 mt-3" style="margin-left: 1vw;">상품결제정보</h5>
-		<div class="d-flex justify-content-center my-5">
-			<table class="table col-10">
-			<thead style="background-color: #f0f0f0;">
-				<tr>
-					<th class="col-3 text-center">상품ID</th>
-					<th class="col-1 text-center">상품수량</th>
-					<th class="col-2 text-center">가격</th>
-					<th class="col-2 text-center">결제수단</th>
-					<th class="col-2 text-center">사용포인트</th>
-					<th class="col-2 text-center">주문합계</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="item,index:${orderItems}">
-					<td class="text-center">[[${item.psid}]]</td>
-					<td class="text-center">[[${item.oicount}]]</td>
-					<td class="text-center">[[${item.oitotalprice}]]<span> 원</span></td>
-					<th:block th:if="${index.index} == 0">
-						<th:block th:if="${order.pmcode} == '0hyundai'">
-							<td class="text-center align-self-center">신용카드</td>
-						</th:block>
-						<th:block th:if="${order.pmcode} == '1hyundai'">
-							<td class="text-center align-self-center">계좌이체</td>
-						</th:block>
-						<th:block th:if="${order.pmcode} == '2hyundai'">
-							<td class="text-center align-self-center">무통장입금</td>
-						</th:block>
-						<td class="text-center align-self-center"><span>- </span>[[${order.ousedmileage}]]<span> p</span></td>
-						<td class="text-center align-self-center">[[${order.obeforeprice}]]<span> 원</span></td>
-					</th:block>
-				</tr>
-				<tr style="background-color: #f0f0f0;">					
-					<td class="text-center"></td>					
-					<td class="text-center"></td>
-					<td class="text-center"></td>
-					<td class="text-center"></td>
-					<td class="text-center font-weight-bold">최종결제금액</td>
-					<td class="text-center font-weight-bold">[[${order.oafterprice}]]<span> 원</span></td>				
-				</tr>				
-			</tbody>
-		</table>			
-		</div>
 
-	<script>
-
-	</script>		
+			<script>
+				
+			</script>
 		</div>
 	</th:block>
 </th:block>

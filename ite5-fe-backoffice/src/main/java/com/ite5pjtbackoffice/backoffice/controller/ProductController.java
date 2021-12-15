@@ -44,35 +44,25 @@ public class ProductController {
 	}
 
 	@RequestMapping("/list")
-	public String list(Model model) {
-
-		BrandAndDepth1 data = productService.getClassification();
-
-		model.addAttribute("depth1", data.getDepth1());
-
-		return "product/list";
-	}
-
-	@PostMapping("/productlist")
-	public String productlist(Model model, HttpSession session, ProductListFilter filter) {
+	public String productlist(Model model, ProductListFilter filter) {
 
 		BrandAndDepth1 data = productService.getClassification();
 		
 		log.info(filter.toString());
 		
-		if (filter.getDepth1name().equals(""))
+		if (filter.getDepth1name() != null && filter.getDepth1name().equals(""))
 			filter.setDepth1name(null);
 		if (filter.getDepth2name() != null && filter.getDepth2name().equals(""))
 			filter.setDepth2name(null);
 		if (filter.getDepth3name() != null && filter.getDepth3name().equals(""))
 			filter.setDepth3name(null);
-		if (filter.getStartdate().equals(""))
+		if (filter.getStartdate() != null && filter.getStartdate().equals(""))
 			filter.setStartdate(null);
-		if (filter.getEnddate().equals(""))
+		if (filter.getEnddate() != null && filter.getEnddate().equals(""))
 			filter.setEnddate(null);
-		if (filter.getPid().equals(""))
+		if (filter.getPid() != null && filter.getPid().equals(""))
 			filter.setPid(null);
-		if (filter.getPname().equals(""))
+		if (filter.getPname() != null && filter.getPname().equals(""))
 			filter.setPname(null);
 		
 		log.info(filter.toString());
@@ -81,7 +71,8 @@ public class ProductController {
 
 
 		PagerAndProductList pap = productService.getProductCommonList(filter);
-
+		
+		model.addAttribute("filter", filter);
 		model.addAttribute("productList", pap.getProductList());
 		model.addAttribute("pager", pap.getPager());
 

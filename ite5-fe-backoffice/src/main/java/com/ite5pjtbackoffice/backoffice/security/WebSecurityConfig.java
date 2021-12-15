@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			//아래 board의 요청은 인증이 되어야한다.
 			//.antMatchers("/board/**").authenticated()
-			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+//			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 			.antMatchers("/**").permitAll();
 		
 		//권한 없음(403)일 경우 이동할 경로 설정

@@ -5,24 +5,38 @@
 </style>
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-
+		<h2 class="mb-5"><b>상품 등록</b></h2>
+		<hr/>
 		<div class="m-2">
-			<h4 class="mb-5"><b>상품등록</b></h4>
-			<div>
-				<form action="" class="d-flex">
+			<form id="productEnrollForm"th:action="@{/admin/product/registration}" method="post">
+				<input type="hidden" name="productCommon" id="productCommon"></input>
+				<!--/* 상품등록 부분 start */-->
+				<h4 class="mb-5"><b>상품</b></h4>
+				<div class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품코드</h6>
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder=" -">
-<!-- 							 	<div class="input-group-append">
-							 		<button class="btn btn-dark" type="button" id="button-addon2">중복검사</button>
-							 	</div> -->
-							</div>
+							<h6 class="col-3 mb-0 align-self-center">상품코드(조회)</h6>
+							<input id="searchPidInput" type="text" class="form-control col-3" placeholder="상품명을 입력해주세요">
+							<button onclick="getProduct()" class="col-2">검색</button>
 						</div>
 						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품코드(선택)</h6>
+							<select id="searchPidResult" class="custom-select col-9 pr-1" onchange="autoInsertProductInfo()">
+								<option>상품명을 입력후 검색해주세요.</option>
+							</select>
+<!-- 							 	<div class="input-group-append">
+							 		<button class="btn btn-dark" type="button" id="button-addon2">중복검사</button>
+							 		</div> -->
+						
+<!-- 							 	<div class="input-group-append">
+							 		<button class="btn btn-dark" type="button" id="button-addon2">중복검사</button>
+							 		</div> -->
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품코드(입력)</h6>
+							<input type="text" name="pid" id="pid" class="form-control col-3" placeholder=" -">
 							<h6 class="col-3 mb-0 align-self-center">상품명</h6>
-							<input class="form-control col-9" type="text" name="" id="" placeholder=" -">
+							<input class="form-control col-3" type="text" name="pname" id="pname" placeholder=" -">
 						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품분류</h6>
@@ -45,50 +59,285 @@
 							  	<option value="3">Three</option>
 							</select>
 						</div>
+						
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품이미지</h6>
-							<input class="form-control col-9" type="text" name="" id="" placeholder=" -">
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="d-flex mb-3">
-							<h6 class="col-2 mb-0 align-self-center">진열상태</h6>
-							<div class="col-4 d-flex align-self-center">
+							<h6 class="col-3 mb-0 align-self-center">진열상태</h6>
+							<div class="col-6 d-flex align-self-center">
 								<div class="form-check mr-4">
-								 	<input class="form-check-input" style="" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+								 	<input class="form-check-input" type="radio" name="pstatus" id="pstatusyes" value="1" checked>
 								 	<label class="form-check-label" for="exampleRadios1">
 										예
 								  	</label>
 								</div>
-								<div class="form-check">
-								  	<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+								<div class="form-check mr-4">
+								  	<input class="form-check-input" type="radio" name="pstatus" id="pstatusno" value="0">
 								  	<label class="form-check-label" for="exampleRadios2">
 								    	아니오
 								  	</label>
 								</div>							
 							</div>
-							<h6 class="col-2 mb-0 align-self-center">판매가</h6>
-							<input class="form-control col-4" type="text" name="" id="" placeholder=" -">
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center" >브랜드(선택)</h6>
+							<select id="bno" class="custom-select col-5" onchange="autoInsertBrand()">
+								
+							</select>
 						</div>
 						<div class="d-flex mb-3">
-							<h6 class="col-2 mb-0 align-self-center">색상</h6>
-							<input class="form-control col-4" type="text" name="" id="" placeholder=" -">
-							<h6 class="col-2 mb-0 align-self-center">사이즈</h6>
-							<input class="form-control col-4" type="text" name="" id="" placeholder=" -">
-						</div>					
-
-						<div class="d-flex">
-							<h6 class="col-2 mb-0 align-self-center">상품설명</h6>
-							<textarea style="height: 13vh;" class="form-control col-10"></textarea>
+							<h6 class="col-3 mb-0 align-self-center">상품설명</h6>
+							<textarea style="height: 20vh;" class="form-control col-9" id="pnote"></textarea>
 						</div>
-					</div>		
-				</form>
-				<div class="d-flex justify-content-center my-4">
-					<button class="btn btn-dark col-2 mr-2 pr-4"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 조회</button>
-					<button class="btn btn-outline-dark col-2"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
+					</div>
+					<input class="form-check-input" type="hidden" name="preleasedate" id="preleasedate">
 				</div>
+				<!--/* 상품등록 부분 end */-->
+				<hr/>
+				<!--/* 색상/사이즈 추가 start */-->
+				<h4 class="mb-5"><b>색상/사이즈 및 가격</b></h4>
+				<div class="d-flex">
+					<div class="col-6">
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품색상코드</h6>
+							<select class="custom-select col-3" id="productColorSelect" onchange="autoInsertProductColorInfo()">
+							 	<option selected>검색을 눌러주세요.</option>
+							</select>
+							<button onclick="getProductColorSize()" class="col-2">검색</button>
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">색상코드(입력)</h6>
+							<input class="form-control col-3" type="text" name="pccolorcode" id="pccolorcode" placeholder="">
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품이미지1</h6>
+							<input class="form-control col-9" type="text" name="pcimg1" id="pcimg1" placeholder="상품의 이미지를 넣어주세요.">
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품이미지2</h6>
+							<input class="form-control col-9" type="text" name="pcimg2" id="pcimg2" placeholder="상품의 이미지를 넣어주세요.">
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center">상품이미지3</h6>
+							<input class="form-control col-9" type="text" name="pcimg3" id="pcimg3" placeholder="상품의 이미지를 넣어주세요.">
+						</div>
+					</div>
+					<div class="col-6">
+
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center text-center">칼라칩 이미지</h6>
+							<input class="form-control col-9" type="text" name="pcchipimg" id="pcchipimg" placeholder="색상코드 이미지를 넣어주세요.">
+						</div>
+						<div class="d-flex mb-3">
+							<h6 class="col-3 mb-0 align-self-center text-center">상품 가격</h6>
+							<input class="form-control col-3" type="text" name="pcprice" id="pcprice" placeholder="">
+						</div>
+						<div class="d-flex mb-3">
+							<button class="col-3" onclick="addsize()">사이즈추가</button>
+							<button class="col-3" onclick="removesize()">사이즈삭제</button>
+						</div>
+						<div class="d-flex mb-3 row" id="productSizeContainer">
+							<div class="d-flex w-100">
+								<h6 class="col-3 mb-0 align-self-center text-center">상품 사이즈</h6>
+								<input class="form-control col-3" type="text" name="size" id="" placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/* 색상/사이즈 추가 부분 end */-->
+				
+			</form>
+			
+			<!--/* 버튼 부분 */-->
+			<div class="d-flex justify-content-center my-4">
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="enrollProduct()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 등록하기</button>
+				<button class="btn btn-outline-dark col-2"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
 			</div>
 		</div>
+		
+		
+		<script th:inline="javascript">
+			/* return된 productlist를 담아둘 변수 */
+			var productList;
+			/* return된 brandlist를 담아둘 변수 */
+			var brandlist;
+			/* return된 productcolorlist를 담아둘 변수 */
+			var productcolorlist;
+			
+			
+			
+			/* load시 동작할 함수 */
+			$(function(){
+				getBrand();
+			});
+		
+			
+			/* 검색 value에 따른 product를 가져오는 메서드 */
+			function getProduct() {
+				event.preventDefault();
+				let searchPidValue = $("#searchPidInput").val();
+				$.ajax({
+		            url: "http://kosa1.iptime.org:50515/admin/product/productlistbypname",
+		            method:"post",
+					data: JSON.stringify({"pname":searchPidValue}),
+					contentType: "application/json; charset=UTF-8",
+				}).done((resultData) => {
+					
+					productList = resultData;
+					
+					let insert = "<option value=''>검색완료</option>";
+					let count = 0;
+					for(let productCommon of resultData){
+						insert += '<option value='+count+'>'+productCommon.pid+"-"+productCommon.pname+"</option>";
+						count = count+1;
+					}
+					$("#searchPidResult").empty();
+					$("#searchPidResult").append(insert);
+		        }); 
+				
+			} 
+			
+			// 상품코드(선택) selectBox에서 선택시 나머지는 자동으로 들어가도록 하는 메서드
+			function autoInsertProductInfo(){
+				let product = productList[$("#searchPidResult").val()];
+				$("#pid").val(product.pid);
+				$("#pname").val(product.pname);
+				$("#pnote").val(product.pnote);
+				$("#preleasedate").val(product.preleasedate);
+				$("#pstatusyes").attr('checked',false);
+				$("#pstatusno").attr('checked',false);
+				if(product.pstatus === 1){
+					$("#pstatusyes").attr('checked',true);
+				} else {
+					$("#pstatusno").attr('checked',true);
+				}
+				getBrand(product.bno);
+			}
+			
+			//brand list를 가져오는 함수			
+			function getBrand(brandno){
+				$.ajax({
+		            url: "http://kosa1.iptime.org:50515/admin/product/classification",
+		            method:"get",
+				}).done((resultData) => {
+					brandlist = resultData.brand;
+					let insert = "<option>선택</option>";
+					for(let brand of resultData.brand){
+						if(brand.bno === brandno){
+							insert += '<option value='+brand.bno+' selected>'+brand.bname+"</option>";
+						}else {
+							insert += '<option value='+brand.bno+'>'+brand.bname+"</option>";
+						}
+					}
+					$("#bno").empty();
+					$("#bno").append(insert);
+		        }); 
+			}
+			
+			//상품의 기존 색상, 사이즈를 가져오기 위한 함수
+			function getProductColorSize(){
+				event.preventDefault();
+				let pid = $("#pid").val();
+				$.ajax({
+		            url: "http://kosa1.iptime.org:50515/admin/product/"+pid,
+		            method:"get",
+				}).done((resultData) => {
+					productcolorlist = resultData.productCommon.productcolor;
+					let insert = "<option>선택</option>";
+					for(let index in productcolorlist){
+						insert += '<option value='+index+'>'+productcolorlist[index].pccolorcode+"</option>";		
+					}
+					$("#productColorSelect").empty();
+					$("#productColorSelect").append(insert);
+		        }); 
+			}
+			
+			//product Color 정보 Auto Insert 함수
+			function autoInsertProductColorInfo(){
+				let productcolor = productcolorlist[$("#productColorSelect").val()];
+				$("#pccolorcode").val(productcolor.pccolorcode);
+				$("#pcimg1").val(productcolor.pcimg1);
+				$("#pcimg2").val(productcolor.pcimg2);
+				$("#pcimg3").val(productcolor.pcimg3);
+				$("#pcchipimg").val(productcolor.pcchipimg);
+				$("#pcprice").val(productcolor.pcprice);
+				let insert = "";
+				for(let productstock of productcolor.productstock){
+					
+					insert += '<div class="d-flex w-100">';
+					insert += '<h6 class="col-3 mb-0 align-self-center text-center">상품 사이즈</h6>';
+					insert += '<input class="form-control col-3" type="text" name="" id="size" value='+productstock.psize+' placeholder="">';
+					insert += '</div>';
+				}
+
+				$("#productSizeContainer").empty();
+				$("#productSizeContainer").append(insert);
+				
+			}
+			
+			function addsize(){
+				event.preventDefault();
+				let insert = "";
+				insert += '<div class="d-flex w-100">';
+				insert += '<h6 class="col-3 mb-0 align-self-center text-center">상품 사이즈</h6>';
+				insert += '<input class="form-control col-3" type="text" name="" id="" placeholder="">';
+				insert += '</div>';
+				$("#productSizeContainer").append(insert);
+			}
+			
+			function removesize(){
+				event.preventDefault();
+				$("#productSizeContainer div:last-child").remove();
+			}
+			
+			function enrollProduct(){
+				event.preventDefault();
+				
+				var productCommon = new Object();
+				productCommon.pid=$("#pid").val();
+				productCommon.pname=$("#pname").val();
+				productCommon.pnote=$("#pnote").val();
+				productCommon.bno=$("#bno").val();
+				productCommon.pstatus=$("input[name=pstatus]:checked").val();
+				productCommon.preleasedate=$("#preleasedate").val();
+				
+				var productColorList = new Array();
+				productCommon.productcolor = productColorList;
+
+				var productColor = new Object();
+				productColor.pcid = $("#pid").val()+'_'+$("#pccolorcode").val();
+				productColor.pcimg1 = $("#pcimg1").val();
+				productColor.pcimg2 = $("#pcimg2").val();
+				productColor.pcimg3 = $("#pcimg3").val();
+				productColor.pcimg3 = $("#pccolorcode").val();
+				productColor.pcprice = $("#pcprice").val();
+				productColorList.push(productColor);
+				
+				
+				var productStock = new Array();
+				productColor.productstock = productStock;
+				let sizeArray = $("#productSizeContainer input");
+				let sizeCount = sizeArray.length;
+				
+				for(var i =0; i< sizeCount; i++){
+					var temp = new Object();
+					temp.psid=productColor.pcid+'_'+sizeArray[i].value;
+					temp.psize=sizeArray[i].value;
+					temp.pcid=productColor.pcid;
+					productStock.push(temp);
+				}
+				var jsonData = JSON.stringify(productCommon);
+				$("#productCommon").val(jsonData);
+				$("#productEnrollForm").submit();
+				
+			}
+			
+			
+		</script>
+		
+		
+		
+		
 	</th:block>
 </th:block>
 </html>

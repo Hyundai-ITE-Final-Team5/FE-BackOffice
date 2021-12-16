@@ -84,17 +84,29 @@
 	<!-- style="border-right: 0.2rem solid #dee2e6; -->
 		<div class="col-6">
  			<div class="multi-graph" style=" margin-top: 2vh; margin-left: 3vw;">
- 			  <div class="graph" data-name="18 ~ 24시" 
+ 			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="18 ~ 24시" 
 			       th:style="'--percentage :' + 100 + '; --fill: #d0d0d0; --count:' + @{${otime1.ocount}} + ';'">
 			  </div>
-			  <div class="graph" data-name="12 ~ 18시" 
+ 			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="18 ~ 24시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #d0d0d0; --count:' + @{${otime1.ocount}} + ';'">
+			  </div>
+			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="12 ~ 18시" 
 			       th:style="'--percentage :' + (@{${otime2.ocount}} + @{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #292929; --count:' + @{${otime1.ocount}} + ';'">
 			  </div>
-			  <div class="graph" data-name="6 ~12시" 
+			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="12 ~ 18시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #292929; --count:' + @{${otime1.ocount}} + ';'">
+			  </div>
+			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="6 ~12시" 
 			       th:style="'--percentage :' + (@{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #4e4e4e; --count:' + @{${otime1.ocount}} + ';'">
 			  </div>
-			  <div class="graph" data-name="0 ~ 6시" 
+			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="6 ~12시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #4e4e4e; --count:' + @{${otime1.ocount}} + ';'">
+			  </div>
+			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="0 ~ 6시" 
 			       th:style="'--percentage :' + @{${otime1.ocount}} * 100 / @{${otime0.ocount}} + '; --fill: #000000; --count:' + @{${otime1.ocount}} + ';'">
+			  </div> 
+			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="0 ~ 6시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #000000; --count:' + @{${otime1.ocount}} + ';'">
 			  </div> 
 			</div>		
 		</div>
@@ -103,23 +115,35 @@
 			  <div class="graph-two">
 				  <div class="bar-graph-container">
 				    <div class="bar-container">
-				     <div class="ocate1" style="width: 100%;">
-				       <p>WOMEN&nbsp;&nbsp;&nbsp;[[${ocate1.ocount}]]개</p>
+				     <div th:if="${ocate0.ocount == 0}" class="ocate1" style="width: 0%;">
+				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
+				      </div>
+				     <div th:if="${ocate0.ocount > 0}" class="ocate1" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
 				      </div>
 				    </div>
 				   <div class="bar-container">
-				     <div th:if="${ocate1.ocount > 0}" class="ocate2" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${ocate1.ocount}}  + '%;'">
-				       <p>MEN&nbsp;&nbsp;&nbsp;[[${ocate2.ocount}]]개</p>
+				     <div th:if="${ocate0.ocount == 0}" class="ocate2" style="width: 0%;">
+				       <p>MEN&nbsp;&nbsp;[[${ocate2.ocount}]]</p>
+				      </div>
+				     <div th:if="${ocate0.ocount > 0}" class="ocate2" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				       <p>MEN&nbsp;&nbsp;[[${ocate2.ocount}]]</p>
 				      </div>
 				    </div>
 				  	<div class="bar-container">
-				     <div th:if="${ocate1.ocount > 0}" class="ocate3" th:style="'width:' + @{${ocate3.ocount}} * 100 / @{${ocate1.ocount}}  + '%;'">
-				       <p>KIDS&nbsp;&nbsp;&nbsp;[[${ocate3.ocount}]]개</p>
+				     <div th:if="${ocate0.ocount == 0}" class="ocate3" style="width: 0%;">
+				       <p>KIDS&nbsp;&nbsp;[[${ocate3.ocount}]]</p>
+				      </div>
+				     <div th:if="${ocate0.ocount > 0}" class="ocate3" th:style="'width:' + @{${ocate3.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				       <p>KIDS&nbsp;&nbsp;[[${ocate3.ocount}]]</p>
 				      </div>
 				    </div>
 				    <div class="bar-container">
-				     <div th:if="${ocate1.ocount > 0}" class="ocate4" th:style="'width:' + @{${ocate4.ocount}} * 100 / @{${ocate1.ocount}}  + '%;'">
-				       <p>LS&nbsp;&nbsp;[[${ocate4.ocount}]]개</p>
+				     <div th:if="${ocate0.ocount == 0}" class="ocate4" style="width: 0%;">
+				       <p>LS&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
+				      </div>
+				     <div th:if="${ocate0.ocount > 0}" class="ocate4" th:style="'width:' + @{${ocate4.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				       <p>LS&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
 				      </div>
 				    </div>
 				   </div>

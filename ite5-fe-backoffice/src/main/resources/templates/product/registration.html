@@ -5,13 +5,11 @@
 </style>
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h2 class="mb-5"><b>상품 등록</b></h2>
-		<hr/>
 		<div class="m-2">
+			<h4 class="mb-5"><b>상품등록</b></h4>
 			<form id="productEnrollForm"th:action="@{/admin/product/registration}" method="post">
 				<input type="hidden" name="productCommon" id="productCommon"></input>
 				<!--/* 상품등록 부분 start */-->
-				<h4 class="mb-5"><b>상품</b></h4>
 				<div class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
@@ -149,7 +147,7 @@
 			
 			<!--/* 버튼 부분 */-->
 			<div class="d-flex justify-content-center my-4">
-				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="enrollProduct()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 등록하기</button>
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="enrollProduct()"><img alt="" th:src="@{/images/check_negative.png}" style="width: 24px;"> 등록하기</button>
 				<button class="btn btn-outline-dark col-2"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
 			</div>
 		</div>

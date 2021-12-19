@@ -84,28 +84,28 @@
 	<!-- style="border-right: 0.2rem solid #dee2e6; -->
 		<div class="col-6">
  			<div class="multi-graph" style=" margin-top: 2vh; margin-left: 3vw;">
- 			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="18 ~ 24시" 
-			       th:style="'--percentage :' + 100 + '; --fill: #d0d0d0; --count:' + @{${otime1.ocount}} + ';'">
+ 			  <div th:if="${otime0.ocount > 0}" class="graph" data-name="18 ~ 24시" 
+			       th:style="'--percentage :' + 100 + '; --fill: #d0d0d0; --count:' + @{${otime4.ocount}} + ';'">
 			  </div>
- 			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="18 ~ 24시" 
-			       th:style="'--percentage :' + 0 + '; --fill: #d0d0d0; --count:' + @{${otime1.ocount}} + ';'">
+ 			  <div th:if="${otime0.ocount == 0}" class="graph" data-name="18 ~ 24시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #d0d0d0; --count:' + @{${otime4.ocount}} + ';'">
 			  </div>
-			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="12 ~ 18시" 
-			       th:style="'--percentage :' + (@{${otime2.ocount}} + @{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #292929; --count:' + @{${otime1.ocount}} + ';'">
+			  <div th:if="${otime0.ocount > 0}" class="graph" data-name="12 ~ 18시" 
+			       th:style="'--percentage :' + (@{${otime3.ocount}} + @{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #292929; --count:' + @{${otime3.ocount}} + ';'">
 			  </div>
-			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="12 ~ 18시" 
-			       th:style="'--percentage :' + 0 + '; --fill: #292929; --count:' + @{${otime1.ocount}} + ';'">
+			  <div th:if="${otime0.ocount == 0}" class="graph" data-name="12 ~ 18시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #292929; --count:' + @{${otime3.ocount}} + ';'">
 			  </div>
-			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="6 ~12시" 
-			       th:style="'--percentage :' + (@{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #4e4e4e; --count:' + @{${otime1.ocount}} + ';'">
+			  <div th:if="${otime0.ocount > 0}" class="graph" data-name="6 ~12시" 
+			       th:style="'--percentage :' + (@{${otime2.ocount}} + @{${otime1.ocount}}) * 100 / @{${otime0.ocount}} + '; --fill: #4e4e4e; --count:' + @{${otime2.ocount}} + ';'">
 			  </div>
-			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="6 ~12시" 
-			       th:style="'--percentage :' + 0 + '; --fill: #4e4e4e; --count:' + @{${otime1.ocount}} + ';'">
+			  <div th:if="${otime0.ocount == 0}" class="graph" data-name="6 ~12시" 
+			       th:style="'--percentage :' + 0 + '; --fill: #4e4e4e; --count:' + @{${otime2.ocount}} + ';'">
 			  </div>
-			  <div th:if="${ocate1.ocount > 0}" class="graph" data-name="0 ~ 6시" 
+			  <div th:if="${otime0.ocount > 0}" class="graph" data-name="0 ~ 6시" 
 			       th:style="'--percentage :' + @{${otime1.ocount}} * 100 / @{${otime0.ocount}} + '; --fill: #000000; --count:' + @{${otime1.ocount}} + ';'">
 			  </div> 
-			  <div th:if="${ocate1.ocount == 0}" class="graph" data-name="0 ~ 6시" 
+			  <div th:if="${otime0.ocount == 0}" class="graph" data-name="0 ~ 6시" 
 			       th:style="'--percentage :' + 0 + '; --fill: #000000; --count:' + @{${otime1.ocount}} + ';'">
 			  </div> 
 			</div>		
@@ -118,7 +118,7 @@
 				     <div th:if="${ocate0.ocount == 0}" class="ocate1" style="width: 0%;">
 				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
 				      </div>
-				     <div th:if="${ocate0.ocount > 0}" class="ocate1" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				     <div th:if="${ocate0.ocount > 0}" class="ocate1" th:style="'width:' + @{${ocate1.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
 				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
 				      </div>
 				    </div>

@@ -46,12 +46,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="day:${dailyTotalPrice}">
+			<tr th:each="day,index:${dailyTotalPrice}">
 				<td class="text-center">1일</td>
 				<td class="text-center">[[${day.odate}]]</td>
 				<td class="text-center">[[${day.totalprice}]] 원</td>
 				<td class="text-center">[[${day.ocount}]] 건</td>
-				<td class="text-center">-</td>
+				<td th:if="${((day.totalprice - 1000000) * 100 / 2000000) >= 0}" class="text-center text-success">+[[${(day.totalprice - 1000000) * 100 / 2000000}]]%</td>
+				<td th:if="${((day.totalprice - 1000000) * 100 / 2000000) < 0}" class="text-center text-danger">[[${(day.totalprice - 1000000) * 100 / 2000000}]]%</td>
 			</tr>
 		</tbody>
 	</table>	

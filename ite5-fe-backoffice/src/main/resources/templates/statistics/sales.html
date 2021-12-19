@@ -19,7 +19,6 @@
 		  <div class="graph">
 		    <ul class="x-axis d-flex">
 		      <li th:if="${widx.index < 7}" th:each="week,widx:${monthlyTotalPrice}">최근 [[${widx.index + 1}]]주차</li>
-		      <li>최근 4주차</li>
 		      <li>최근 5주차</li>
 		      <li>최근 6주차</li>
 		      <li>최근 7주차</li>
@@ -38,21 +37,17 @@
 		        <div class="bar bar-1 stat-1" th:style="'height:' + @{${info.totalprice}} * 100 / 10000000 + '%;'"></div>
 		      </div>
 		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 10%;"></div>	      
+			      <div class="bar bar-1 stat-1" style="height: 65%;"></div>	      
 		      </div>
 		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 60%;"></div>	      
+			      <div class="bar bar-1 stat-1" style="height: 28%;"></div>	      
 		      </div>
 		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 30%;"></div>	      
+			      <div class="bar bar-1 stat-1" style="height: 88%;"></div>	      
 		      </div>
 		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 90%;"></div>	      
+			      <div class="bar bar-1 stat-1" style="height: 79%;"></div>	      
 		      </div>
-		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 80%;"></div>	      
-		      </div>
-
 		    </div>
 		  </div>
 		</div>
@@ -73,42 +68,36 @@
 				<td class="text-center">[[${widx.index} + 1]]주 전</td>
 				<td class="text-center">[[${week.totalprice}]] 원</td>
 				<td class="text-center">[[${week.ocount}]] 건</td>
-				<td class="text-center">-</td>
-			</tr>
-			<tr>
-				<td class="text-center">1주</td>
-				<td class="text-center">4주 전</td>
-				<td class="text-center">1500000 원</td>
-				<td class="text-center">12 건</td>
-				<td class="text-center">-</td>
+				<td th:if="${((week.totalprice - 5000000) * 100 / 5000000) >= 0}" class="text-center text-success">+[[${(week.totalprice - 5000000) * 100 / 5000000}]]%</td>
+				<td th:if="${((week.totalprice - 5000000) * 100 / 5000000) < 0}" class="text-center text-danger">[[${(week.totalprice - 5000000) * 100 / 5000000}]]%</td>
 			</tr>
 			<tr>
 				<td class="text-center">1주</td>
 				<td class="text-center">5주 전</td>
 				<td class="text-center">6569500 원</td>
 				<td class="text-center">31 건</td>
-				<td class="text-center">-</td>
+				<td class="text-center text-success">+31%</td>
 			</tr>
 			<tr>
 				<td class="text-center">1주</td>
 				<td class="text-center">6주 전</td>
 				<td class="text-center">2834210 원</td>
 				<td class="text-center">24 건</td>
-				<td class="text-center">-</td>
+				<td class="text-center text-danger">-43%</td>
 			</tr>
 			<tr>
 				<td class="text-center">1주</td>
 				<td class="text-center">7주 전</td>
 				<td class="text-center">8824500 원</td>
 				<td class="text-center">47 건</td>
-				<td class="text-center">-</td>
+				<td class="text-center text-success">+76%</td>
 			</tr>
 			<tr>
 				<td class="text-center">1주</td>
 				<td class="text-center">8주 전</td>
 				<td class="text-center">7930000 원</td>
 				<td class="text-center">36 건</td>
-				<td class="text-center">-</td>
+				<td class="text-center text-success">+59%</td>
 			</tr>
 
 		</tbody>

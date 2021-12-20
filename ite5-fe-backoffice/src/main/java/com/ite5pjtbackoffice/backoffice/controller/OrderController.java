@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
 import com.ite5pjtbackoffice.backoffice.dto.OrderDetail;
@@ -69,16 +70,15 @@ public class OrderController {
 
 		model.addAttribute("result", data.get("result"));
 		
-		return "order/orderlist";
+		return "order/orderdetail";
 	}
 	
 	@RequestMapping("/cancelorder")
-	public String cancelOrder(Model model, String oid) {
-		
-		log.info(oid);
+	public String cancelOrder(Model model, String oid, RedirectAttributes redirectAttributes) {
 		
 		JSONObject data = orderService.cancelOrder(oid);
+		redirectAttributes.addAttribute("oid", oid);
 		
-		return "order/orderlist";
+		return "redirect:/admin/order/detail";
 	}
 }

@@ -65,10 +65,7 @@ public class ProductController {
 		if (filter.getPname() != null && filter.getPname().equals(""))
 			filter.setPname(null);
 		
-		log.info(filter.toString());
-		
 		model.addAttribute("depth1", data.getDepth1());
-
 
 		PagerAndProductList pap = productService.getProductCommonList(filter);
 		

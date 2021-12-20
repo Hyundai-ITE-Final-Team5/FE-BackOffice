@@ -46,14 +46,21 @@ public class HomeController {
 		if(dailyTotalPrice.getTodayStatistics() == null) {
 			dailyTotalPrice.setTodayStatistics(new Statistics());
 		}
+		int maxCateCount = 0;
 			
 		model.addAttribute("dailyTotalPrice", dailyTotalPrice);
 		model.addAttribute("monthlyTotalPrice", monthlyTotalPrice);
 		model.addAttribute("todayVisitCount", todayVisitCount);
 		for(int i=0; i<5; i++) {
 			model.addAttribute("otime"+i, timeStatistics.getTimeStatistics().get(i));
+			int cateCount = categoryStatistics.getCategoryStatistics().get(i).getOcount();
+			if(maxCateCount < cateCount) {
+				maxCateCount = cateCount;
+			}
 			model.addAttribute("ocate"+i, categoryStatistics.getCategoryStatistics().get(i));
 		}
+		
+		model.addAttribute("maxocate", maxCateCount);
 		
 		return "home";
 	}

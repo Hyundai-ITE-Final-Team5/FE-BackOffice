@@ -54,7 +54,7 @@ public class HomeController {
 		for(int i=0; i<5; i++) {
 			model.addAttribute("otime"+i, timeStatistics.getTimeStatistics().get(i));
 			int cateCount = categoryStatistics.getCategoryStatistics().get(i).getOcount();
-			if(maxCateCount < cateCount) {
+			if(i !=0 && maxCateCount < cateCount) {
 				maxCateCount = cateCount;
 			}
 			model.addAttribute("ocate"+i, categoryStatistics.getCategoryStatistics().get(i));

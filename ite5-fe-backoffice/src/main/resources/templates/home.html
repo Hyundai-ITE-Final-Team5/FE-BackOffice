@@ -118,7 +118,7 @@
 				     <div th:if="${ocate0.ocount == 0}" class="ocate1" style="width: 0%;">
 				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
 				      </div>
-				     <div th:if="${ocate0.ocount > 0}" class="ocate1" th:style="'width:' + @{${ocate1.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				     <div th:if="${ocate0.ocount > 0}" class="ocate1" th:style="'width:' + @{${ocate1.ocount}} * 100 / @{${maxocate}}  + '%;'">
 				       <p>WOMEN&nbsp;&nbsp;[[${ocate1.ocount}]]</p>
 				      </div>
 				    </div>
@@ -126,7 +126,7 @@
 				     <div th:if="${ocate0.ocount == 0}" class="ocate2" style="width: 0%;">
 				       <p>MEN&nbsp;&nbsp;[[${ocate2.ocount}]]</p>
 				      </div>
-				     <div th:if="${ocate0.ocount > 0}" class="ocate2" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				     <div th:if="${ocate0.ocount > 0}" class="ocate2" th:style="'width:' + @{${ocate2.ocount}} * 100 / @{${maxocate}}  + '%;'">
 				       <p>MEN&nbsp;&nbsp;[[${ocate2.ocount}]]</p>
 				      </div>
 				    </div>
@@ -134,16 +134,16 @@
 				     <div th:if="${ocate0.ocount == 0}" class="ocate3" style="width: 0%;">
 				       <p>KIDS&nbsp;&nbsp;[[${ocate3.ocount}]]</p>
 				      </div>
-				     <div th:if="${ocate0.ocount > 0}" class="ocate3" th:style="'width:' + @{${ocate3.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
+				     <div th:if="${ocate0.ocount > 0}" class="ocate3" th:style="'width:' + @{${ocate3.ocount}} * 100 / @{${maxocate}}  + '%;'">
 				       <p>KIDS&nbsp;&nbsp;[[${ocate3.ocount}]]</p>
 				      </div>
 				    </div>
 				    <div class="bar-container">
 				     <div th:if="${ocate0.ocount == 0}" class="ocate4" style="width: 0%;">
-				       <p>LS&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
+				       <p>LIFE STYLE&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
 				      </div>
-				     <div th:if="${ocate0.ocount > 0}" class="ocate4" th:style="'width:' + @{${ocate4.ocount}} * 100 / @{${ocate0.ocount}}  + '%;'">
-				       <p>LS&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
+				     <div th:if="${ocate0.ocount > 0}" class="ocate4" th:style="'width:' + @{${ocate4.ocount}} * 100 / @{${maxocate}}  + '%;'">
+				       <p>LIFE STYLE&nbsp;&nbsp;[[${ocate4.ocount}]]</p>
 				      </div>
 				    </div>
 				   </div>
@@ -151,7 +151,6 @@
 			  </div> 		
 		</div>
 	</div>
-	<hr>
 	</div>
 </div>
 <script>

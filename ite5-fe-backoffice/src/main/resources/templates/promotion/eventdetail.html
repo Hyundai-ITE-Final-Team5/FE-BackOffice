@@ -28,8 +28,8 @@
 						<th:block th:if="${event != null}">
 							<h6 class="mb-0 align-self-center" style="margin-left: 30px; width: 8vw;">이벤트번호</h6>
 							<input class="form-control font-weight-bold" type="text" name="eno" th:value="${event.eno}" readonly="readonly"
-								   style="width: 26vw; background-color: transparent; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0;"/>
-								<div class="btn btn-sm btn-dark mb-0 align-self-center" data-toggle="modal" data-target="#eventDeleteModal">삭제</div>						
+								   style="width: 3vw; background-color: transparent; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0;"/>
+								<div class="btn btn-sm btn-outline-secondary mb-0 align-self-center" data-toggle="modal" data-target="#eventDeleteModal">삭제</div>						
 <!-- 							<button class="btn btn-sm btn-dark" th:onclick="'javascript:deleteEvent('+ ${event.eno} + ');'">삭제</button>								 -->
 						</th:block>	
 						<th:block th:if="${event != null}">

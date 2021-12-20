@@ -20,7 +20,7 @@
 							</div>
 						</div>
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품이름</h6>
+							<h6 class="col-3 mb-0 align-self-center">상품명</h6>
 							<input class="form-control col-9" type="text" name="pname" id="pname" placeholder=" -" th:value="${filter.pname}">
 						</div>
 						<div class="d-flex mb-3">
@@ -133,23 +133,25 @@
 	<table class="table">
 		<thead style="background-color: #f0f0f0;">
 			<tr>
-				<th class="text-center">상품ID</th>
-				<th class="text-center">상품명</th>
-				<th class="text-center">판매상태</th>
-				<th class="text-center">상품등록일</th>
-				<th class="text-center">수정</th>
+				<th class="text-center col-2">상품코드</th>
+				<th class="text-center col-3">상품명</th>
+				<th class="text-center col-1">판매상태</th>
+				<th class="text-center col-2">상품등록일</th>
+				<th class="text-center col-1">수정사항</th>
+				<th class="text-center col-2">비고</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="product:${productList}">
-				<td class="text-center">[[${product.pid}]]</td>
-				<td class="text-center">[[${product.pname}]]</td>
-				<td class="text-center">
+				<td class="text-center col-2">[[${product.pid}]]</td>
+				<td class="text-center col-3">[[${product.pname}]]</td>
+				<td class="text-center col-1">
 					<th:block th:if="${product.pstatus} == 1">판매 중</th:block>
 					<th:block th:if="${product.pstatus} != 1">판매 중지</th:block>
 				</td>
-				<td class="text-center">[[${#dates.format(product.preleasedate, 'yyyy.MM.dd')}]]</td>
-				<td></td>
+				<td class="text-center col-2">[[${#dates.format(product.preleasedate, 'yyyy.MM.dd')}]]</td>
+				<td class="text-center col-1">-</td>
+				<td class="text-center col-2"></td>
 			</tr>
 			<th:block th:if="${pager} != null">	
 			<th:block th:if="${pager.totalRows>0}">	

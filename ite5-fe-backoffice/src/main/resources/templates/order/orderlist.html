@@ -56,10 +56,11 @@
 		<table class="table">
 		<thead style="background-color: #f0f0f0;">
 			<tr>
-				<th class="text-center">주문ID</th>
-				<th class="text-center">주문자정보</th>
-				<th class="text-center">배송지</th>
-				<th class="text-center">주문금액/결제방법</th>
+				<th class="text-center">주문번호</th>
+				<th class="text-center">주문자명</th>
+				<th class="text-center">연락처</th>
+				<th class="text-center">주문금액</th>
+				<th class="text-center">결제방법</th>
 				<th class="text-center">주문상태</th>
 				<th class="text-center">주문일자</th>
 			</tr>
@@ -67,9 +68,12 @@
 		<tbody>
 			<tr th:each="order:${orderList}">
 				<td class="text-center"><a class="text-dark" th:href="@{detail(oid=${order.oid})}">[[${order.oid}]]</a></td>
-				<td class="text-center">[[${order.oreceiver}]]/[[${order.ophone}]]</td>
-				<td class="text-center">[[${order.ozipcode}]]/[[${order.oaddress}]]</td>
-				<td class="text-center">[[${order.ousedmileage}]]원/ [[${order.oafterprice}]]원/ [[${order.pmcode}]]</td>
+				<td class="text-center">[[${order.oreceiver}]]</td>
+				<td class="text-center">[[${order.ophone}]]</td>
+				<td class="text-center">[[${order.oafterprice}]]원</td>
+				<td th:if="${order.pmcode == '0hyundai'}" class="text-center">신용카드</td>
+				<td th:if="${order.pmcode == '1hyundai'}" class="text-center">계좌이체</td>
+				<td th:if="${order.pmcode == '2hyundai'}" class="text-center">무통장입금</td>
 				<td class="text-center">[[${order.ostatus}]]</td>
 				<td class="text-center">[[${#dates.format(order.odate, 'yyyy.MM.dd')}]]</td>
 			</tr>

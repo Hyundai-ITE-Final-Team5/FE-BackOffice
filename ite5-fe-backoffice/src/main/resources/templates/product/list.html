@@ -142,7 +142,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="product:${productList}">
-				<td class="text-center">[[${product.pid}]]</td>
+				<td class="text-center"><a class="text-dark" th:href="@{detail(pid=${product.pid})}">[[${product.pid}]]</a></td>
 				<td class="text-center">[[${product.pname}]]</td>
 				<td class="text-center">
 					<th:block th:if="${product.pstatus} == 1">판매 중</th:block>

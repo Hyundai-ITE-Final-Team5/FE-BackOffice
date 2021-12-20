@@ -1,7 +1,6 @@
 package com.ite5pjtbackoffice.backoffice.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -9,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndProductList;
+import com.ite5pjtbackoffice.backoffice.dto.ProductDetail;
 import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
 import com.ite5pjtbackoffice.backoffice.service.ProductService;
 
@@ -48,7 +49,7 @@ public class ProductController {
 
 		BrandAndDepth1 data = productService.getClassification();
 		
-		log.info(filter.toString());
+//		log.info(filter.toString());
 		
 		if (filter.getDepth1name() != null && filter.getDepth1name().equals(""))
 			filter.setDepth1name(null);
@@ -76,24 +77,34 @@ public class ProductController {
 		return "product/list";
 	}
 
-	@RequestMapping("/productDetail")
-	public String productDetail(Model model, int pid) {
+	@RequestMapping("/detail")
+	public String productDetail(Model model, String pid) {
 
-		JSONObject data = productService.getProductDetail(pid);
+		ProductDetail productDetail = productService.getProductDetail(pid);
+		
+		BrandAndDepth1 data = productService.getClassification();
 
-		model.addAttribute("productCommon", data.get("productCommon"));
+		model.addAttribute("depth1", data.getDepth1());
+		model.addAttribute("brand", data.getBrand());
+		
+		log.info(productDetail.toString());
+		model.addAttribute("productCommon", productDetail.getProductCommon());
 
 		return "product/detail";
 	}
 
 	@PostMapping("/modifiy")
-	public String productModify(Model model, @RequestBody JSONObject productCommon) {
+	public String productModify(Model model, String productCommon, RedirectAttributes redirectAttributes) {
 
+		log.info(productCommon);
 		JSONObject data = productService.modifyProductInfo(productCommon);
 
-		model.addAttribute("result", data.get("result"));
+		if(data.get("pid") != null) {
 
-		return "product/list";
+			log.info(data.get("pid").toString());
+			redirectAttributes.addAttribute("pid", data.get("pid"));
+		}
+		return "redirect:/admin/product/detail";
 	}
 
 	// 상품 분류관리(브랜드, 카테고리)
@@ -112,7 +123,6 @@ public class ProductController {
 	public String getCategoryDepth2(Model model, String depth1) {
 
 		JSONObject data = productService.getCategoryDepth2(depth1);
-		log.info(data.toString());
 		model.addAttribute("depth2", data.get("depth2"));
 
 		return "product/category";
@@ -131,8 +141,6 @@ public class ProductController {
 	@RequestMapping("/addBrand")
 	public String addBrand(Model model, String brandName) {
 
-		log.info(brandName);
-
 		JSONObject data = productService.addBrandName(brandName);
 
 		model.addAttribute("result", data.get("result"));
@@ -148,7 +156,6 @@ public class ProductController {
 	@RequestMapping("/removeBrand")
 	public String removeBrand(Model model, int bno) {
 
-		log.info(bno + " ");
 
 		JSONObject data = productService.removeBrandName(bno);
 

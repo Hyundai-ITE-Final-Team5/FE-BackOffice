@@ -30,7 +30,6 @@ public class OrderController {
 	@RequestMapping("/orderlist")
 	public String orderList(Model model, OrderListFilter filter) {
 
-		log.info(filter.toString());
 		
 //		if(filter.getOid().equals("")) filter.setOid(null);
 		if(filter.getOphone() != null && filter.getOphone().equals("")) filter.setOphone(null);
@@ -41,13 +40,11 @@ public class OrderController {
 		if(filter.getEnddate() != null && filter.getEnddate().equals("")) filter.setEnddate(null);
 		if(filter.getPsid() != null && filter.getPsid().equals("")) filter.setPsid(null);
 		
-		log.info(filter.toString());
 		PagerAndOrderList pao = orderService.getOrderList(filter);
 
 		model.addAttribute("filter", filter);
 		model.addAttribute("orderList", pao.getOrderList());
 		model.addAttribute("pager", pao.getPager());
-		log.info(pao.getPager().toString());
 
 		return "order/orderlist";
 	}

@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ite5pjtbackoffice.backoffice.dto.BrandAndDepth1;
 import com.ite5pjtbackoffice.backoffice.dto.PagerAndProductList;
+import com.ite5pjtbackoffice.backoffice.dto.ProductDetail;
 import com.ite5pjtbackoffice.backoffice.dto.ProductListFilter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,27 +65,27 @@ public class ProductService {
 		return productList;
 	}
 	
-	public JSONObject getProductDetail(int pid) {
+	public ProductDetail getProductDetail(String pid) {
 		WebClient webClient = WebClient.create();		
-		String json = webClient
+		ProductDetail productCommon = webClient
 			.post()
 			.uri("http://kosa1.iptime.org:50515/admin/product/" + pid)
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(String.class)
+			.bodyToMono(ProductDetail.class)
 			.block();
 		
-		JSONObject jsonObject = new JSONObject(json);
 		
-		return jsonObject;
+		return productCommon;
 	}
 	
-	public JSONObject modifyProductInfo(JSONObject productCommon) {
+	public JSONObject modifyProductInfo(String productCommon) {
 		WebClient webClient = WebClient.create();		
 		String json = webClient
 			.post()
-			.uri("http://kosa1.iptime.org:50515/admin/modifiy")
+//			.uri("http://kosa1.iptime.org:50515/admin/product/modifiy")
+			.uri("http://localhost:83/admin/product/modifiy")
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.bodyValue(productCommon)

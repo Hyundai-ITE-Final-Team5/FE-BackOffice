@@ -5,60 +5,29 @@
 </style>
 <th:block th:replace="~{/common/layout::setContent(~{this::content})}">
 	<th:block th:fragment="content">
-		<h2 class="mb-5"><b>상품 등록</b></h2>
+		<h2 class="mb-5"><b>상품 상세</b></h2>
 		<hr/>
 		<div class="m-2">
-			<form id="productEnrollForm"th:action="@{/admin/product/registration}" method="post">
+			<form id="productEnrollForm" th:action="@{/admin/product/modifiy}" method="post">
 				<input type="hidden" name="productCommon" id="productCommon"></input>
 				<!--/* 상품등록 부분 start */-->
 				<h4 class="mb-5"><b>상품</b></h4>
 				<div class="d-flex">
 					<div class="col-6">
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품코드(조회)</h6>
-							<input id="searchPidInput" type="text" class="form-control col-7" placeholder="상품명을 입력해주세요">
-							<button onclick="getProduct()" class="col-2 btn btn-dark"><img alt="" th:src="@{/images/search_negative.png}" style="width: 20px;"> 검색</button>
-						</div>
-						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품코드(선택)</h6>
-							<select id="searchPidResult" class="custom-select col-9 pr-1" onchange="autoInsertProductInfo()">
-								<option>상품명을 입력후 검색해주세요.</option>
-							</select>
-<!-- 							 	<div class="input-group-append">
-							 		<button class="btn btn-dark" type="button" id="button-addon2">중복검사</button>
-							 		</div> -->
-						
-<!-- 							 	<div class="input-group-append">
-							 		<button class="btn btn-dark" type="button" id="button-addon2">중복검사</button>
-							 		</div> -->
-						</div>
-						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품코드(입력)</h6>
-							<input type="text" name="pid" id="pid" class="form-control col-6" placeholder=" -">
+							<h6 class="col-3 mb-0 align-self-center">상품코드</h6>
+							<input type="text" name="pid" id="pid" class="form-control col-6" th:value="${productCommon.pid}" readonly="readonly">
 						</div>
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">상품명</h6>
-							<input type="text" name="pname" id="pname" class="form-control col-6" placeholder=" -">
+							<input type="text" name="pname" id="pname" class="form-control col-6" th:value="${productCommon.pname}">
 						</div>
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품분류</h6>
-							<select class="custom-select pr-1" id="depth1" style="width: 28vw;" onchange="getCategoryDepth2()">
-							 	<option selected>대분류</option>
-							  	<option th:each="d1:${depth1}">[[${d1}]]</option>
+							<h6 class="col-3 mb-0 align-self-center" >브랜드(선택)</h6>
+							<select id="bno" class="custom-select col-6">
+								<option th:value="${b.bno}" th:each="b:${brand}" th:selected="${b.bno} == ${productCommon.bno}">[[${b.bname}]]</option>
 							</select>
-							<select id="depth2" class="custom-select col-3 pr-1" onchange="getCategoryDepth3()">
-								<option>대분류 필수</option>
-							</select>
-							<select id="depth3" class="custom-select col-3" onchange="changeCategoryDepth3()">
-								<option>중분류 필수</option>
-							</select>
-						</div>
-						<div class="d-flex mb-3">
-							<div class="col-3"></div>
-							<input type="text" name="depth1name" id="depth1name" class="form-control col-3" placeholder="대분류" readonly="readonly">
-							<input type="text" name="depth2name" id="depth2name" class="form-control col-3" placeholder="중분류" readonly="readonly">
-							<input type="text" name="depth3name" id="depth3name" class="form-control col-3" placeholder="소분류" readonly="readonly">
-						</div>
+						</div>					
 						<div class="d-flex mb-3">
 							<h6 class="col-3 mb-0 align-self-center">진열상태</h6>
 							<div class="col-6 d-flex align-self-center">
@@ -79,14 +48,12 @@
 					</div>
 					<div class="col-6">
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center" >브랜드(선택)</h6>
-							<select id="bno" class="custom-select col-5" onchange="autoInsertBrand()">
-								
-							</select>
+							<h6 class="col-3 mb-0 align-self-center">상품등록일</h6>
+							<input type="date" name="pname" id="pname" class="form-control col-6" th:value="${#dates.format(productCommon.preleasedate, 'yyyy-MM-dd')}" readonly="readonly">
 						</div>
 						<div class="d-flex mb-3">
-							<h6 class="col-3 mb-0 align-self-center">상품설명</h6>
-							<textarea style="height: 20vh;" class="form-control col-9" id="pnote"></textarea>
+							<h6 class="col-3 mb-0">상품설명</h6>
+							<textarea style="height: 20vh;" class="form-control col-9" id="pnote">[[${productCommon.pnote}]]</textarea>
 						</div>
 					</div>
 					<input class="form-check-input" type="hidden" name="preleasedate" id="preleasedate">
@@ -149,7 +116,7 @@
 			
 			<!--/* 버튼 부분 */-->
 			<div class="d-flex justify-content-center my-4">
-				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="enrollProduct()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 등록하기</button>
+				<button class="btn btn-dark col-2 mr-2 pr-4" onclick="enrollProduct()"><img alt="" th:src="@{/images/search_negative.png}" style="width: 24px;"> 수정하기</button>
 				<button class="btn btn-outline-dark col-2"><img alt="" th:src="@{/images/rotate.png}" style="width: 24px;"> 초기화</button>
 			</div>
 		</div>
@@ -164,11 +131,11 @@
 			var productcolorlist;
 			
 			
-			
+			 			
 			/* load시 동작할 함수 */
-			$(function(){
+			/* $(function(){
 				getBrand();
-			});
+			});  */
 		
 			
 			/* 검색 value에 따른 product를 가져오는 메서드 */

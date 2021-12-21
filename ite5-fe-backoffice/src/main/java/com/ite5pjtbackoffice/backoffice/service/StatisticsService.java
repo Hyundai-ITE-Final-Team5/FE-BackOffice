@@ -11,7 +11,7 @@ public class StatisticsService {
 		WebClient webClient = WebClient.create();		
 		String json = webClient
 			.get()
-			.uri("http://kosa1.iptime.org:50515/admin/todayCount")
+			.uri("http://kosa1.iptime.org:50215/admin/todayCount")
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
 			.bodyToMono(String.class)

@@ -19,7 +19,6 @@
 		  <div class="graph">
 		    <ul class="x-axis d-flex">
 		      <li th:if="${widx.index < 7}" th:each="week,widx:${monthlyTotalPrice}">최근 [[${widx.index + 1}]]주차</li>
-		      <li>최근 5주차</li>
 		      <li>최근 6주차</li>
 		      <li>최근 7주차</li>
 		      <li>최근 8주차</li>
@@ -44,9 +43,6 @@
 		      </div>
 		      <div class="bar-group">
 			      <div class="bar bar-1 stat-1" style="height: 88%;"></div>	      
-		      </div>
-		      <div class="bar-group">
-			      <div class="bar bar-1 stat-1" style="height: 79%;"></div>	      
 		      </div>
 		    </div>
 		  </div>
@@ -74,15 +70,6 @@
 				<td th:if="${((week.totalprice - 5000000) * 100 / 5000000) < 0}" class="text-center text-danger col-1">[[${(week.totalprice - 5000000) * 100 / 5000000}]]%</td>
 				<td class="text-center col-2">-</td>
 				<td class="text-center col-2"></td>
-			</tr>
-			<tr>
-				<td class="text-center">1주</td>
-				<td class="text-center">5주 전</td>
-				<td class="text-center">6569500 원</td>
-				<td class="text-center">31 건</td>
-				<td class="text-center text-success">+31%</td>
-				<td class="text-center col-2">-</td>
-				<td class="text-center col-2"></td>				
 			</tr>
 			<tr>
 				<td class="text-center">1주</td>
